@@ -10,7 +10,7 @@ import java.io.IOException;
 public class AppConfig {
     public static void main(String[] args) throws IOException {
         FileInputStream serviceAccount =
-                new FileInputStream("path/to/serviceAccountKey.json");
+                new FileInputStream("../chat-app-5fd13-firebase-adminsdk-sh8ye-a30ea219a5.json");
 
         FirebaseOptions options = new FirebaseOptions.Builder()
                 .setCredentials(GoogleCredentials.fromStream(serviceAccount))

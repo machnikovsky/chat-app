@@ -1,38 +1,113 @@
-.App {
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body,
+html {
+  height: 100%;
+}
+
+.login-container {
+  background-image: url("https://dag08uxs564ub.cloudfront.net/images/view-from-kasprowy.max-1280x768.jpg");
+  background-repeat: round;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+
+
+.login-page {
+  border: 5px solid rgb(97, 159, 196);
+  border-radius: 50px;
+  padding: 50px;
+  background-color: rgb(192, 211, 236);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+
+.login-form {
+  padding: 40px;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.login-page label {
+  margin: 0 auto;
+}
+
+.login-form button {
+  padding: 10px 20px;
+}
+
+.login-form a {
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.login a, .logout a {
+  text-decoration: none;
+  font-size: 2em;
+  padding: 10px;
+  color: #282c34;
+}
+
+.chats-container {
+  display: grid;
+  height: 100vh;
+  grid-template-columns: 2fr 8fr;
+}
+
+.left-bar {
+  background-color: rgb(121, 246, 121);
+  z-index: 2;
+}
+
+.right-bar {
+  background-color: rgb(19, 80, 47);
+  /* width: 100%; */
+}
+
+.chats-list {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.single-chat {
+  background-color: rgb(162, 209, 162);
+  border-radius: 10px;
+  margin: 5px auto;
+  padding: 10px 20%;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.logout {
+  position: fixed;
+  bottom: 0;
+  left: 4%;
+  text-align: center;
+  text-decoration: none;
+  margin: 5px auto;
 }
+
+.chat-info {
+  background-color: rgb(168, 191, 221);
+  font-size: 3em;
+}
+
+.chat-form {
+  position: fixed;
+  bottom: 0;
+  width: 80%;
+  padding: 10px;
+  max-width:inherit;
+  display: grid;
+  grid-template-columns: 9fr 1fr;
+  height: 5%;
+  background-color: rgb(195, 195, 195);
+}
+

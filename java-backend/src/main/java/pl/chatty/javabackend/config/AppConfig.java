@@ -3,20 +3,44 @@ package pl.chatty.javabackend.config;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 
+@PropertySource("classpath:application.properties")
+@Configuration
 public class AppConfig {
-    public static void main(String[] args) throws IOException {
+
+    @Autowired
+    private Environment environment;
+
+    @Bean
+    public FirebaseApp firebaseApp() throws IOException {
         FileInputStream serviceAccount =
-                new FileInputStream("../chat-app-5fd13-firebase-adminsdk-sh8ye-a30ea219a5.json");
+                new FileInputStream(environment.getRequiredProperty("chatapp.firebaseKey"));
 
         FirebaseOptions options = new FirebaseOptions.Builder()
                 .setCredentials(GoogleCredentials.fromStream(serviceAccount))
-                .setDatabaseUrl("https://chat-app-5fd13-default-rtdb.europe-west1.firebasedatabase.app")
+                .setDatabaseUrl(environment.getRequiredProperty("chatapp.databaseUrl"))
                 .build();
 
-        FirebaseApp.initializeApp(options);
+        return FirebaseApp.initializeApp(options);
+    }
+
+    @Bean
+    public FirebaseDatabase firebaseDatabase() {
+        return FirebaseDatabase.getInstance();
+    }
+
+    @Bean
+    public FirebaseAuth firebaseAuth() {
+        return FirebaseAuth.getInstance();
     }
 }

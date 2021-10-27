@@ -55,7 +55,7 @@ html {
 
 .form-container h1 {
   font-family: 'Saira Condensed', sans-serif;
-  margin: 50px;
+  margin: 20px 10px;
   font-size: 50px;
   text-align: center;
 }
@@ -63,7 +63,7 @@ html {
 .login-form {
   padding: 2% 20%;
   display: grid;
-  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
 }
 
 .login-form input {

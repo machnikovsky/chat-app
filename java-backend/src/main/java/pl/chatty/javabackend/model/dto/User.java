@@ -13,7 +13,6 @@ import pl.chatty.javabackend.model.Gender;
 public class User {
 
     private String id;
-    private String username;
     private String firstName;
     private String lastName;
     private String phoneNumber;
@@ -23,7 +22,5 @@ public class User {
 
     /* collections */
     private ArrayList<User> friends;
-    private ArrayList<User> blockedUsers;
-
 
 }

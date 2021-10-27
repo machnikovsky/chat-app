@@ -5,12 +5,14 @@ import java.util.ArrayList;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Builder;
 import pl.chatty.javabackend.model.*;
 import pl.chatty.javabackend.model.dto.User;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
+@Builder
 public class UserEntity {
 
     private String id;

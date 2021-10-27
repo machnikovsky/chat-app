@@ -1,9 +1,18 @@
-package pl.chatty.javabackend.model;
+package pl.chatty.javabackend.model.dao;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import pl.chatty.javabackend.model.MessageType;
+import pl.chatty.javabackend.model.dto.User;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
-public class Message {
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+public class MessageEntity {
 
     private String id;
     private String content;
@@ -12,8 +21,9 @@ public class Message {
     private MessageType messageType;
 
     /* collections */
-    private ArrayList<User> recipientList;
+    private ArrayList<UserEntity> recipientList;
 
+/*
     public Message() {}
 
     public Message(String id, String content, Timestamp date,
@@ -50,4 +60,5 @@ public class Message {
     public ArrayList<User> getRecipientList() {
         return recipientList;
     }
+    */
 }

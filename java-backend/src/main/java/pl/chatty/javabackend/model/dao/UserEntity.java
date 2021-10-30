@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Builder;
 import pl.chatty.javabackend.model.*;
-import pl.chatty.javabackend.model.dto.User;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -23,11 +22,11 @@ public class UserEntity {
     private String password;
     private String phoneNumber;
 
-    /* enums */
+
     private Gender gender;
     private UsersRole usersRole;
-    /* collections */
-    private ArrayList<User> friends;
-    private ArrayList<User> blockedUsers;
+
+    private ArrayList<UserEntity> friends;
+    private ArrayList<UserEntity> blockedUsers;
 
 }

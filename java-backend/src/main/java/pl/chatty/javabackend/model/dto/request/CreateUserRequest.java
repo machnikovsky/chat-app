@@ -15,7 +15,6 @@ public class CreateUserRequest {
     private String password;
     private String phoneNumber;
 
-    /* enums */
     private Gender gender;
     private UsersRole usersRole;
 }

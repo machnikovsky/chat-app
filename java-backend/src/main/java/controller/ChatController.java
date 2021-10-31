@@ -10,13 +10,13 @@ import java.util.Map;
 @CrossOrigin
 public class ChatController {
 
-    @GetMapping("/message/{messageID}")
+    @GetMapping("chat/{messageID}")
     public ResponseEntity<String> getMessage(@PathVariable long messageID){
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping("/message/{messageID}")
-    public ResponseEntity<String> sendMessage(@PathVariable long messageID, @RequestBody Map<String, String> json){
+    @PostMapping("chat/{chatID}/message")
+    public ResponseEntity<String> sendMessage(@PathVariable long chatID, @RequestBody Map<String, String> json){
         return new ResponseEntity<>("message has been saved", HttpStatus.OK);
     }
 

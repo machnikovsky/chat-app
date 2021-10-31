@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 public class AdminController {
 
-    @DeleteMapping ("/user/{userID}")
+    @DeleteMapping ("/user/{userID}/ban")
     public ResponseEntity<String> banUser(@PathVariable int userID){
         return new ResponseEntity<>("User has been banned", HttpStatus.OK);
     }

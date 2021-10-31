@@ -21,24 +21,24 @@ public class UserController {
         return new ResponseEntity<>("Account successful registered", HttpStatus.OK);
     }
 
-    @PutMapping("{userID}/password")
+    @PutMapping("/{userID}/password")
     public ResponseEntity<String> updatePassword(@PathVariable int userID, @RequestBody Map<String, String> json) {
         return new ResponseEntity<>("Password successful updated", HttpStatus.OK);
     }
 
-    @PostMapping("{userID}/friend/{friendID}")
+    @PostMapping("/{userID}/friend/{friendID}")
     public ResponseEntity<String> addUserToFriends(@PathVariable int userID,
                                                    @PathVariable int friendID, @RequestBody Map<String, String> json){
         return new ResponseEntity<>("Successful added to friends", HttpStatus.OK);
     }
 
-    @DeleteMapping ("{userID}/friend/{friendID}")
+    @DeleteMapping ("/{userID}/friend/{friendID}")
     public ResponseEntity<String> removeUserFromFriends(@PathVariable int userID,
                                                         @PathVariable int friendID, @RequestBody Map<String, String> json){
         return new ResponseEntity<>("Successful removed friend", HttpStatus.OK);
     }
 
-    @PostMapping("{userID}/friend/{friendID}/nickname")
+    @PostMapping("/{userID}/friend/{friendID}/nickname")
     public ResponseEntity<String> changeFriendsUsername(@PathVariable int userID,
                                                         @PathVariable int friendID, @RequestBody Map<String, String> json){
         return new ResponseEntity<>("User's nickname successfully changed", HttpStatus.OK);

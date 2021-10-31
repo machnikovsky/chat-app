@@ -2,17 +2,14 @@ package controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
 public class AdminController {
 
-    @PostMapping("user/ban")
-    public ResponseEntity<String> banUser(){
+    @DeleteMapping ("/user/{userID}")
+    public ResponseEntity<String> banUser(@PathVariable int userID){
         return new ResponseEntity<>("User has been banned", HttpStatus.OK);
     }
 }

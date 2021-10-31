@@ -2,44 +2,45 @@ package controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
 @RestController
 @CrossOrigin
+@RequestMapping("/user")
 public class UserController {
 
-    @PostMapping("user/login")
-    public ResponseEntity<String> login(@RequestBody Map<String, String> json){
+    @PostMapping("/login")
+    public ResponseEntity<String> loginUser(@RequestBody Map<String, String> json){
         return new ResponseEntity<>("Successful logged", HttpStatus.OK);
     }
 
-    @PostMapping("user/register")
-    public ResponseEntity<String> register(@RequestBody Map<String, String> json){
+    @PostMapping("/registration")
+    public ResponseEntity<String> registerUser(@RequestBody Map<String, String> json){
         return new ResponseEntity<>("Account successful registered", HttpStatus.OK);
     }
 
-    @PostMapping("user/password/update")
-    public ResponseEntity<String> updatePassword(@RequestBody Map<String, String> json) {
+    @PutMapping("{userID}/password")
+    public ResponseEntity<String> updatePassword(@PathVariable int userID, @RequestBody Map<String, String> json) {
         return new ResponseEntity<>("Password successful updated", HttpStatus.OK);
     }
 
-    @PostMapping("user/friend/add")
-    public ResponseEntity<String> addUserToFriends(@RequestBody Map<String, String> json){
+    @PostMapping("{userID}/friend/{friendID}")
+    public ResponseEntity<String> addUserToFriends(@PathVariable int userID,
+                                                   @PathVariable int friendID, @RequestBody Map<String, String> json){
         return new ResponseEntity<>("Successful added to friends", HttpStatus.OK);
     }
 
-    @PostMapping("user/friend/remove")
-    public ResponseEntity<String> removeUserFromFriends(@RequestBody Map<String, String> json){
+    @DeleteMapping ("{userID}/friend/{friendID}")
+    public ResponseEntity<String> removeUserFromFriends(@PathVariable int userID,
+                                                        @PathVariable int friendID, @RequestBody Map<String, String> json){
         return new ResponseEntity<>("Successful removed friend", HttpStatus.OK);
     }
 
-    @PostMapping("user/friend/nickname")
-    public ResponseEntity<String> changeFriendsUsername(@RequestBody Map<String, String> json){
+    @PostMapping("{userID}/friend/{friendID}/nickname")
+    public ResponseEntity<String> changeFriendsUsername(@PathVariable int userID,
+                                                        @PathVariable int friendID, @RequestBody Map<String, String> json){
         return new ResponseEntity<>("User's nickname successfully changed", HttpStatus.OK);
     }
 }

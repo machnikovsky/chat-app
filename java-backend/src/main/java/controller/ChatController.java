@@ -10,71 +10,48 @@ import java.util.Map;
 @CrossOrigin
 public class ChatController {
 
-    @GetMapping("getMessages")
-    public Map<String, String> getPortionOfMessages(){
-        // function to get portion of message data
-        return null;
+    @GetMapping("message/get")
+    public ResponseEntity<String> getMessage(){
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping("saveMessages")
-    public String saveMessages(@RequestBody Map<String, String> json){
-        // json will contain many message objects
-        // Message objects will contain user name, message content and date
-        return null;
+    @PostMapping("message/save")
+    public ResponseEntity<String> saveMessage(@RequestBody Map<String, String> json){
+        return new ResponseEntity<>("message has been saved", HttpStatus.OK);
     }
 
-    // group name, group photo (optionally), mail of user who want to create group,
-    // user emails to indicate which of them will join group.
     @PostMapping("chat/create")
-    public ResponseEntity<String> createGroupChat(@RequestBody Map<String, String> json){
-        // function to extract data and save to db
-        return new ResponseEntity<>("Group successful created", HttpStatus.OK);
+    public ResponseEntity<String> createChat(@RequestBody Map<String, String> json){
+        return new ResponseEntity<>("chat has been created", HttpStatus.OK);
     }
 
-    @PostMapping("chat/changeImage")
-    public String changeGroupImage(/*no idea*/){
-        // no idea
-        return null;
+    @PostMapping("group/image")
+    public ResponseEntity<String> changeGroupImage(){
+        return new ResponseEntity<>("Group image has been changed", HttpStatus.OK);
     }
 
-    // input data must contain new name and something to indicate which
-    // group name should be changed
-    // User should have administrator privileges
-    @PostMapping("group/changeName")
-    public ResponseEntity<String> changeName(@RequestBody Map<String, String> json){
-        //function
-        return new ResponseEntity<>("Group name successful changed", HttpStatus.OK);
+    @PostMapping("group/name")
+    public ResponseEntity<String> changeGroupName(@RequestBody Map<String, String> json){
+        return new ResponseEntity<>("Group name has been changed", HttpStatus.OK);
     }
 
-    // input data must contain user detail and something to indicate to
-    // which group user should be joined
-    // User should have administrator privileges
-    @PostMapping("group/addUser")
+    @PostMapping("group/add")
     public ResponseEntity<String> addUserToGroup(@RequestBody Map<String, String> json){
-        // function
-        return new ResponseEntity<>("User successfully added to group", HttpStatus.OK);
+        return new ResponseEntity<>("User was successfully added to group", HttpStatus.OK);
     }
 
-    // input data must contain user detail and something to indicate to
-    // which group user should be removed
-    // User should have administrator privileges
-    // if user want to leave a group, user to remove and removing user should be the same
     @PostMapping("group/remove")
     public ResponseEntity<String> removeUserFromGroup(@RequestBody Map<String, String> json){
-        // function
-        return new ResponseEntity<>("User successfully removed from group", HttpStatus.OK);
+        return new ResponseEntity<>("User was successfully removed from group", HttpStatus.OK);
     }
 
-    // User should have administrator privileges
-    @PostMapping("group/nickname")
-    public ResponseEntity<String> changeUserNickname(@RequestBody Map<String, String> json){
-        // function
-        return new ResponseEntity<>("User's nickname successfully changed", HttpStatus.OK);
+    @PostMapping("group/leave")
+    public ResponseEntity<String> leaveGroup(@RequestBody Map<String, String> json){
+        return new ResponseEntity<>("User successfully left group", HttpStatus.OK);
     }
 
     @GetMapping("group/users")
-    public Map<String,String> getUsersOfGroup(){
-        // function which will return user first name, second name and profile image
-        return null;
+    public ResponseEntity<String> getGroupsUsers(){
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

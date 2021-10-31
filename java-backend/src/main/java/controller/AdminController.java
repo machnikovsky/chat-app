@@ -11,10 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin
 public class AdminController {
 
-    //  Email address will indicate which account should be ban
-    @PostMapping("chatty/banUser")
-    public ResponseEntity<String> banUser(@RequestBody String email){
-        // call ban user function
-        return new ResponseEntity<>("Account successful banned", HttpStatus.OK);
+    @PostMapping("user/ban")
+    public ResponseEntity<String> banUser(){
+        return new ResponseEntity<>("User has been banned", HttpStatus.OK);
     }
 }

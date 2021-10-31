@@ -10,7 +10,7 @@ import java.util.Map;
 @CrossOrigin
 public class ChatController {
 
-    @GetMapping("chat/{messageID}")
+    @GetMapping("message/{messageID}")
     public ResponseEntity<String> getMessage(@PathVariable long messageID){
         return new ResponseEntity<>(HttpStatus.OK);
     }

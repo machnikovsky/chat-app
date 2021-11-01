@@ -59,8 +59,8 @@ public class ChatController {
         return new ResponseEntity<>("User successfully left group", HttpStatus.OK);
     }
 
-    @GetMapping(value = "/group/{groupID}")
+    @GetMapping("/group/{groupID}")
     public ResponseEntity<String> getGroupsUsers(@PathVariable int groupID) {
-        return new ResponseEntity<>("abc", HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

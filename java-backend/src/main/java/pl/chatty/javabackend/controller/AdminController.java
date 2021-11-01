@@ -1,4 +1,4 @@
-package controller;
+package pl.chatty.javabackend.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

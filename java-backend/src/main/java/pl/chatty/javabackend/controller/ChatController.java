@@ -1,4 +1,4 @@
-package controller;
+package pl.chatty.javabackend.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -59,8 +59,8 @@ public class ChatController {
         return new ResponseEntity<>("User successfully left group", HttpStatus.OK);
     }
 
-    @GetMapping("/group/{groupID}")
+    @GetMapping(value = "/group/{groupID}")
     public ResponseEntity<String> getGroupsUsers(@PathVariable int groupID) {
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>("abc", HttpStatus.OK);
     }
 }

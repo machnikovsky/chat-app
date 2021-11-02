@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 
+import javax.annotation.PostConstruct;
 import java.io.FileInputStream;
 import java.io.IOException;
 
@@ -21,8 +22,8 @@ public class AppConfig {
     @Autowired
     private Environment environment;
 
-    @Bean
-    public FirebaseApp firebaseApp() throws IOException {
+    @PostConstruct
+    public void firebaseApp() throws IOException {
         FileInputStream serviceAccount =
                 new FileInputStream(environment.getRequiredProperty("chatapp.firebaseKey"));
 
@@ -31,7 +32,7 @@ public class AppConfig {
                 .setDatabaseUrl(environment.getRequiredProperty("chatapp.databaseUrl"))
                 .build();
 
-        return FirebaseApp.initializeApp(options);
+        FirebaseApp.initializeApp(options);
     }
 
     @Bean

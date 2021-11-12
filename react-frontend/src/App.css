@@ -112,29 +112,34 @@ html {
   background-size: cover;
 
   height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  /* justify-content: center;
+  align-items: center; */
 }
 
 .left-bar {
-  position: absolute;
-  left: 0%;
-  right: 67.68%;
-  top: 0%;
-  bottom: 0%;
   margin: 20px;  
+  background: linear-gradient(168.44deg, #FFFFFF 0%, #FFFFFF 101.1%);
+  box-shadow: 0px 0px 15px 3px rgba(0, 81, 202, 0.42);
+  border-radius: 30px;
+  display: grid;
+  grid-template-rows: 3fr 6fr 1fr;
+}
+
+.right-bar {
+  margin: 20px;  
+
+  display: grid;
+  grid-template-rows: 1fr 8fr 1fr;
   background: linear-gradient(168.44deg, #FFFFFF 0%, #FFFFFF 101.1%);
   box-shadow: 0px 0px 15px 3px rgba(0, 81, 202, 0.42);
   border-radius: 30px;
 }
 
-.right-bar {
-  position: absolute;
-  width: 1064.61px;
-  height: 1130px;
-  left: 520px;
-  top: -139px;
+.profile {
+  font-size: 2m;
+  margin: 20px auto;
 }
 
 .chats-list {
@@ -143,11 +148,11 @@ html {
 }
 
 .single-chat-container {
-  position: relative;
+  /* position: relative; */
   width: 380px;
   height: 81px;
-  left: 4px;
-  top: 385px;
+  /* left: 4px; */
+  /* top: 385px; */
   margin: 5px auto;
 
   background: linear-gradient(268.55deg, #012B52 -18.2%, #43A5FF 99.51%);
@@ -160,35 +165,47 @@ html {
   padding: 10px 20%;
 }
 
-.logout {
-  position: fixed;
-  bottom: 0;
-  left: 4%;
-  text-align: center;
-  text-decoration: none;
-  margin: 5px auto;
+.logout-div {
+  margin: 0 auto;
+  width: 50%;
+  height: 100%;
+
 }
 
+.logout {
+  text-align: center;
+  text-decoration: none;
+  width: 80%;
+  height: 60%;
+  color:rgb(221, 243, 235);
+  font-size: 2em;
+
+
+  
+  background: linear-gradient(268.55deg, #e6e7a3 -76.2%, #26ccc4 99.51%);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
+  border-radius: 15px;
+  border: none;
+}
+
+
+
 .chat-info {
-  background-color: rgb(168, 191, 221);
-  font-size: 3em;
+  font-size: 2m;
+  margin: 20px auto;
 }
 
 .chat-form {
-  position: absolute;
-  width: 65%;
-  height: 57px;
-  left: 93px;
-  top: 850px;
+  width: 100%;
 }
 
-.chat-form-line {
-  position: absolute;
-  left: 10.05%;
-  right: 25.32%;
-  top: 80%;
-  width:65%; 
-  height:1px;
+.chat-form input {
+  width: 80%;
+  height: 50%;
+  border: 0;
+  outline: 0;
+  display: block;
+  margin: 0 auto;
+  border-bottom: 1px solid #57c1ff;
 
-  border: 1px solid #57c1ff;
 }

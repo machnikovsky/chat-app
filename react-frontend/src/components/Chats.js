@@ -5,6 +5,7 @@ const Chats = () => {
         <div className="chats-container">
             
             <div className="left-bar">
+                <div className="profile"> PROFILE </div>
                 <div className="chats-list">
                     <div className="single-chat-container">
                         <div className="single-chat">
@@ -25,21 +26,25 @@ const Chats = () => {
                         </div>
                     </div>
                 </div>
-                <div className="logout">
-                    <button>
-                        <Link to="/">Logout</Link>
-                    </button>
+
+                <div className="logout-div">
+                    <Link to="/">
+                        <button className="logout">
+                            Logout
+                        </button>
+                    </Link>
                 </div>
+
             </div>
             <div className="right-bar">
                 <nav className="chat-info">
                     Chat name & info
                 </nav>
+                <div className="chat-content">
+                    Chat Content
+                </div>
                 <div className="chat-form">
                     <input type="text"/>
-                        Wprowadz swoja wiadomosc
-                        <div className="chat-form-line">
-                        </div>
                         <button type="button"></button>
                 </div>
             </div>

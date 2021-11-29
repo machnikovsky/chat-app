@@ -3,9 +3,13 @@ import logo from '../assets/placeholder.png'
 import username from '../assets/username_logo.png'
 import password from '../assets/password_logo.png'
 import button from '../assets/login_button.png'
+import { useState } from "react"
 
 
 const Login = () => {
+
+    const [user, setUser] = useState('');
+
     return(
         <div className="login-container">
             <div className="login-window">
@@ -19,7 +23,7 @@ const Login = () => {
                             <label for="username">Username</label>
                             <div className="input-div">
                                 <img src={username} alt="" />
-                                <input type="text" id="username" name="username"/>
+                                <input type="text" id="username" name="username" value={user} onChange={(e) => setUser(e.target.value)}/>
                             </div>
                         </div>
                         <div className="password login_div">   
@@ -30,7 +34,14 @@ const Login = () => {
                             </div>
                         </div>
 
-                        <Link to="/chats"><input type="image" src={button}></input></Link>
+                        <Link to={{
+                            pathname:"/chats", 
+                            state: {
+                                username: user
+                            } 
+                        }}>
+                            <input type="image" src={button}></input>
+                            </Link>
                     </form>
                 </div>
             </div>

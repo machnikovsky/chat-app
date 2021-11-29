@@ -157,7 +157,7 @@ html {
   width: 100%;
   background-color: rgba(181, 247, 203, 0.842);
   border-radius: 0 25px 0 0;
-  width: 75%;
+  width: 60%;
 }
 
 .chat-name {
@@ -183,7 +183,7 @@ html {
 .single-chat-container {
   width: 90%;
   height: 81px;
-  margin: 5px 10px;
+  margin: 10px auto;
 
   background: linear-gradient(268.55deg, #012B52 -18.2%, #43A5FF 99.51%);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
@@ -208,6 +208,7 @@ html {
   overflow-y:auto;
   height: 70vh;
   margin-top: 45px;
+  width: 90%;
 }
 
 .single-chat-message {
@@ -266,6 +267,23 @@ html {
   margin: 0 auto;
   background: none;
 }
+
+.chats-list button {
+  background: none;
+  border: none;
+}
+
+.chats-list button:hover {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+.chats-list button:active {
+  transform: scale(0.98);
+  /* Scaling button to 0.98 to its original size */
+  box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
+  /* Lowering the shadow */
+}
+
 
 .chat-form input {
   width: 95%;

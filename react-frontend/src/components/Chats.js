@@ -4,7 +4,6 @@ import profile_picture from "../assets/profile_picture.png"
 import sendButton from "../assets/send.png"
 import SockJsClient from 'react-stomp';
 
-
 const Chats = (props) => {
 
     const SOCKET_URL = 'http://localhost:8080/chat/';
@@ -13,7 +12,6 @@ const Chats = (props) => {
     const [currentMess, setCurrentMess] = useState('');
     const [clientRef, setClientRef] = useState(null);
     const loggedInUser = props.location.state.username;
-
 
     const changeChat = (e) => {
         console.log(`Selected chat: ${e}`);
@@ -40,8 +38,6 @@ const Chats = (props) => {
 
 
 
-
-
     return(
         <div className="chats-container">
             <SockJsClient
@@ -62,7 +58,7 @@ const Chats = (props) => {
                     Jane Doe 
                 </div>
                 <div className="chats-list">
-                    <button onClick={() => changeChat('userone')}>
+                <button onClick={() => changeChat('userone')}>
                         <div className="single-chat-container">
                             <div className="single-chat">
                                 Chat 1<br/>
@@ -78,66 +74,14 @@ const Chats = (props) => {
                             </div>
                         </div>
                     </button>
-                    <div className="single-chat-container">
-                        <div className="single-chat">
-                            Chat 3<br/>
-                            Message 3   
+                    <button onClick={() => changeChat('userthree')}>
+                        <div className="single-chat-container">
+                            <div className="single-chat">
+                                Chat 2<br/>
+                                Message 2   
+                            </div>
                         </div>
-                    </div>
-                    <div className="single-chat-container">
-                        <div className="single-chat">
-                            Chat 1<br/>
-                            Message 1   
-                        </div>
-                    </div>
-                    <div className="single-chat-container">
-                        <div className="single-chat">
-                            Chat 2<br/>
-                            Message 2   
-                        </div>
-                    </div>
-                    <div className="single-chat-container">
-                        <div className="single-chat">
-                            Chat 3<br/>
-                            Message 3   
-                        </div>
-                    </div>
-                    <div className="single-chat-container">
-                        <div className="single-chat">
-                            Chat 1<br/>
-                            Message 1   
-                        </div>
-                    </div>
-                    <div className="single-chat-container">
-                        <div className="single-chat">
-                            Chat 2<br/>
-                            Message 2   
-                        </div>
-                    </div>
-                    <div className="single-chat-container">
-                        <div className="single-chat">
-                            Chat 3<br/>
-                            Message 3   
-                        </div>
-                    </div>
-                    <div className="single-chat-container">
-                        <div className="single-chat">
-                            Chat 1<br/>
-                            Message 1   
-                        </div>
-                    </div>
-                    <div className="single-chat-container">
-                        <div className="single-chat">
-                            Chat 2<br/>
-                            Message 2   
-                        </div>
-                    </div>
-                    <div className="single-chat-container">
-                        <div className="single-chat">
-                            Chat 3<br/>
-                            Message 3   
-                        </div>
-                    </div>
+                    </button>
                 </div>
 
                 <div className="logout-div">
@@ -159,66 +103,12 @@ const Chats = (props) => {
                     </div>
                 </div>
                 <div className="chat-content">
-                    {messages && messages.map(message =>(
-                        <div className="single-chat-message">{message.fromUser}: {message.messageContent}</div>
-                    ))}
-                    <div className="single-chat-message sent-message">
-                        Wiadomosc1
-                    </div>
-                    <div className="single-chat-message recieved-message">
-                        Wiadomosc2
-                    </div>
-                    <div className="single-chat-message recieved-message">
-                        Wiadomosc2jejnviusenfvsndfvnadinfuvnseugnusegnueaniru
-                    </div>
-                    <div className="single-chat-message sent-message">
-                        W
-                    </div>
-                    <div className="single-chat-message recieved-message">
-                        Wiadomosc2
-                    </div>
-                    <div className="single-chat-message recieved-message">
-                        Wiadomosc2jejnviusenfvsndfvnadinfuvnseugnusegnueanirukfdjnsfjnsjdfnsfnsjfn
-                        gdfjgdifgdi jsngnrgsnrgd
-                    </div>
-                    <div className="single-chat-message sent-message">
-                        Wiadomosc1gttgtgyhyyhbhyhbyhyhbyhbyhbyhmkymyhkmyhkmyoymymyhb
-                        njknnfgdngoinergner ergjergne rnger
-                        gergerjgneirngenrg
-                    </div>
-                    <div className="single-chat-message recieved-message">
-                        Wiadomosc2
-                    </div>
-                    <div className="single-chat-message recieved-message">
-                        Wiadomosc2jejnviusenfvsndfvnadinfuvnseugnusegnueaniru
-                    </div>
-                    <div className="single-chat-message recieved-message">
-                        Wiadomosc2jejnviusenfvsndfvnadinfuvnseugnusegnueaniru
-                    </div>
-                    <div className="single-chat-message sent-message">
-                        Wiadomosc1
-                    </div>
-                    <div className="single-chat-message recieved-message">
-                        Wiadomosc2
-                    </div>
-                    <div className="single-chat-message recieved-message">
-                        Wiadomosc2jejnviusenfvsndfvnadinfuvnseugnusegnueaniru
-                    </div>
-                    <div className="single-chat-message recieved-message">
-                        Wiadomosc2jejnviusenfvsndfvnadinfuvnseugnusegnueaniru
-                    </div>
-                    <div className="single-chat-message recieved-message">
-                        Wiadomosc2jejnviusenfvsndfvnadinfuvnseugnusegnueaniru
-                    </div>
-                    <div className="single-chat-message sent-message">
-                        Wiadomosc1
-                    </div>
-                    <div className="single-chat-message recieved-message">
-                        Wiadomosc2
-                    </div>
-                    <div className="single-chat-message recieved-message">
-                        Wiadomosc2jejnviusenfvsndfvnadinfuvnseugnusegnueaniru
-                    </div>
+                    {messages && messages.map(message => {
+                        return message.fromUser == loggedInUser ? 
+                            <div className="single-chat-message sent-message">{message.fromUser}: {message.messageContent}</div>
+                            :
+                            <div className="single-chat-message recieved-message">{message.fromUser}: {message.messageContent}</div>
+                    })}
                 </div>
                 <div className="chat-form">
                     <input type="text" value={currentMess} onChange={(e) => setCurrentMess(e.target.value)}/>

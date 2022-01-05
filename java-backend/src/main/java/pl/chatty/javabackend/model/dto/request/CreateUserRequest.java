@@ -7,7 +7,6 @@ import pl.chatty.javabackend.model.UsersRole;
 @Getter
 public class CreateUserRequest {
 
-    private String id;
     private String username;
     private String firstName;
     private String lastName;

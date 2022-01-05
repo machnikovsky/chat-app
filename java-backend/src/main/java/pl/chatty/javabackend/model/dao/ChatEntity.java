@@ -1,18 +1,20 @@
 package pl.chatty.javabackend.model.dao;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
+@Document("chats")
+@Data
 @NoArgsConstructor
-@AllArgsConstructor
-@Getter
 public class ChatEntity {
 
-    private String id;
+    @Id
+    private String chatId;
     private String name;
     private Timestamp createdTime;
 

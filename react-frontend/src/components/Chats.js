@@ -86,7 +86,7 @@ const Chats = (props) => {
 
                 <div className="logout-div">
                     <Link to="/">
-                        <button className="logout">
+                        <button className="logout-button">
                             Logout
                         </button>
                     </Link>

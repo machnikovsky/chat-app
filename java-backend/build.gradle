@@ -36,6 +36,11 @@ dependencies {
     implementation 'org.webjars:webjars-locator-core'
     implementation 'org.webjars:sockjs-client:1.0.2'
     implementation 'org.webjars:stomp-websocket:2.3.3'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb', version: '2.6.1'
+    implementation group: 'org.springframework.data', name: 'spring-data-mongodb', version: '3.3.0'
+
+
+
 }
 
 test {

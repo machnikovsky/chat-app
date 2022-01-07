@@ -14,6 +14,7 @@ import org.springframework.core.env.Environment;
 import javax.annotation.PostConstruct;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 @PropertySource("classpath:application.properties")
 @Configuration
@@ -24,10 +25,12 @@ public class AppConfig {
 
     @PostConstruct
     public void firebaseApp() throws IOException {
-        FileInputStream serviceAccount =
-                new FileInputStream(environment.getRequiredProperty("chatapp.firebaseKey"));
+        InputStream serviceAccount = getClass()
+                .getClassLoader()
+                .getResourceAsStream(environment.getRequiredProperty("chatapp.firebaseKey"));
 
-        FirebaseOptions options = new FirebaseOptions.Builder()
+
+        FirebaseOptions options = FirebaseOptions.builder()
                 .setCredentials(GoogleCredentials.fromStream(serviceAccount))
                 .setDatabaseUrl(environment.getRequiredProperty("chatapp.databaseUrl"))
                 .build();

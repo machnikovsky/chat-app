@@ -4,13 +4,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.server.ResponseStatusException;
 import pl.chatty.javabackend.model.dao.UserEntity;
 import pl.chatty.javabackend.model.dto.request.CreateUserRequest;
-import pl.chatty.javabackend.model.dto.response.UsersResponse;
+import pl.chatty.javabackend.model.dto.response.UsersListDto;
 import pl.chatty.javabackend.service.UserServiceImpl;
 
 import java.util.Map;
@@ -31,7 +32,7 @@ public class UserController {
         return new ResponseEntity<>("Successful logged", HttpStatus.OK);
     }
 
-    @PostMapping("/registration")
+    @PostMapping(path = "/registration", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> registerUser(@RequestBody CreateUserRequest requestBody){
         try {
             ResponseEntity<String> responseEntity = userService.addUser(requestBody);
@@ -43,7 +44,7 @@ public class UserController {
         }
     }
 
-    @DeleteMapping("/{userId}")
+    @DeleteMapping(path = "/{userId}")
     public ResponseEntity<String> removeUser(@PathVariable("userId") String userId) {
         try {
             ResponseEntity<String> responseEntity = userService.removeUser(userId);
@@ -55,7 +56,7 @@ public class UserController {
         }
     }
 
-    @PutMapping("/{userId}")
+    @PutMapping(path =  "/{userId}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> updateUser(@PathVariable("userId") String userId,
                                              @RequestBody CreateUserRequest requestBody) {
         try {
@@ -68,7 +69,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/{userId}")
+    @GetMapping(path = "/{userId}")
     public ResponseEntity<UserEntity> getUser(@PathVariable("userId") String userId) {
         try {
             ResponseEntity<UserEntity> responseEntity = userService.getUser(userId);
@@ -80,14 +81,14 @@ public class UserController {
         }
     }
 
-    @GetMapping
-    public ResponseEntity<UsersResponse> getUsers(@RequestParam("page") int page,
-                                                  @RequestParam("size") int size) {
+    @GetMapping(path = "/all")
+    public ResponseEntity<UsersListDto> getUsers(@RequestParam(name = "page", required = false, defaultValue = "0") int page,
+                                                 @RequestParam(name = "size", required = false, defaultValue = "10") int size) {
             try {
                 Pageable paging = PageRequest.of(page, size);
-                UsersResponse usersResponse = userService.getUsers(paging);
-                log.info(String.valueOf(usersResponse.getUsers()));
-                return new ResponseEntity<>(usersResponse, HttpStatus.OK);
+                UsersListDto usersListDto = userService.getUsers(paging);
+                log.info(String.valueOf(usersListDto.getUsers()));
+                return new ResponseEntity<>(usersListDto, HttpStatus.OK);
             } catch (HttpClientErrorException exception) {
                 log.info(exception.toString());
                 throw new ResponseStatusException(exception.getStatusCode(), exception.getMessage());
@@ -100,9 +101,20 @@ public class UserController {
     }
 
     @PostMapping("/{userID}/friend/{friendID}")
-    public ResponseEntity<String> addUserToFriends(@PathVariable int userID,
-                                                   @PathVariable int friendID, @RequestBody Map<String, String> json){
-        return new ResponseEntity<>("Successful added to friends", HttpStatus.OK);
+    public ResponseEntity<String> addUserToFriends(@PathVariable String userID,
+                                                   @PathVariable String friendID){
+/*
+        try {
+            ResponseEntity<String> responseEntity = userService.addFriend(userID, friendID);
+            log.info(String.valueOf(responseEntity.getBody()));
+            return responseEntity;
+        } catch (HttpClientErrorException exception) {
+            log.info(exception.toString());
+            throw new ResponseStatusException(exception.getStatusCode(), exception.getMessage());
+        }
+
+ */
+        return null;
     }
 
     @DeleteMapping ("/{userID}/friend/{friendID}")

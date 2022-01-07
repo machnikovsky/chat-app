@@ -12,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 @ToString
-public class UsersResponse {
+public class UsersListDto {
 
     List<UserEntity> users;
 

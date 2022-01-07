@@ -16,7 +16,8 @@ import pl.chatty.javabackend.service.UserServiceImpl;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/users")
+@CrossOrigin(origins = "http://localhost:3000")
+@RequestMapping("/user")
 @Slf4j
 public class UserController {
 

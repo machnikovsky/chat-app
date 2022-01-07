@@ -1,8 +1,10 @@
-import { Link } from "react-router-dom"
-import { useState } from "react"
+import {Link, useNavigate} from "react-router-dom"
+import {useContext, useEffect, useState} from "react"
 import profile_picture from "../assets/profile_picture.png"
 import sendButton from "../assets/send.png"
 import SockJsClient from 'react-stomp';
+import UserContext from "../auth/UserContext";
+import Auth from "../auth/Auth";
 
 const Chats = (props) => {
 
@@ -11,7 +13,25 @@ const Chats = (props) => {
     const [chat, setChat] = useState('default');
     const [currentMess, setCurrentMess] = useState('');
     const [clientRef, setClientRef] = useState(null);
-    const loggedInUser = props.location.state.username;
+    const {user, setUser} = useContext(UserContext);
+    const navigate = useNavigate();
+
+
+    useEffect(() => {
+        //Fetching messages from DB at the first render
+        //will be done here
+
+        //Also there should be some logic to set default
+        //chat, like the most recent one, it should be
+        //a call to backend
+    }, []);
+
+    useEffect(() => {
+        //We will handle chat change here,
+        //we need to update messages with the ones from DB,
+        //kinda like at the default useEffect at the first render
+    }, [chat]);
+
 
     const changeChat = (e) => {
         console.log(`Selected chat: ${e}`);
@@ -32,11 +52,15 @@ const Chats = (props) => {
         console.log(`Current messages: ${messages}`)
         clientRef.sendMessage(`/app/chat/${chat}`, JSON.stringify({
             messageContent: currentMess,
-            fromUser: loggedInUser
+            fromUser: user
         }));
     };
 
 
+    const handleLogout = () => {
+        Auth.logout();
+        navigate('/');
+    }
 
     return(
         <div className="chats-container">
@@ -85,11 +109,9 @@ const Chats = (props) => {
                 </div>
 
                 <div className="logout-div">
-                    <Link to="/">
-                        <button className="logout-button">
-                            Logout
-                        </button>
-                    </Link>
+                    <button className="logout-button" onClick={handleLogout}>
+                        Logout
+                    </button>
                 </div>
 
             </div>
@@ -104,7 +126,7 @@ const Chats = (props) => {
                 </div>
                 <div className="chat-content">
                     {messages && messages.map(message => {
-                        return message.fromUser == loggedInUser ? 
+                        return message.fromUser === user ?
                             <div className="single-chat-message sent-message">{message.fromUser}: {message.messageContent}</div>
                             :
                             <div className="single-chat-message recieved-message">{message.fromUser}: {message.messageContent}</div>

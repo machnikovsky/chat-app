@@ -94,12 +94,25 @@ html {
 }
 
 .login-form .login-button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 120%;
-  height: auto;
+  border: 0;
+  padding: 5px;
+  width: 50%;
+  background-color: transparent;
+  resize: none;
+  outline: none;
+  cursor: pointer;
 }
+
+.login-form .bad-credentials {
+  color: red;
+  text-align: center;
+}
+
+.login-form .login-button img {
+  width: 20vw;
+  object-fit: contain;
+}
+
 
 
 

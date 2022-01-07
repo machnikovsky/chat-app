@@ -20,13 +20,13 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
-    implementation 'org.springframework.boot:spring-boot-starter-security'
+//    implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
     implementation 'com.google.firebase:firebase-admin:8.1.0'
     implementation 'org.mapstruct:mapstruct:1.4.2.Final'
     implementation 'org.springframework.boot:spring-boot-starter-websocket'
     compileOnly 'org.projectlombok:lombok'
-    runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
+//    runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
     annotationProcessor 'org.projectlombok:lombok'
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'

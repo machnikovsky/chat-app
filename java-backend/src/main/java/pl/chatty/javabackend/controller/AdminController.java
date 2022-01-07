@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:3000")
 public class AdminController {
 
     @DeleteMapping ("/user/{userID}/ban")

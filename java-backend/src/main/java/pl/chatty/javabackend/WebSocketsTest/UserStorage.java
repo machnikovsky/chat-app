@@ -8,9 +8,10 @@ public class UserStorage {
 
     static {
         users = new HashSet<>();
-        users.add("Anna");
-        users.add("Lucyna");
-        users.add("Irena");
+        users.add("userone");
+        users.add("usertwo");
+        users.add("userthree");
+        users.add("default");
     }
 
     public static void setUsers(String newUser){

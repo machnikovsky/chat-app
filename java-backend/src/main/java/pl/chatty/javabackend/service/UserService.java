@@ -1,33 +1,21 @@
 package pl.chatty.javabackend.service;
 
-import org.mapstruct.factory.Mappers;
-import org.springframework.http.HttpStatus;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 import pl.chatty.javabackend.model.dao.UserEntity;
 import pl.chatty.javabackend.model.dto.request.CreateUserRequest;
-import pl.chatty.javabackend.repository.UserRepository;
-import pl.chatty.javabackend.service.mapper.UserMapper;
+import pl.chatty.javabackend.model.dto.response.UsersResponse;
 
-@Service
-public class UserService {
+public interface UserService {
 
-    private final UserRepository userRepository;
+    ResponseEntity<String> addUser(CreateUserRequest requestBody);
 
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    ResponseEntity<String> removeUser(String userId);
 
-    private UserMapper mapper = Mappers.getMapper(UserMapper.class);
+    ResponseEntity<String> updateUser(String userId, CreateUserRequest requestBody);
 
-    public ResponseEntity<String> addUser(CreateUserRequest requestBody) {
-        if (!(userRepository.existsByEmail(requestBody.getEmail())
-                || userRepository.existsByUsername(requestBody.getUsername()))) {
-            UserEntity toSave = mapper.mapToUserEntity(requestBody);
-            userRepository.insert(toSave);
-            return new ResponseEntity<>("User successfully saved", HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>("User already exists", HttpStatus.CONFLICT);
-        }
-    }
+    ResponseEntity<UserEntity> getUser(String userId);
+
+    UsersResponse getUsers(Pageable paging);
+
 }

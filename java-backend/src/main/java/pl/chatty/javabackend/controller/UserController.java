@@ -1,31 +1,28 @@
 package pl.chatty.javabackend.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.server.ResponseStatusException;
+import pl.chatty.javabackend.model.dao.UserEntity;
 import pl.chatty.javabackend.model.dto.request.CreateUserRequest;
-import pl.chatty.javabackend.service.UserService;
+import pl.chatty.javabackend.model.dto.response.UsersResponse;
+import pl.chatty.javabackend.service.UserServiceImpl;
 
 import java.util.Map;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 @Slf4j
 public class UserController {
 
-    private final UserService userService;
+    private final UserServiceImpl userService;
 
-    public UserController(UserService userService) {
+    public UserController(UserServiceImpl userService) {
         this.userService = userService;
     }
 
@@ -44,6 +41,57 @@ public class UserController {
             log.info(exception.toString());
             throw new ResponseStatusException(exception.getStatusCode(), exception.getMessage());
         }
+    }
+
+    @DeleteMapping("/{userId}")
+    public ResponseEntity<String> removeUser(@PathVariable("userId") String userId) {
+        try {
+            ResponseEntity<String> responseEntity = userService.removeUser(userId);
+            log.info(responseEntity.getBody());
+            return responseEntity;
+        } catch (HttpClientErrorException exception) {
+            log.info(exception.toString());
+            throw new ResponseStatusException(exception.getStatusCode(), exception.getMessage());
+        }
+    }
+
+    @PutMapping("/{userId}")
+    public ResponseEntity<String> updateUser(@PathVariable("userId") String userId,
+                                             @RequestBody CreateUserRequest requestBody) {
+        try {
+            ResponseEntity<String> responseEntity = userService.updateUser(userId, requestBody);
+            log.info(responseEntity.getBody());
+            return responseEntity;
+        } catch (HttpClientErrorException exception) {
+            log.info(exception.toString());
+            throw new ResponseStatusException(exception.getStatusCode(), exception.getMessage());
+        }
+    }
+
+    @GetMapping("/{userId}")
+    public ResponseEntity<UserEntity> getUser(@PathVariable("userId") String userId) {
+        try {
+            ResponseEntity<UserEntity> responseEntity = userService.getUser(userId);
+            log.info(String.valueOf(responseEntity.getBody()));
+            return responseEntity;
+        } catch (HttpClientErrorException exception) {
+            log.info(exception.toString());
+            throw new ResponseStatusException(exception.getStatusCode(), exception.getMessage());
+        }
+    }
+
+    @GetMapping
+    public ResponseEntity<UsersResponse> getUsers(@RequestParam("page") int page,
+                                                  @RequestParam("size") int size) {
+            try {
+                Pageable paging = PageRequest.of(page, size);
+                UsersResponse usersResponse = userService.getUsers(paging);
+                log.info(String.valueOf(usersResponse.getUsers()));
+                return new ResponseEntity<>(usersResponse, HttpStatus.OK);
+            } catch (HttpClientErrorException exception) {
+                log.info(exception.toString());
+                throw new ResponseStatusException(exception.getStatusCode(), exception.getMessage());
+            }
     }
 
     @PutMapping("/{userID}/password")

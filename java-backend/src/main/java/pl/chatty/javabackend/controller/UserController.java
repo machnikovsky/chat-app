@@ -28,23 +28,6 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<String> loginUser(@RequestBody Map<String, String> json){
-        return new ResponseEntity<>("Successful logged", HttpStatus.OK);
-    }
-
-    @PostMapping(path = "/registration", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> registerUser(@RequestBody CreateUserRequest requestBody){
-        try {
-            ResponseEntity<String> responseEntity = userService.addUser(requestBody);
-            log.info(responseEntity.getBody());
-            return responseEntity;
-        } catch (HttpClientErrorException exception) {
-            log.info(exception.toString());
-            throw new ResponseStatusException(exception.getStatusCode(), exception.getMessage());
-        }
-    }
-
     @DeleteMapping(path = "/{userId}")
     public ResponseEntity<String> removeUser(@PathVariable("userId") String userId) {
         try {

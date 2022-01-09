@@ -1,5 +1,6 @@
 package pl.chatty.javabackend.security;
 
+import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -20,10 +21,11 @@ import pl.chatty.javabackend.security.jwt.JwtRequestFilter;
 
 @Configuration
 @EnableWebSecurity
+@AllArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    private UserRepository userRepository;
-    private JwtRequestFilter jwtRequestFilter;
-    private JwtAuthenticationEntryPoint unauthorizedHandler;
+    private final UserRepository userRepository;
+    private final JwtRequestFilter jwtRequestFilter;
+    private final JwtAuthenticationEntryPoint unauthorizedHandler;
 
     @Override
     protected void configure(final HttpSecurity http) throws Exception {

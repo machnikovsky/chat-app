@@ -13,7 +13,6 @@ public class JavaBackendApplication {
         SpringApplication.run(JavaBackendApplication.class, args);
     }
 
-
     @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {

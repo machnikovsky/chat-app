@@ -4,6 +4,7 @@ import org.mapstruct.factory.Mappers;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.chatty.javabackend.model.dao.UserEntity;
 import pl.chatty.javabackend.model.dto.request.CreateUserRequest;
@@ -17,17 +18,20 @@ import java.util.ArrayList;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+
 
     private UserMapper mapper = Mappers.getMapper(UserMapper.class);
 
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public ResponseEntity<String> addUser(CreateUserRequest requestBody) {
         if (!(userRepository.existsByEmail(requestBody.getEmail())
                 || userRepository.existsByUsername(requestBody.getUsername()))) {
-            UserEntity toSave = mapper.mapToUserEntity(requestBody);
+            UserEntity toSave = mapper.mapToUserEntity(requestBody, passwordEncoder);
             userRepository.insert(toSave);
             return new ResponseEntity<>("User successfully saved", HttpStatus.OK);
         } else {

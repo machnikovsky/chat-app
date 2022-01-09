@@ -28,11 +28,6 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<String> loginUser(@RequestBody Map<String, String> json){
-        return new ResponseEntity<>("Successful logged", HttpStatus.OK);
-    }
-
     @DeleteMapping(path = "/{userId}")
     public ResponseEntity<String> removeUser(@PathVariable("userId") String userId) {
         try {

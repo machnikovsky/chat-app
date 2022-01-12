@@ -13,7 +13,7 @@ html {
   height: 100%;
 }
 
-.login-container {
+.login-container, .register-container {
   background-image: url("assets/background.png");
   background-position: center;
   background-repeat: no-repeat;
@@ -26,7 +26,7 @@ html {
   /* text-align: center; */
 }
 
-.login-window {
+.login-window, .register-window {
   background-image: url("assets/login_window.png");
   background-position: center;
   background-repeat: no-repeat;
@@ -60,13 +60,13 @@ html {
   text-align: center;
 }
 
-.login-form {
-  padding: 2% 20%;
+.login-form, .register-form {
+  padding: 2% 10%;
   display: grid;
   grid-template-rows: 1fr 1fr;
 }
 
-.login-form input {
+.login-form input, .register-form input {
   border: 0;
   padding: 5px;
   width: 90%;
@@ -75,28 +75,34 @@ html {
     outline: none;
 }
 
-.login-form .input-div {
+.register-form input[type="radio"] {
+  width: 80%;
+  padding: 5px 0;
+  text-align: left;
+} 
+
+.login-form .input-div, .register-form .input-div {
   margin: 5px 0px;
   border: 0;
   border-bottom: 2px solid #00A3FF;
 }
 
-.login-form label {
+.login-form label, .register-form label {
   margin-top: 20px;
   font-family: 'Roboto', sans-serif;
   color: #00A3FF;
 }
 
-.login-form .login_div {
+.login-form .login_div, .register-form .register-div {
   display:grid;
   grid-template-rows: 1fr 1fr;
 }
 
-.login-form .login-button {
+.login-form .login-button, .register-form .register-button {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 120%;
+  width: 110%;
   height: auto;
 }
 

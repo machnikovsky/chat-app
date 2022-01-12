@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom"
+import logo from '../assets/placeholder.png'
 import username from '../assets/username_logo.png'
 import password from '../assets/password_logo.png'
 import button from '../assets/login_button.png'
@@ -60,18 +61,12 @@ const Register = () => {
                             </div>
                         </div>
                         <div className="gender register_div">
-                            <div className="input-div">
-                                <input type="radio" id="gender" name="gender" value="Male"/>
-                            </div>
                             <label for="gender"> Male</label>
-                            <div className="input-div">
-                                <input type="radio" id="gender" name="gender" value="Famale"/>
-                            </div>
+                            <input type="radio" id="gender" name="gender" value="Male"/>
                             <label for="gender"> Famale</label>
-                            <div className="input-div">
-                                <input type="radio" id="gender" name="gender" value="Other"/>
-                            </div>
+                            <input type="radio" id="gender" name="gender" value="Famale"/>
                             <label for="gender"> Other</label>
+                            <input type="radio" id="gender" name="gender" value="Other"/>
                         </div>
                         <Link to="/chats"><input type="image" src={button}></input></Link>
                     </form>
@@ -81,4 +76,4 @@ const Register = () => {
     )
 }
 
-export default Login
+export default Register

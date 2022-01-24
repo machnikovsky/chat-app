@@ -20,4 +20,6 @@ public interface UserRepository extends MongoRepository<UserEntity, String> {
     Page<UserEntity> findAllByOrderByUserId(Pageable paging);
 
     Optional<UserEntity> findByUsernameIgnoreCase(String username);
+
+    Optional<UserEntity> findByUserId(String userId);
 }

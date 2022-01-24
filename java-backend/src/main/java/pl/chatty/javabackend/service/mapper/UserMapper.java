@@ -10,7 +10,6 @@ import java.util.ArrayList;
 @Mapper
 public interface UserMapper {
 
-
     default UserEntity mapToUserEntity(CreateUserRequest createUserRequest, PasswordEncoder passwordEncoder) {
         return new UserEntity(createUserRequest.getUsername(), createUserRequest.getFirstName(),
                 createUserRequest.getLastName(), createUserRequest.getEmail(),

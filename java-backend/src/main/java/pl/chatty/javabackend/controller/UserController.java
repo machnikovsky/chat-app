@@ -1,6 +1,8 @@
 package pl.chatty.javabackend.controller;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -20,13 +22,11 @@ import java.util.Map;
 @CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/user")
 @Slf4j
+@AllArgsConstructor
 public class UserController {
 
     private final UserServiceImpl userService;
 
-    public UserController(UserServiceImpl userService) {
-        this.userService = userService;
-    }
 
     @DeleteMapping(path = "/{userId}")
     public ResponseEntity<String> removeUser(@PathVariable("userId") String userId) {
@@ -79,6 +79,11 @@ public class UserController {
             }
     }
 
+    @GetMapping("/all/others")
+    public ResponseEntity<UsersListDto> getUsersBesideSelf() {
+            return new ResponseEntity<>(userService.getUsersBesideSelf(), HttpStatus.OK);
+    }
+
     @PutMapping("/{userID}/password")
     public ResponseEntity<String> updatePassword(@PathVariable int userID, @RequestBody Map<String, String> json) {
         return new ResponseEntity<>("Password successful updated", HttpStatus.OK);
@@ -87,17 +92,6 @@ public class UserController {
     @PostMapping("/{userID}/friend/{friendID}")
     public ResponseEntity<String> addUserToFriends(@PathVariable String userID,
                                                    @PathVariable String friendID){
-/*
-        try {
-            ResponseEntity<String> responseEntity = userService.addFriend(userID, friendID);
-            log.info(String.valueOf(responseEntity.getBody()));
-            return responseEntity;
-        } catch (HttpClientErrorException exception) {
-            log.info(exception.toString());
-            throw new ResponseStatusException(exception.getStatusCode(), exception.getMessage());
-        }
-
- */
         return null;
     }
 

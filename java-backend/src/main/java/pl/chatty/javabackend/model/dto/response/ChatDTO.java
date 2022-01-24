@@ -11,8 +11,10 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 @ToString
-public class UsersListDto {
-
-    List<UserDTO> users;
-
+public class ChatDTO {
+    private String chatId;
+    private String name;
+    private List<UserDTO> users;
 }
+
+

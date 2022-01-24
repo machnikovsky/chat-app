@@ -6,7 +6,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import pl.chatty.javabackend.model.MessageType;
 
-import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 @Document("messages")
@@ -17,17 +17,17 @@ public class MessageEntity {
     @Id
     private String messageId;
     private String content;
-    private Timestamp date;
-    private UserEntity sender;
+    private LocalDate date;
     private MessageType messageType;
+    private String senderUsername;
+    private ArrayList<String> receiversUsernames;
 
-    private ArrayList<UserEntity> recipientList;
-
-    public MessageEntity(String content, Timestamp date, UserEntity sender, MessageType messageType, ArrayList<UserEntity> recipientList) {
+    public MessageEntity(String content, LocalDate date, MessageType messageType,
+                         String senderUsername, ArrayList<String> receiversUsernames) {
         this.content = content;
         this.date = date;
-        this.sender = sender;
         this.messageType = messageType;
-        this.recipientList = recipientList;
+        this.senderUsername = senderUsername;
+        this.receiversUsernames = receiversUsernames;
     }
 }

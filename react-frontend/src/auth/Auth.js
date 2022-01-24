@@ -28,8 +28,9 @@ const login = (username, password) => {
     .then((response) => {
       if (response.data.jwt) {
         localStorage.setItem("JwtToken", JSON.stringify(response.data));
+        localStorage.setItem("user", username);
       }
-      return response.data;
+      return username;
     });
 };
 

@@ -1,35 +1,60 @@
 package pl.chatty.javabackend.controller;
 
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import pl.chatty.javabackend.model.dto.request.ChatParticipantsDTO;
+import pl.chatty.javabackend.model.dto.request.CreateChatRequestDTO;
+import pl.chatty.javabackend.model.dto.request.MessageDTO;
+import pl.chatty.javabackend.model.dto.response.ChatDTO;
+import pl.chatty.javabackend.service.ChatService;
 
+import java.util.List;
 import java.util.Map;
 
+@AllArgsConstructor
 @RestController
+@RequestMapping("/chat")
 @CrossOrigin(origins = "http://localhost:3000")
 public class ChatController {
+
+    private final ChatService chatService;
 
     @GetMapping("/message/{messageID}")
     public ResponseEntity<String> getMessage(@PathVariable long messageID) {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping("/chat/{chatID}/message")
-    public ResponseEntity<String> sendMessage(@PathVariable long chatID, @RequestBody Map<String, String> json) {
-        return new ResponseEntity<>("message has been saved", HttpStatus.OK);
+    @GetMapping("/{chatId}/messages")
+    public ResponseEntity<List<MessageDTO>> getAllChatMessages(@PathVariable String chatId) {
+        return ResponseEntity.ok(chatService.getAllChatMessages(chatId));
     }
 
-    @PostMapping("/chat")
-    public ResponseEntity<String> createChat(@RequestBody Map<String, String> json) {
-        return new ResponseEntity<>("chat has been created", HttpStatus.OK);
+    @PostMapping("/message")
+    public ResponseEntity<String> sendMessage(@RequestBody MessageDTO message) {
+        return chatService.sendMessage(message);
     }
+
+    @PostMapping("/new")
+    public ResponseEntity<String> createChat(@RequestBody  CreateChatRequestDTO createChatRequestDTO) {
+        return ResponseEntity.ok(chatService.createNewChat(createChatRequestDTO).getChatId());
+    }
+
+    @GetMapping("/find")
+    public ResponseEntity<String> getChatIdIfPresent(@RequestBody ChatParticipantsDTO chatParticipantsDTO) {
+        return ResponseEntity.ok(chatService.getChatByChatParticipants(chatParticipantsDTO));
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<ChatDTO>> getAllUserChats() {
+        return ResponseEntity.ok(chatService.getAllUserChats());
+    }
+
+
+
+
+
 
     @PostMapping("/group/{groupID}/image")
     public ResponseEntity<String> changeGroupImage(@PathVariable int groupID) {

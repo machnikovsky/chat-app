@@ -1,31 +1,36 @@
 package pl.chatty.javabackend.service;
 
 import org.mapstruct.factory.Mappers;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import pl.chatty.javabackend.exception.exceptions.UserEntityNotFoundException;
 import pl.chatty.javabackend.model.dao.UserEntity;
 import pl.chatty.javabackend.model.dto.request.CreateUserRequest;
+import pl.chatty.javabackend.model.dto.response.UserDTO;
 import pl.chatty.javabackend.model.dto.response.UsersListDto;
 import pl.chatty.javabackend.repository.UserRepository;
 import pl.chatty.javabackend.service.mapper.UserMapper;
 
-import java.util.ArrayList;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-
-
+    private final ModelMapper modelMapper;
     private UserMapper mapper = Mappers.getMapper(UserMapper.class);
 
-    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, ModelMapper modelMapper) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.modelMapper = modelMapper;
     }
 
     public ResponseEntity<String> addUser(CreateUserRequest requestBody) {
@@ -90,7 +95,49 @@ public class UserServiceImpl implements UserService {
     }
 
     public UsersListDto getUsers(Pageable paging) {
-        return new UsersListDto(userRepository
-                .findAllByOrderByUserId(paging).getContent());
+        return new UsersListDto(
+                userRepository.findAllByOrderByUserId(paging).getContent()
+                        .stream()
+                        .map(x -> modelMapper.map(x, UserDTO.class))
+                        .collect(Collectors.toList())
+        );
+    }
+
+    public UsersListDto getUsersBesideSelf() {
+        String loggedInUser = getCurrentUserUsername()
+                .orElseThrow(() -> new UserEntityNotFoundException(""));
+        return new UsersListDto(
+                userRepository.findAll()
+                        .stream()
+                        .filter(x -> !loggedInUser.equals(x.getUsername()))
+                        .map(x -> modelMapper.map(x, UserDTO.class))
+                        .collect(Collectors.toList())
+        );
+    }
+
+    public Optional<UserEntity> getUserByUsername(String username) {
+        return userRepository.findByUsernameIgnoreCase(username);
+    }
+
+    public Optional<UserEntity> getUserById(String userId) {
+        return userRepository.findByUserId(userId);
+    }
+
+    public Optional<String> getCurrentUserUsername() {
+            String name = SecurityContextHolder.getContext().getAuthentication().getName();
+            if ("anonymousUser".equals(name)) {
+                return Optional.empty();
+            } else {
+                return Optional.of(name);
+            }
+    }
+
+    public Optional<UserEntity> getCurrentUser() {
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        if ("anonymousUser".equals(name)) {
+            return Optional.empty();
+        } else {
+            return userRepository.findByUsernameIgnoreCase(name);
+        }
     }
 }

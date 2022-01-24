@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 @Document("chats")
@@ -16,9 +16,9 @@ public class ChatEntity {
     @Id
     private String chatId;
     private String name;
-    private Timestamp createdTime;
+    private LocalDate createdTime;
 
-    private ArrayList<UserEntity> members;
-    private ArrayList<MessageEntity> messages;
+    private ArrayList<String> membersIds;
+    private ArrayList<String> messageIds;
 
 }

@@ -5,14 +5,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import java.util.List;
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @ToString
-public class UsersListDto {
-
-    List<UserDTO> users;
-
+public class UserDTO {
+    private String userId;
+    private String username;
+    private String firstName;
+    private String lastName;
 }

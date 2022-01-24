@@ -25,8 +25,10 @@ dependencies {
     implementation 'com.google.firebase:firebase-admin:8.1.0'
     implementation 'org.mapstruct:mapstruct:1.4.2.Final'
     implementation 'org.springframework.boot:spring-boot-starter-websocket'
+    implementation("io.jsonwebtoken:jjwt:0.9.1")
+    implementation group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
     compileOnly 'org.projectlombok:lombok'
-    runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
+//    runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
     annotationProcessor 'org.projectlombok:lombok'
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
@@ -36,6 +38,11 @@ dependencies {
     implementation 'org.webjars:webjars-locator-core'
     implementation 'org.webjars:sockjs-client:1.0.2'
     implementation 'org.webjars:stomp-websocket:2.3.3'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb', version: '2.6.1'
+    implementation group: 'org.springframework.data', name: 'spring-data-mongodb', version: '3.3.0'
+
+
+
 }
 
 test {

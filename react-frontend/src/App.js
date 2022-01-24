@@ -2,23 +2,24 @@ import './App.css';
 import Login from './components/Login';
 import Chats from './components/Chats';
 import Register from './components/Register';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import useLocalStorage from "./hooks/useLocalStorage";
+import UserContext from "./auth/UserContext";
 
 const App = () => {
-  return (
-    <Router>
-        <Switch>
-          <Route exact path="/">
-            <Login />
-          </Route>
-          <Route exact path="/register">
-            <Register />
-          </Route>
-          <Route path="/chats">
-            <Chats />
-          </Route>
-        </Switch>
-    </Router>
+
+    const [user, setUser] = useLocalStorage("user", null);
+
+    return (
+        <Router>
+            <UserContext.Provider value={{ user, setUser }}>
+                <Routes>
+                    <Route exact path="/" element={<Login />} />
+                    <Route exact path="/chats" element={<Chats />} />
+                    <Route exact path="/register" element={<Register />} />
+                </Routes>
+            </UserContext.Provider>
+        </Router>
   );
 }
 

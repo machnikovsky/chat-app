@@ -1,20 +1,21 @@
 package pl.chatty.javabackend.service;
 
-import org.mapstruct.factory.Mappers;
-import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import pl.chatty.javabackend.model.dao.UserEntity;
 import pl.chatty.javabackend.model.dto.request.CreateUserRequest;
-import pl.chatty.javabackend.service.mapper.UserMapper;
+import pl.chatty.javabackend.model.dto.response.UsersListDto;
 
-@Service
-public class UserService {
+public interface UserService {
 
-    private UserMapper mapper = Mappers.getMapper(UserMapper.class);
+    ResponseEntity<String> addUser(CreateUserRequest requestBody);
 
-    //TODO
-    public void saveUser(CreateUserRequest userEntity) {
-        UserEntity toSave = mapper.mapToUserEntity(userEntity);
+    ResponseEntity<String> removeUser(String userId);
 
-    }
+    ResponseEntity<String> updateUser(String userId, CreateUserRequest requestBody);
+
+    ResponseEntity<UserEntity> getUser(String userId);
+
+    UsersListDto getUsers(Pageable paging);
 
 }

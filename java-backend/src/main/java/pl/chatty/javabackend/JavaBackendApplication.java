@@ -11,10 +11,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import pl.chatty.javabackend.model.Gender;
-import pl.chatty.javabackend.model.UsersRole;
-import pl.chatty.javabackend.model.dao.UserEntity;
-import pl.chatty.javabackend.repository.UserRepository;
+import pl.chatty.javabackend.domains.user.model.entity.Gender;
+import pl.chatty.javabackend.domains.user.model.entity.UsersRole;
+import pl.chatty.javabackend.domains.user.model.entity.UserEntity;
+import pl.chatty.javabackend.domains.user.repository.UserRepository;
 
 import java.util.ArrayList;
 import java.util.List;

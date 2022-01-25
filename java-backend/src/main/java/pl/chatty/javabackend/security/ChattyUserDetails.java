@@ -3,7 +3,7 @@ package pl.chatty.javabackend.security;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import pl.chatty.javabackend.model.dao.UserEntity;
+import pl.chatty.javabackend.domains.user.model.entity.UserEntity;
 
 import java.util.Collection;
 import java.util.List;

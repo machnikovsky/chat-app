@@ -3,7 +3,7 @@ import logo from '../assets/placeholder.png'
 import username from '../assets/username_logo.png'
 import password_logo from '../assets/password_logo.png'
 import button from '../assets/login_button.png'
-import {useContext, useState} from "react"
+import {useContext, useEffect, useState} from "react"
 import UserContext from "../auth/UserContext";
 import Auth from "../auth/Auth";
 import { useNavigate } from "react-router-dom";
@@ -14,6 +14,7 @@ const Login = () => {
 
     const [login, setLogin] = useState('');
     const [password, setPasword] = useState('');
+    const [invalidInput, setInvalidInput] = useState(false);
     const [badCredentials, setBadCredentials] = useState(false);
     const {user, setUser} = useContext(UserContext);
     const navigate = useNavigate();
@@ -22,21 +23,22 @@ const Login = () => {
         e.preventDefault();
 
         if (login === '' || password === '') {
-            setBadCredentials(true);
+            setBadCredentials(false);
+            setInvalidInput(true);
             return;
         }
 
-        //once Spring Security and JWT are implemented,
-        //this line will set JWT in LocalStorage
-
-        //something like this
-        // Auth.login(login, password)
-        //     .then(res => {
-        //         setUser(res.username);
-        //     });
-
-        setUser(login);
-        navigate('/chats');
+        Auth.login(login, password)
+            .then(username => {
+                console.log(username);
+                setUser(username);
+                navigate('/chats');
+            })
+            .catch(err => {
+                setUser(null);
+                setInvalidInput(false);
+                setBadCredentials(true);
+            });
     }
 
     return(
@@ -78,7 +80,8 @@ const Login = () => {
                         <button className="login-button" onClick={handleLogin}>
                             <img src={button}/>
                         </button>
-                        { badCredentials && <div className={"bad-credentials"}>Wprowadź poprawne dane.</div>}
+                        { invalidInput && <div className={"bad-credentials"}>Wprowadź wszystkie dane.</div>}
+                        { badCredentials && <div className={"bad-credentials"}>Login lub hasło niepoprawne.</div>}
                     </form>
 
                 </div>

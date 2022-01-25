@@ -2,18 +2,40 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3eb76ee6-6152-4195-80fb-04fe66ceac2a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/auth/Auth.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/auth/AuthHeader.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../java-backend/src/main/java/pl/chatty/javabackend/JavaBackendApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/../java-backend/src/main/java/pl/chatty/javabackend/JavaBackendApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../java-backend/src/main/java/pl/chatty/javabackend/WebSocketsTest/MessageModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../java-backend/src/main/java/pl/chatty/javabackend/WebSocketsTest/UserStorage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../java-backend/src/main/java/pl/chatty/javabackend/controller/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../java-backend/src/main/java/pl/chatty/javabackend/domains/user/controller/AdminController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../java-backend/src/main/java/pl/chatty/javabackend/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../java-backend/src/main/java/pl/chatty/javabackend/security/controller/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../java-backend/src/main/java/pl/chatty/javabackend/controller/ChatController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../java-backend/src/main/java/pl/chatty/javabackend/domains/chat/controller/ChatController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../java-backend/src/main/java/pl/chatty/javabackend/controller/MessageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../java-backend/src/main/java/pl/chatty/javabackend/domains/message/controller/MessageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../java-backend/src/main/java/pl/chatty/javabackend/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../java-backend/src/main/java/pl/chatty/javabackend/domains/user/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../java-backend/src/main/java/pl/chatty/javabackend/model/Gender.java" beforeDir="false" afterPath="$PROJECT_DIR$/../java-backend/src/main/java/pl/chatty/javabackend/domains/user/model/entity/Gender.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../java-backend/src/main/java/pl/chatty/javabackend/model/MessageType.java" beforeDir="false" afterPath="$PROJECT_DIR$/../java-backend/src/main/java/pl/chatty/javabackend/domains/message/model/entity/MessageType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../java-backend/src/main/java/pl/chatty/javabackend/model/UsersRole.java" beforeDir="false" afterPath="$PROJECT_DIR$/../java-backend/src/main/java/pl/chatty/javabackend/domains/user/model/entity/UsersRole.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../java-backend/src/main/java/pl/chatty/javabackend/model/dao/ChatEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../java-backend/src/main/java/pl/chatty/javabackend/domains/chat/model/entity/ChatEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../java-backend/src/main/java/pl/chatty/javabackend/model/dao/MessageEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../java-backend/src/main/java/pl/chatty/javabackend/domains/message/model/entity/MessageEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../java-backend/src/main/java/pl/chatty/javabackend/model/dao/UserEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../java-backend/src/main/java/pl/chatty/javabackend/domains/user/model/entity/UserEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../java-backend/src/main/java/pl/chatty/javabackend/model/dto/request/ChatParticipantsDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../java-backend/src/main/java/pl/chatty/javabackend/domains/chat/model/dto/response/ChatParticipantsDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../java-backend/src/main/java/pl/chatty/javabackend/model/dto/request/CreateChatRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../java-backend/src/main/java/pl/chatty/javabackend/domains/chat/model/dto/request/CreateChatRequestDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../java-backend/src/main/java/pl/chatty/javabackend/model/dto/request/CreateUserRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../java-backend/src/main/java/pl/chatty/javabackend/domains/user/model/dto/request/CreateUserRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../java-backend/src/main/java/pl/chatty/javabackend/model/dto/request/LoginRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../java-backend/src/main/java/pl/chatty/javabackend/domains/user/model/dto/request/LoginRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../java-backend/src/main/java/pl/chatty/javabackend/model/dto/request/MessageDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../java-backend/src/main/java/pl/chatty/javabackend/domains/message/model/dto/request/MessageDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../java-backend/src/main/java/pl/chatty/javabackend/model/dto/response/ChatDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../java-backend/src/main/java/pl/chatty/javabackend/domains/chat/model/dto/response/ChatDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../java-backend/src/main/java/pl/chatty/javabackend/model/dto/response/UserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../java-backend/src/main/java/pl/chatty/javabackend/domains/user/model/dto/response/UserDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../java-backend/src/main/java/pl/chatty/javabackend/model/dto/response/UsersListDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/../java-backend/src/main/java/pl/chatty/javabackend/domains/user/model/dto/response/UsersListDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../java-backend/src/main/java/pl/chatty/javabackend/repository/ChatRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../java-backend/src/main/java/pl/chatty/javabackend/domains/chat/repository/ChatRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../java-backend/src/main/java/pl/chatty/javabackend/repository/MessageRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../java-backend/src/main/java/pl/chatty/javabackend/domains/message/repository/MessageRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../java-backend/src/main/java/pl/chatty/javabackend/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../java-backend/src/main/java/pl/chatty/javabackend/domains/user/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../java-backend/src/main/java/pl/chatty/javabackend/security/ChattyUserDetails.java" beforeDir="false" afterPath="$PROJECT_DIR$/../java-backend/src/main/java/pl/chatty/javabackend/security/ChattyUserDetails.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../java-backend/src/main/java/pl/chatty/javabackend/security/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../java-backend/src/main/java/pl/chatty/javabackend/security/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../java-backend/src/main/java/pl/chatty/javabackend/security/jwt/ChattyUserDetailsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../java-backend/src/main/java/pl/chatty/javabackend/security/jwt/ChattyUserDetailsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../java-backend/src/main/java/pl/chatty/javabackend/service/ChatService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../java-backend/src/main/java/pl/chatty/javabackend/domains/chat/service/ChatService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../java-backend/src/main/java/pl/chatty/javabackend/service/MessageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../java-backend/src/main/java/pl/chatty/javabackend/domains/message/service/MessageService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../java-backend/src/main/java/pl/chatty/javabackend/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../java-backend/src/main/java/pl/chatty/javabackend/domains/user/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../java-backend/src/main/java/pl/chatty/javabackend/service/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../java-backend/src/main/java/pl/chatty/javabackend/domains/user/service/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../java-backend/src/main/java/pl/chatty/javabackend/service/mapper/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../java-backend/src/main/java/pl/chatty/javabackend/domains/user/util/UserMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Chats.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Chats.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/reportWebVitals.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/setupTests.js" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -95,6 +117,7 @@
       <workItem from="1641421550432" duration="3228000" />
       <workItem from="1641465580130" duration="649000" />
       <workItem from="1641557267736" duration="3885000" />
+      <workItem from="1643124561766" duration="1566000" />
     </task>
     <servers />
   </component>

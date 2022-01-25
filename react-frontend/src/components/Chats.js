@@ -5,17 +5,38 @@ import sendButton from "../assets/send.png"
 import SockJsClient from 'react-stomp';
 import UserContext from "../auth/UserContext";
 import Auth from "../auth/Auth";
+import { ApiCall } from "../api/ApiCall";
 
 const Chats = (props) => {
 
     const SOCKET_URL = 'http://localhost:8080/chat/';
     const [messages, setMessages] = useState([]);
     const [chat, setChat] = useState('default');
+    const [chats, setChats] = useState([]);
     const [currentMess, setCurrentMess] = useState('');
     const [clientRef, setClientRef] = useState(null);
     const {user, setUser} = useContext(UserContext);
+    const [users, setUsers] = useState([]);
+    const [receivers, setReceivers] = useState([]);
+
     const navigate = useNavigate();
 
+    useEffect(() => {
+        ApiCall.getAllUsersBesideSelf()
+        .then(res => {
+            console.log(res.data.users);
+            setUsers(res.data.users);
+        })
+        .catch(err => {
+            console.log("Error: ", err);
+        })
+
+        ApiCall.getUserChats()
+        .then(res => {
+            console.log("Res: ", res);
+            setChats(res.data);
+        })
+    }, [])
 
     useEffect(() => {
         //Fetching messages from DB at the first render
@@ -30,12 +51,21 @@ const Chats = (props) => {
         //We will handle chat change here,
         //we need to update messages with the ones from DB,
         //kinda like at the default useEffect at the first render
+        if (chat !== 'default') {
+            ApiCall.getChatMessages(chat)
+            .then(res => {
+                console.log("messages:", res);
+                setMessages(res.data);
+            })
+        }
+
     }, [chat]);
 
 
     const changeChat = (e) => {
         console.log(`Selected chat: ${e}`);
-        setChat(e);
+        setChat(e.chatId);
+        setReceivers(e.users.filter(x => x.username !== user));
     }
 
     let onConnected = () => {
@@ -45,14 +75,17 @@ const Chats = (props) => {
     let onMessageReceived = (msg) => {
         console.log('New Message Received!!', msg);
         setMessages(messages.concat(msg));
+        console.log("Mesages: ", messages);
     }
 
     let sendMessage = () => {
         console.log(`Sent ${currentMess} to ${chat}`)
         console.log(`Current messages: ${messages}`)
         clientRef.sendMessage(`/app/chat/${chat}`, JSON.stringify({
-            messageContent: currentMess,
-            fromUser: user
+            chatId: chat,
+            messageAuthorUsername: user,
+            messageReceiversUsernames: receivers.map(x => x.username),
+            messageContent: currentMess
         }));
     };
 
@@ -82,30 +115,15 @@ const Chats = (props) => {
                     Jane Doe 
                 </div>
                 <div className="chats-list">
-                <button onClick={() => changeChat('userone')}>
-                        <div className="single-chat-container">
-                            <div className="single-chat">
-                                Chat 1<br/>
-                                Message 1   
+                    { chats && chats.map((val, idx) => (
+                        <button onClick={() => changeChat(val)}>
+                            <div className="single-chat-container">
+                                <div className="single-chat">
+                                    <p>{ val.name }</p> 
+                                </div>
                             </div>
-                        </div>
-                    </button>
-                    <button onClick={() => changeChat('usertwo')}>
-                        <div className="single-chat-container">
-                            <div className="single-chat">
-                                Chat 2<br/>
-                                Message 2   
-                            </div>
-                        </div>
-                    </button>
-                    <button onClick={() => changeChat('userthree')}>
-                        <div className="single-chat-container">
-                            <div className="single-chat">
-                                Chat 2<br/>
-                                Message 2   
-                            </div>
-                        </div>
-                    </button>
+                        </button>
+                    ))}
                 </div>
 
                 <div className="logout-div">
@@ -126,10 +144,10 @@ const Chats = (props) => {
                 </div>
                 <div className="chat-content">
                     {messages && messages.map(message => {
-                        return message.fromUser === user ?
-                            <div className="single-chat-message sent-message">{message.fromUser}: {message.messageContent}</div>
+                        return message.messageAuthorUsername === user ?
+                            <div className="single-chat-message sent-message">{message.messageAuthorUsername}: {message.messageContent}</div>
                             :
-                            <div className="single-chat-message recieved-message">{message.fromUser}: {message.messageContent}</div>
+                            <div className="single-chat-message recieved-message">{message.messageAuthorUsername}: {message.messageContent}</div>
                     })}
                 </div>
                 <div className="chat-form">

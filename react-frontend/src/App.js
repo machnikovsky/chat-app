@@ -1,6 +1,7 @@
 import './App.css';
 import Login from './components/Login';
 import Chats from './components/Chats';
+import Register from './components/Register';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import useLocalStorage from "./hooks/useLocalStorage";
 import UserContext from "./auth/UserContext";
@@ -18,6 +19,7 @@ const App = () => {
                     <Route exact path="/error" element={<GeneralError />} />
                     <Route exact path="/" element={<Login />} />
                     <Route exact path="/chats" element={<Chats />} />
+                    <Route exact path="/register" element={<Register />} />
                     <Route path="/*" element={<PageNotFound />} />
                 </Routes>
             </UserContext.Provider>

@@ -1,14 +1,12 @@
 package pl.chatty.javabackend.domains.user.model.dto.response;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @ToString
+@Builder
 public class UserDTO {
     private String userId;
     private String username;

@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom"
-import logo from '../assets/placeholder.png'
-import username from '../assets/username_logo.png'
-import password from '../assets/password_logo.png'
-import button from '../assets/login_button.png'
+import logo from '../../assets/placeholder.png'
+import username from '../../assets/username_logo.png'
+import password from '../../assets/password_logo.png'
+import button from '../../assets/login_button.png'
 
 
 const Register = () => {

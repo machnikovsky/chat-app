@@ -1,10 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&family=Saira+Condensed:wght@500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&family=Saira+Condensed:wght@500&display=swap");
 
 * {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-
 }
 
 body,
@@ -14,7 +13,8 @@ html {
   padding: 0;
 }
 
-.login-container, .register-container {
+.login-container,
+.register-container {
   background-image: url("assets/background.png");
   background-position: center;
   background-repeat: no-repeat;
@@ -27,7 +27,8 @@ html {
   /* text-align: center; */
 }
 
-.login-window, .register-window {
+.login-window,
+.register-window {
   background-image: url("assets/login_window.png");
   background-position: center;
   background-repeat: no-repeat;
@@ -55,52 +56,57 @@ html {
 }
 
 .form-container h1 {
-  font-family: 'Saira Condensed', sans-serif;
+  font-family: "Saira Condensed", sans-serif;
   margin: 20px 10px;
   font-size: 50px;
   text-align: center;
 }
 
-.login-form, .register-form {
+.login-form,
+.register-form {
   padding: 2% 10%;
   display: grid;
   grid-template-rows: 1fr 1fr;
 }
 
-.login-form input, .register-form input {
+.login-form input,
+.register-form input {
   border: 0;
   padding: 5px;
   width: 90%;
   background-color: transparent;
-    resize: none;
-    outline: none;
+  resize: none;
+  outline: none;
 }
 
 .register-form input[type="radio"] {
   width: 80%;
   padding: 5px 0;
   text-align: left;
-} 
+}
 
-.login-form .input-div, .register-form .input-div {
+.login-form .input-div,
+.register-form .input-div {
   margin: 5px 0px;
   border: 0;
-  border-bottom: 2px solid #00A3FF;
+  border-bottom: 2px solid #00a3ff;
 }
 
-.login-form label, .register-form label {
+.login-form label,
+.register-form label {
   margin-top: 20px;
-  font-family: 'Roboto', sans-serif;
-  color: #00A3FF;
+  font-family: "Roboto", sans-serif;
+  color: #00a3ff;
 }
 
-.login-form .login_div, .register-form .register-div {
-  display:grid;
+.login-form .login_div,
+.register-form .register-div {
+  display: grid;
   grid-template-rows: 1fr 1fr;
 }
 
-
-.login-form .login-button, .register-form .register-button {
+.login-form .login-button,
+.register-form .register-button {
   border: 0;
   padding: 5px;
   width: 50%;
@@ -120,9 +126,6 @@ html {
   object-fit: contain;
 }
 
-
-
-
 .chats-container {
   background-image: url("assets/backgoundchat.png");
   background-position: center;
@@ -137,7 +140,7 @@ html {
 .left-bar {
   margin: 20px;
   padding: 10px 0;
-  background: linear-gradient(168.44deg, #FFFFFF 0%, #FFFFFF 101.1%);
+  background: linear-gradient(168.44deg, #ffffff 0%, #ffffff 101.1%);
   box-shadow: 0px 0px 15px 3px rgba(0, 81, 202, 0.42);
   border-radius: 30px;
   display: flex;
@@ -145,21 +148,22 @@ html {
   justify-content: space-between;
 }
 
-.profile-picture, .chat-picture {
+.profile-picture,
+.chat-picture {
   height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items :center;
+  align-items: center;
 }
 
-.profile-picture img{
+.profile-picture img {
   width: 60px;
   height: auto;
 }
 
-.chat-picture img{
+.chat-picture img {
   width: 40px;
   height: auto;
 }
@@ -190,11 +194,10 @@ html {
   text-align: center;
 }
 
-
 .chats-list {
   display: flex;
   flex-direction: column;
-  overflow-y:auto;
+  overflow-y: auto;
 }
 
 .single-chat-container {
@@ -202,7 +205,7 @@ html {
   height: 81px;
   margin: 10px auto;
 
-  background: linear-gradient(268.55deg, #012B52 -18.2%, #43A5FF 99.51%);
+  background: linear-gradient(268.55deg, #012b52 -18.2%, #43a5ff 99.51%);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
   border-radius: 30px;
 }
@@ -215,7 +218,6 @@ html {
 .logout-div {
   margin: 0 auto;
 }
-
 
 .logout-button {
   padding: 1vh 1.5vw;
@@ -230,7 +232,7 @@ html {
 .chat-content {
   display: flex;
   flex-direction: column;
-  overflow-y:auto;
+  overflow-y: auto;
   height: 70vh;
   width: 90%;
 }
@@ -245,7 +247,7 @@ html {
 }
 
 .sent-message {
-  align-self:flex-end;
+  align-self: flex-end;
   background-color: rgba(130, 180, 255, 0.9);
 }
 
@@ -286,7 +288,6 @@ html {
   box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
   /* Lowering the shadow */
 }
-
 
 .chat-form input {
   width: 95%;

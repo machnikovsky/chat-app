@@ -13,6 +13,7 @@ import pl.chatty.javabackend.domains.user.model.dto.response.UsersListDto;
 import pl.chatty.javabackend.domains.user.model.entity.UserEntity;
 import pl.chatty.javabackend.domains.user.repository.UserRepository;
 import pl.chatty.javabackend.domains.user.util.UserUtils;
+import pl.chatty.javabackend.exception.exceptions.UserEntityNotFoundException;
 
 @Service
 @RequiredArgsConstructor
@@ -68,6 +69,14 @@ public class UserService {
             return new ResponseEntity<>(userRepository.getUserEntityByUserId(userId), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    public UserEntity getUserByUsername(String username) {
+        if (userRepository.existsByUsername(username)) {
+            return userRepository.getUserEntityByUsername(username);
+        } else {
+            throw new UserEntityNotFoundException("User not found");
         }
     }
 

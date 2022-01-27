@@ -3,13 +3,7 @@ import authHeader from "../auth/AuthHeader";
 
 const API_URL = "http://localhost:8080/auth/";
 
-
-
-const register = (username,
-                  email,
-                  password,
-                  firstName,
-                  lastName) => {
+const register = (username, email, password, firstName, lastName) => {
   return axios.post(API_URL + "register", {
     username,
     email,
@@ -40,14 +34,14 @@ const logout = () => {
 };
 
 const getCurrentUser = () => {
-  return axios.get(API_URL + 'username', { headers: authHeader() })
-  .then(res => {
-    return res.data;
-  })
-  .catch(err => {
-    console.log("Error getting username: ", err.message)
-  })
-  ;
+  return axios
+    .get(API_URL + "username", { headers: authHeader() })
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      console.log("Error getting username: ", err.message);
+    });
 };
 
 const Auth = {

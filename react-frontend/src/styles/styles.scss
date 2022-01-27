@@ -218,6 +218,7 @@ a {
   display: flex;
   flex-direction: column;
   overflow-y:auto;
+  max-height: 50vh;
 }
 
 .single-chat-container {

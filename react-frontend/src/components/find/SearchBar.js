@@ -6,7 +6,7 @@ const SearchBar = ({ setQuery }) => {
       <input
         type="text"
         placeholder="Wprowadź imie, nazwisko lub nazwe uzytkownika.."
-        onChange={(e) => setQuery(e.target.value == "" ? "a" : e.target.value)}
+        onChange={(e) => setQuery(e.target.value)}
       />
     </div>
   );

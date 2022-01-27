@@ -1,16 +1,22 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import message from '../../assets/start_conversation.png';
 import not_found from '../../assets/not_found.jpeg';
+import { ApiCall } from '../../api/ApiCall';
 
 
 const UserList = ({userList}) => {
 
+    const navigate = useNavigate();
+
     const handleAction = (userId) => {
-        //Creating new chat and redirecting to it
-        //should be implemented here, for now 
-        //just console log
-        console.log("Redirecting to: ", userId);
+        ApiCall.getChatDtoOrCreateNewAndRetrieveIfNotPresent(userId)
+        .then(_ => {
+            navigate('/chats');
+        })
+        .catch(err => {
+            console.log("Error getting chat dto: ", err.response.data);
+        })
     }
 
     return (

@@ -17,8 +17,8 @@ const App = () => {
                 <Routes>
                     <Route exact path="/" element={<Login />} />
                     <Route exact path="/register" element={<Register />} />
-                    <Route exact path="/chats" element={<Chats />} />
                     <Route exact path="/find" element={<FindUsers />} />
+                    <Route path="/chats" element={<Chats />} />
                 </Routes>
             </UserContext.Provider>
         </Router>

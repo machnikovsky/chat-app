@@ -1,6 +1,7 @@
 package pl.chatty.javabackend.domains.message.util;
 
 import lombok.AllArgsConstructor;
+import org.bson.types.Binary;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Component;
@@ -31,15 +32,17 @@ public class MessageUtils {
     private final UserUtils userUtils;
 
 
-    public MessageEntity createNewMessage(String content, UserEntity author, List<UserEntity> receivers) {
+    public MessageEntity createNewMessage(String content,Binary imageContent, UserEntity author, List<UserEntity> receivers) {
         return new MessageEntity(
                 content,
+                imageContent,
                 LocalDate.now(),
                 MessageType.TEXT,
                 author.getUserId(),
                 new ArrayList<>(receivers.stream().map(UserEntity::getUserId).collect(Collectors.toList()))
         );
     }
+
     public Optional<MessageEntity> getMessageByMessageId(String messageId) {
         return messageRepository.findById(messageId);
     }
@@ -51,6 +54,7 @@ public class MessageUtils {
     public void sendMessage(MessageDTO messageDTO) {
 
         final String content = messageDTO.getMessageContent();
+        final Binary imageContent = messageDTO.getImageContent();
         final UserEntity messageAuthor = userUtils.getUserByUsername(messageDTO.getMessageAuthorUsername())
                 .orElseThrow(() -> new UserEntityNotFoundException(messageDTO.getMessageAuthorUsername()));
         final List<UserEntity> messageReceivers = messageDTO.getMessageReceiversUsernames()
@@ -62,18 +66,19 @@ public class MessageUtils {
         final ChatEntity chat = chatUtils.getChatByChatId(messageDTO.getChatId())
                 .orElseThrow(() -> new UserEntityNotFoundException(messageDTO.getMessageReceiversUsernames().toString())); // TODO: Create chat exception
 
-        final MessageEntity message = saveNewMessageInDatabase(content, messageAuthor, messageReceivers);
+        final MessageEntity message = saveNewMessageInDatabase(content,imageContent, messageAuthor, messageReceivers);
         chatUtils.saveNewMessageToChatInDatabase(chat, message);
     }
 
-    public MessageEntity saveNewMessageInDatabase(String content, UserEntity author, List<UserEntity> receivers) {
-        MessageEntity message = createNewMessage(content, author, receivers);
+    public MessageEntity saveNewMessageInDatabase(String content,Binary imageContent, UserEntity author, List<UserEntity> receivers) {
+        MessageEntity message = createNewMessage(content,imageContent, author, receivers);
         return saveMessageInDatabase(message);
     }
 
     public void saveNewMessageInDatabase(MessageDTO message) {
         MessageEntity messageEntity = saveMessageInDatabase(new MessageEntity(
                 message.getMessageContent(),
+                message.getImageContent(),
                 LocalDate.now(),
                 MessageType.TEXT,
                 message.getMessageAuthorUsername(),

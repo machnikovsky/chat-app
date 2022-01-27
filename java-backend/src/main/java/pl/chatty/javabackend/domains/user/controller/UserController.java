@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.server.ResponseStatusException;
+import pl.chatty.javabackend.domains.image.model.dto.request.ImageDTO;
 import pl.chatty.javabackend.domains.user.model.entity.UserEntity;
 import pl.chatty.javabackend.domains.user.model.dto.request.CreateUserRequest;
 import pl.chatty.javabackend.domains.user.model.dto.response.UsersListDto;
@@ -17,6 +18,7 @@ import pl.chatty.javabackend.domains.user.service.UserService;
 import pl.chatty.javabackend.domains.user.util.UserUtils;
 
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
@@ -113,5 +115,18 @@ public class UserController {
     public ResponseEntity<String> changeFriendsUsername(@PathVariable int userID,
                                                         @PathVariable int friendID, @RequestBody Map<String, String> json){
         return new ResponseEntity<>("User's nickname successfully changed", HttpStatus.OK);
+    }
+
+    @PostMapping("/profilepicture")
+    public ResponseEntity<String> setUserProfileImage(@RequestBody ImageDTO imageDTO){
+        try {
+            Optional<UserEntity> user = userUtils.getCurrentUser();
+            CreateUserRequest userRequest = new CreateUserRequest();
+            userService.updateUser(user.get().getUserId(),null);
+        } catch (HttpClientErrorException exception) {
+            log.info(exception.toString());
+            throw new ResponseStatusException(exception.getStatusCode(), exception.getMessage());
+        }
+        return new ResponseEntity<>("User's profile image successfully changed", HttpStatus.OK);
     }
 }

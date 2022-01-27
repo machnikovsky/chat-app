@@ -14,4 +14,8 @@ public class ImageEntity {
     @Id
     private String imageId;
     private Binary image;
+
+    public ImageEntity(Binary image) {
+        this.image = image;
+    }
 }

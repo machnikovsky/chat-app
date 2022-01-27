@@ -1,11 +1,10 @@
-package pl.chatty.javabackend.domains.image.model.dto.response;
+package pl.chatty.javabackend.domains.image.model.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-
-import java.util.List;
+import org.bson.types.Binary;
 
 @AllArgsConstructor
 @NoArgsConstructor

@@ -1,0 +1,104 @@
+.find-users-container {
+      width: 100vw;
+      min-height: 100vh;
+      background-image: url("../assets/repetetive-bg.png");
+
+    
+      .search-container {
+        padding: 10vh 15vw;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+
+
+        .search-bar {
+          width: 80%;
+          margin-inline: auto;
+
+          input {
+            position: relative;
+            height: 8vh;
+            width: 100%;
+            top: 5vh;
+            margin-bottom: 8vh;
+            position: relative;
+            padding-top: 1vh;
+            background: rgba(196, 196, 196, 0.4);
+            color: rgba(255, 255, 255, 0.8);  
+            text-align: left;
+            border: none;
+            outline: none;
+            z-index: 3;
+            font-size: 2em;
+            padding: 1vh 1vw;
+          }
+        }
+
+        input::placeholder {
+              font-size: 0.7em;
+              text-align: center;
+        }
+      
+        .search-filter {
+          position: relative;
+          height: 8vh;
+          width: 100%;
+          margin-bottom: 10vh;
+          top: 5vh;
+          padding-top: 2vh;
+          background: rgb(252, 239, 195);
+          display: flex;
+          flex-direction: row;
+          justify-content: flex-end;
+          z-index: 1;
+      
+          .filter {
+            margin: 0 auto;
+            width: 100%;
+            text-align: center;
+            h2 {
+              color: black;
+            }
+            .single-filter{
+              display: none;
+            }
+    
+          }
+          .filter:hover  {
+            .single-filter {
+              display: block;
+              color: #000;
+              background: rgb(252, 239, 195);
+              font-size: 0.8em;
+              padding: 1vh 0;
+              text-align: center;      
+              button {
+                color: #000;
+                border: none;
+                outline: none;
+                background: inherit;
+                width: 100%;
+                height: 100%;
+    
+              }    
+            }
+            .enabled {
+              background-color: $dark-beige;  
+            }
+            
+          }
+        }
+      }
+    
+      .more-button {
+        margin: 10vh auto;
+        padding: 2vh 5vw;
+        display: block;
+        background-color: rgba($light-purple-background, 0.4);
+        border-radius: 10px;
+        color: $beige;
+        font-size: 1.5em;
+        font-weight: bold;
+      }
+    }
+    

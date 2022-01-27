@@ -1,4 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&family=Saira+Condensed:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@200;300&display=swap');
+
+$dark-purple-background: #2C0E37;
+$light-purple-background: #C4C4C4;
+$light-purple-transparent-background: rgba(#C4C4C4, 0.2);
+$beige: #DAA89B;
+$dark-beige: #a9957b;
+$yellow: rgb(252, 241, 207);
+
+@import "search";
+@import "navbar";
+@import "user_list";
 
 * {
   -webkit-box-sizing: border-box;
@@ -12,15 +24,22 @@ html {
   height: 100vh;
   margin: 0;
   padding: 0;
+  color: #333;
+  font-family: Raleway, sans-serif;
+}
+
+
+a {
+  text-decoration: none;
 }
 
 .login-container, .register-container {
-  background-image: url("assets/background.png");
+  background-image: url("../assets/background.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
 
-  height: 100vh;
+  height: 90vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -28,7 +47,7 @@ html {
 }
 
 .login-window, .register-window {
-  background-image: url("assets/login_window.png");
+  background-image: url("../assets/login_window.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -122,14 +141,16 @@ html {
 
 
 
+.chats-page-container {
+  height: 100vh;
 
+}
 .chats-container {
-  background-image: url("assets/backgoundchat.png");
+
+  background-image: url("../assets/backgoundchat.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-
-  height: 100vh;
   display: grid;
   grid-template-columns: 1fr 3fr;
 }
@@ -165,12 +186,12 @@ html {
 }
 
 .right-bar {
-  margin: 20px;
   display: grid;
   grid-template-rows: 2fr 15fr 2fr;
 }
 
 .chat-info {
+  margin-top: 20px;
   font-size: 2em;
   display: grid;
   grid-template-columns: 2fr 8fr;
@@ -182,6 +203,8 @@ html {
 .chat-name {
   display: grid;
   place-items: center;
+  font-family: Raleway;
+  font-weight: 300;
 }
 
 .profile {

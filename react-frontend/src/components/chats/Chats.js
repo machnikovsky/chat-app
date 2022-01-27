@@ -1,11 +1,12 @@
 import {Link, useNavigate} from "react-router-dom"
 import {useContext, useEffect, useState} from "react"
-import profile_picture from "../assets/profile_picture.png"
-import sendButton from "../assets/send.png"
+import profile_picture from "../../assets/profile_picture.png"
+import sendButton from "../../assets/send.png"
 import SockJsClient from 'react-stomp';
-import UserContext from "../auth/UserContext";
-import Auth from "../auth/Auth";
-import { ApiCall } from "../api/ApiCall";
+import UserContext from "../../auth/UserContext";
+import Auth from "../../auth/Auth";
+import { ApiCall } from "../../api/ApiCall";
+import Navbar from "../nav/Navbar";
 
 const Chats = (props) => {
 
@@ -96,6 +97,8 @@ const Chats = (props) => {
     }
 
     return(
+    <div className="chats-page-container">
+        <Navbar />
         <div className="chats-container">
             <SockJsClient
               url={SOCKET_URL}
@@ -158,6 +161,7 @@ const Chats = (props) => {
                 </div>
             </div>
         </div>
+    </div>
     )
 }
 

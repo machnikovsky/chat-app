@@ -448,7 +448,7 @@ a {
 }
 
 .chat-info {
-  margin-top: 20px;
+  margin-top: 2vh;
   font-size: 2em;
   display: -ms-grid;
   display: grid;

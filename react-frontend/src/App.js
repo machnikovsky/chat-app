@@ -14,10 +14,10 @@ const App = () => {
         <Router>
             <UserContext.Provider value={{ user, setUser }}>
                 <Routes>
-                    <Route exact path="/error/general" element={<GeneralError />} />
                     <Route exact path="/error/404" element={<PageNotFound />} />
                     <Route exact path="/" element={<Login />} />
                     <Route exact path="/chats" element={<Chats />} />
+                    <Route path="/*" element={<GeneralError />} />
                 </Routes>
             </UserContext.Provider>
         </Router>

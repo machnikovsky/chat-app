@@ -42,7 +42,11 @@
             display: block;
             color: #FF4F5A;
             font-size: 0.2em;
-            font-weight: 600;
+            font-weight: 700;
+
+            &:hover{
+                cursor: pointer;
+            }
         }
     }
 

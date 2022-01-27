@@ -6,6 +6,8 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import useLocalStorage from "./hooks/useLocalStorage";
 import UserContext from "./auth/UserContext";
 import FindUsers from './components/find/FindUsers';
+import PageNotFound from "./components/errors/404.js"
+import GeneralError from "./components/errors/general.js"
 
 const App = () => {
 
@@ -15,10 +17,12 @@ const App = () => {
         <Router>
             <UserContext.Provider value={{ user, setUser }}>
                 <Routes>
+                    <Route exact path="/error" element={<GeneralError />} />
                     <Route exact path="/" element={<Login />} />
                     <Route exact path="/register" element={<Register />} />
                     <Route exact path="/find" element={<FindUsers />} />
                     <Route path="/chats" element={<Chats />} />
+                    <Route path="/*" element={<PageNotFound />} />
                 </Routes>
             </UserContext.Provider>
         </Router>

@@ -21,6 +21,17 @@ const FindUsers = () => {
     })
   }, [])
 
+  useEffect(() => {
+    ApiCall.getAndSetQueriedListWithNewQuery(query, setUserList)
+    .then(res => {
+      console.log("Queried list: ", res.data);
+      setUserList(res.data)
+    })
+    .catch(err => {
+      console.log("Error getting queried list: ", err.response.data);
+    })
+}, [query])
+
   return (
     <div className="find-users-container">
         <Navbar />

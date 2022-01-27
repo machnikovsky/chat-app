@@ -13,6 +13,7 @@ import pl.chatty.javabackend.domains.user.model.entity.UserEntity;
 import pl.chatty.javabackend.domains.user.repository.UserRepository;
 import pl.chatty.javabackend.exception.exceptions.UserEntityNotFoundException;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -86,5 +87,9 @@ public class UserUtils {
                         .map(x -> modelMapper.map(x, UserDTO.class))
                         .collect(Collectors.toList())
         );
+    }
+
+    public List<UserDTO> mapUsersToUsersDTO(List<UserEntity> users) {
+        return users.stream().map(x -> modelMapper.map(x, UserDTO.class)).collect(Collectors.toList());
     }
 }

@@ -15,9 +15,14 @@ const getChatMessages = (chatId) => {
     return axios.get(API_URL + `chat/${chatId}/messages`, {});
 }
 
+const getAndSetQueriedListWithNewQuery = (query, set) => {
+    return axios.post(API_URL + `user/query/${query}`, {}, { headers: authHeader() });
+}
+
 
 export const ApiCall = {
     getAllUsersBesideSelf,
     getUserChats,
-    getChatMessages
+    getChatMessages,
+    getAndSetQueriedListWithNewQuery
 };

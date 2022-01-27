@@ -18,6 +18,8 @@ import pl.chatty.javabackend.domains.user.repository.UserRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @SpringBootApplication
 public class JavaBackendApplication {
@@ -50,47 +52,23 @@ class ApplicationStartup {
 
         mongoTemplate.getDb().drop();
 
-        userRepository.saveAll(List.of(
-                new UserEntity(
-                        "userOne",
-                        "John",
-                        "Doe",
-                        "john@doe.com",
-                        passwordEncoder.encode("password"),
-                        "123123123",
-                        null,
-                        Gender.MALE,
-                        UsersRole.USER,
-                        new ArrayList<>(),
-                        new ArrayList<>()
-                ),
-                new UserEntity(
-                        "userTwo",
-                        "Jane",
-                        "Doe",
-                        "jane@doe.com",
-                        passwordEncoder.encode("password"),
-                        "123123123",
-                        null,
-                        Gender.FAMALE,
-                        UsersRole.USER,
-                        new ArrayList<>(),
-                        new ArrayList<>()
-                ),
-                new UserEntity(
-                        "userThree",
-                        "Joe",
-                        "Doe",
-                        "joe@doe.com",
-                        passwordEncoder.encode("password"),
-                        "456345234",
-                        null,
-                        Gender.OTHER,
-                        UsersRole.USER,
-                        new ArrayList<>(),
-                        new ArrayList<>()
+        List<UserEntity> users = IntStream.range(0, 20)
+                .mapToObj(x ->
+                        new UserEntity(
+                                "user" + x,
+                                "John",
+                                "Doe",
+                                "john@doe.com",
+                                passwordEncoder.encode("password"),
+                                "123123123",
+                                Gender.MALE,
+                                UsersRole.USER,
+                                new ArrayList<>(),
+                                new ArrayList<>()
+                        )
                 )
-        ));
+                .collect(Collectors.toList());
 
+        userRepository.saveAll(users);
     }
 }

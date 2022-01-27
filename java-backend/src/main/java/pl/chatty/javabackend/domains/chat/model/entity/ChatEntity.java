@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 @Document("chats")
 @Data
@@ -20,5 +21,11 @@ public class ChatEntity {
 
     private ArrayList<String> membersIds;
     private ArrayList<String> messageIds;
+
+    public ChatEntity(List<String> memberIds) {
+        this.createdTime = LocalDate.now();
+        this.membersIds = new ArrayList<>(memberIds);
+        this.messageIds = new ArrayList<>();
+    }
 
 }

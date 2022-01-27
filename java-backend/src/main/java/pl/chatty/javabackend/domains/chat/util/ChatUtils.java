@@ -55,7 +55,7 @@ public class ChatUtils {
         List<ChatEntity> chats = getAllChatsByUserId(user.getUserId());
         return chats.stream().map(x -> new ChatDTO(
                         x.getChatId(),
-                        x.getName().equals("") ?
+                                ("".equals(x.getName()) || x.getName() == null) ?
                                 x.getMembersIds().stream()
                                         .filter(y -> !y.equals(user.getUserId()))
                                         .findFirst()
@@ -98,11 +98,17 @@ public class ChatUtils {
         return chatRepository.save(chat);
     }
 
-    public Optional<String> getChatByChatParticipants(ChatParticipantsDTO chatParticipantsDTO) {
-        return chatRepository
-                .findByChatParticipants(chatParticipantsDTO.getChatParticipantsIds())
+    public Optional<String> getChatIdByChatParticipants(ChatParticipantsDTO chatParticipantsDTO) {
+        return getChatByChatParticipants(chatParticipantsDTO)
                 .map(ChatEntity::getChatId);
     }
+
+    public Optional<ChatEntity> getChatByChatParticipants(ChatParticipantsDTO chatParticipantsDTO) {
+        return chatRepository
+                .findByChatParticipants(chatParticipantsDTO.getChatParticipantsIds());
+    }
+
+
 
     public void saveNewMessageToChatInDatabase(ChatEntity chat, MessageEntity message) {
         chat.getMessageIds().add(message.getMessageId());
@@ -113,4 +119,11 @@ public class ChatUtils {
         return chatRepository.findByChatId(chatId);
     }
 
+    public ChatEntity saveChatInDatabase(ChatEntity chat) {
+        return chatRepository.save(chat);
+    }
+
+    public ChatDTO mapChatToDTO(ChatEntity chatEntity) {
+        return modelMapper.map(chatEntity, ChatDTO.class);
+    }
 }

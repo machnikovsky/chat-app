@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.server.ResponseStatusException;
+import pl.chatty.javabackend.domains.user.model.dto.response.UserDTO;
 import pl.chatty.javabackend.domains.image.model.dto.request.ImageDTO;
 import pl.chatty.javabackend.domains.user.model.entity.UserEntity;
 import pl.chatty.javabackend.domains.user.model.dto.request.CreateUserRequest;
@@ -17,6 +18,7 @@ import pl.chatty.javabackend.domains.user.model.dto.response.UsersListDto;
 import pl.chatty.javabackend.domains.user.service.UserService;
 import pl.chatty.javabackend.domains.user.util.UserUtils;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -88,6 +90,11 @@ public class UserController {
                 log.info(exception.toString());
                 throw new ResponseStatusException(exception.getStatusCode(), exception.getMessage());
             }
+    }
+
+    @PostMapping("/query/{query}")
+    public ResponseEntity<List<UserDTO>> getUsersByQuery(@PathVariable("query") String query) {
+        return userService.getUsersByQuery(query);
     }
 
 

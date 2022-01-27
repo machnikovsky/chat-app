@@ -51,6 +51,7 @@ public class MessageUtils {
         return messageRepository.save(message);
     }
 
+    //TODO: Implement multithreading here!
     public void sendMessage(MessageDTO messageDTO) {
 
         final String content = messageDTO.getMessageContent();

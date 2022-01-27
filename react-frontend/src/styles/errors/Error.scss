@@ -1,0 +1,59 @@
+.general-error-site{
+    width: 100vw;
+    height: 100vh;
+    background-color: #B1E6D9;
+    padding: 5vh;
+
+    &__logo{
+       height: 6vh;
+       
+    }
+
+    &__text-block{
+        position: absolute;
+        left: 20vw;
+        bottom: 40vh;
+        justify-content: center;
+        text-align: center;
+        font-size: 10vh;
+
+        &__title{
+            display: block;
+            color: #525252;
+            font-size: 1em;
+            font-weight: 700;
+        }
+
+        &__cause{
+            display: block;
+            color: #5D5D5D;
+            font-size: 0.4em;
+            font-weight: 600;
+        }
+
+        &__description{
+            display: block;
+            color: #7D7D7D;
+            font-size: 0.25em;
+            font-weight: 600;
+        }
+
+        &__recommendation{
+            display: block;
+            color: #FF4F5A;
+            font-size: 0.2em;
+            font-weight: 700;
+
+            &:hover{
+                cursor: pointer;
+            }
+        }
+    }
+
+    &__image{
+        position: absolute;
+        right: 12vw;
+        bottom: 10vh;
+        height: 65vh;
+    }
+}

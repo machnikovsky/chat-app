@@ -16,6 +16,7 @@ import pl.chatty.javabackend.exception.exceptions.UserEntityNotFoundException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 @Service
 @AllArgsConstructor
@@ -39,7 +40,7 @@ public class ChatService {
         return ResponseEntity.ok(chatUtils.getAllUserChats());
     }
 
-    public ResponseEntity<List<MessageDTO>> getAllChatMessages(String chatId) {
+    public ResponseEntity<CompletableFuture<List<MessageDTO>>> getAllChatMessages(String chatId) {
         return ResponseEntity.ok(chatUtils.getAllChatMessages(chatId, messageUtils));
     }
 

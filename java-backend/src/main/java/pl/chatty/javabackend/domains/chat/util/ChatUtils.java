@@ -1,7 +1,9 @@
 package pl.chatty.javabackend.domains.chat.util;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import pl.chatty.javabackend.domains.chat.model.dto.request.CreateChatRequestDTO;
 import pl.chatty.javabackend.domains.chat.model.dto.response.ChatDTO;
@@ -20,10 +22,13 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Component
+@Slf4j
 public class ChatUtils {
 
     private final ChatRepository chatRepository;
@@ -31,19 +36,35 @@ public class ChatUtils {
     private final ModelMapper modelMapper;
 
 
-    public List<MessageDTO> getAllChatMessages(String chatId, MessageUtils messageUtils) {
+    @Async("asyncTaskExecutor")
+    public CompletableFuture<List<MessageDTO>> getAllChatMessages(String chatId, MessageUtils messageUtils) {
+
+        log.info("Started all chat messages using thread: {}", Thread.currentThread());
+        long timeStart = System.currentTimeMillis();
+
         ChatEntity chat = chatRepository.findByChatId(chatId)
                 .orElseThrow(() -> new RuntimeException("Could not find chat."));
 
-        return chat.getMessageIds().stream()
-                .map(x -> messageUtils.getMessageByMessageId(x).get())
-                .map(x -> new MessageDTO(
-                        chat.getChatId(),
-                        userUtils.getUserByUsername(x.getSenderUsername()).get().getUsername(),
-                        new ArrayList<>(x.getReceiversUsernames().stream().map(y -> userUtils.getUserByUsername(y).get().getUsername()).collect(Collectors.toList())),
-                        x.getContent()
-                ))
+        UserEntity sender = userUtils.getCurrentUser().get();
+        List<String> receiversUsernames = chat.getMembersIds()
+                .stream()
+                .filter(x -> !x.equals(sender.getUserId()))
+                .map(x -> userUtils.getUserById(x))
+                .map(x -> x.get().getUsername())
                 .collect(Collectors.toList());
+
+        List<MessageDTO> messages = chat.getMessageIds().stream()
+                .map(x -> messageUtils.getMessageByMessageId(x).get().getContent())
+                .map(x -> messageUtils.mapMessageToDTO(chat.getChatId(), x, sender.getUsername(), receiversUsernames))
+                .map(CompletableFuture::join)
+                .collect(Collectors.toList());
+
+        long timeEnd = System.currentTimeMillis();
+        log.info("Finished getting all chat messages using thread: {}, took {} ms",
+                Thread.currentThread(), timeEnd - timeStart);
+
+
+        return CompletableFuture.completedFuture(messages);
     }
 
     public List<ChatDTO> getAllUserChats() {

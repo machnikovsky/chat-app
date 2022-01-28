@@ -40,8 +40,8 @@ public class ChatController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<ChatDTO>> getAllUserChats() {
-        return chatService.getAllUserChats();
+    public CompletableFuture<ResponseEntity<List<ChatDTO>>> getAllUserChats() {
+        return chatService.getAllUserChats().thenApply(ResponseEntity::ok);
     }
 
     @GetMapping("/send/{userId}")

@@ -82,15 +82,4 @@ public class MessageUtils {
         log.info("Finished sending message via WebSocket using thread: {}", Thread.currentThread());
         return CompletableFuture.completedFuture("Message send");
     }
-
-    @Async("asyncTaskExecutor")
-        public CompletableFuture<MessageDTO> mapMessageToDTO(String chatId, String content, String senderId, List<String> receiversIds) {
-        MessageDTO dto = new MessageDTO(
-                chatId,
-                senderId,
-                new ArrayList<>(receiversIds),
-                content
-        );
-        return CompletableFuture.completedFuture(dto);
-    }
 }

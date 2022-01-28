@@ -36,8 +36,8 @@ public class ChatService {
                 .orElseThrow(() -> new UserEntityNotFoundException("")); // TODO: Create chat exception
     }
 
-    public ResponseEntity<List<ChatDTO>> getAllUserChats() {
-        return ResponseEntity.ok(chatUtils.getAllUserChats());
+    public CompletableFuture<List<ChatDTO>> getAllUserChats() {
+        return chatUtils.getAllUserChats();
     }
 
     public ResponseEntity<CompletableFuture<List<MessageDTO>>> getAllChatMessages(String chatId) {

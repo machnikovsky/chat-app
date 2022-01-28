@@ -45,18 +45,15 @@ public class ChatUtils {
         ChatEntity chat = chatRepository.findByChatId(chatId)
                 .orElseThrow(() -> new RuntimeException("Could not find chat."));
 
-        UserEntity sender = userUtils.getCurrentUser().get();
-        List<String> receiversUsernames = chat.getMembersIds()
-                .stream()
-                .filter(x -> !x.equals(sender.getUserId()))
-                .map(x -> userUtils.getUserById(x))
-                .map(x -> x.get().getUsername())
-                .collect(Collectors.toList());
 
         List<MessageDTO> messages = chat.getMessageIds().stream()
-                .map(x -> messageUtils.getMessageByMessageId(x).get().getContent())
-                .map(x -> messageUtils.mapMessageToDTO(chat.getChatId(), x, sender.getUsername(), receiversUsernames))
-                .map(CompletableFuture::join)
+                .map(x -> messageUtils.getMessageByMessageId(x).get())
+                .map(x -> new MessageDTO(
+                        chat.getChatId(),
+                        userUtils.getUserByUsername(x.getSenderUsername()).get().getUsername(),
+                        new ArrayList<>(x.getReceiversUsernames().stream().map(y -> userUtils.getUserByUsername(y).get().getUsername()).collect(Collectors.toList())),
+                        x.getContent()
+                ))
                 .collect(Collectors.toList());
 
         long timeEnd = System.currentTimeMillis();
@@ -67,12 +64,14 @@ public class ChatUtils {
         return CompletableFuture.completedFuture(messages);
     }
 
-    public List<ChatDTO> getAllUserChats() {
+    @Async("asyncTaskExecutor")
+    public CompletableFuture<List<ChatDTO>> getAllUserChats() {
+        log.info("Getting all users chats using thread: {}", Thread.currentThread());
         UserEntity user = userUtils.getCurrentUser()
                 .orElseThrow(() -> new UserEntityNotFoundException("")); // TODO: Create chat exception
 
         List<ChatEntity> chats = getAllChatsByUserId(user.getUserId());
-        return chats.stream().map(x -> new ChatDTO(
+        return CompletableFuture.completedFuture(chats.stream().map(x -> new ChatDTO(
                         x.getChatId(),
                                 ("".equals(x.getName()) || x.getName() == null) ?
                                 x.getMembersIds().stream()
@@ -88,7 +87,7 @@ public class ChatUtils {
                                 .map(y -> modelMapper.map(y.get(), UserDTO.class))
                                 .collect(Collectors.toList())
                 )
-        ).collect(Collectors.toList());
+        ).collect(Collectors.toList()));
     }
 
     public ChatEntity createNewChat(CreateChatRequestDTO createChatRequestDTO) {

@@ -1,6 +1,7 @@
 package pl.chatty.javabackend.domains.message.util;
 
 import lombok.AllArgsConstructor;
+import org.bson.types.Binary;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -35,9 +36,10 @@ public class MessageUtils {
     private final UserUtils userUtils;
 
 
-    public MessageEntity createNewMessage(String content, UserEntity author, List<UserEntity> receivers) {
+    public MessageEntity createNewMessage(String content,Binary imageContent, UserEntity author, List<UserEntity> receivers) {
         return new MessageEntity(
                 content,
+                imageContent,
                 LocalDate.now(),
                 MessageType.TEXT,
                 author.getUserId(),
@@ -54,14 +56,15 @@ public class MessageUtils {
     }
 
 
-    public MessageEntity saveNewMessageInDatabase(String content, UserEntity author, List<UserEntity> receivers) {
-        MessageEntity message = createNewMessage(content, author, receivers);
+    public MessageEntity saveNewMessageInDatabase(String content,Binary imageContent, UserEntity author, List<UserEntity> receivers) {
+        MessageEntity message = createNewMessage(content,imageContent, author, receivers);
         return saveMessageInDatabase(message);
     }
 
     public void saveNewMessageInDatabase(MessageDTO message) {
         MessageEntity messageEntity = saveMessageInDatabase(new MessageEntity(
                 message.getMessageContent(),
+                message.getImageContent(),
                 LocalDate.now(),
                 MessageType.TEXT,
                 message.getMessageAuthorUsername(),

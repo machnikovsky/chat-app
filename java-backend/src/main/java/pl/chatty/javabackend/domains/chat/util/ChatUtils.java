@@ -52,7 +52,9 @@ public class ChatUtils {
                         chat.getChatId(),
                         userUtils.getUserByUsername(x.getSenderUsername()).get().getUsername(),
                         new ArrayList<>(x.getReceiversUsernames().stream().map(y -> userUtils.getUserByUsername(y).get().getUsername()).collect(Collectors.toList())),
-                        x.getContent()
+                        x.getMessageType(),
+                        x.getContent(),
+                        x.getImageContent()
                 ))
                 .collect(Collectors.toList());
 

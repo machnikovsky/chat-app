@@ -1,8 +1,10 @@
 package pl.chatty.javabackend.domains.message.util;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestBody;
 import pl.chatty.javabackend.domains.chat.model.entity.ChatEntity;
@@ -19,10 +21,12 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Component
+@Slf4j
 public class MessageUtils {
 
     private final SimpMessagingTemplate simpMessagingTemplate;
@@ -40,6 +44,7 @@ public class MessageUtils {
                 new ArrayList<>(receivers.stream().map(UserEntity::getUserId).collect(Collectors.toList()))
         );
     }
+
     public Optional<MessageEntity> getMessageByMessageId(String messageId) {
         return messageRepository.findById(messageId);
     }
@@ -48,24 +53,6 @@ public class MessageUtils {
         return messageRepository.save(message);
     }
 
-    //TODO: Implement multithreading here!
-    public void sendMessage(MessageDTO messageDTO) {
-
-        final String content = messageDTO.getMessageContent();
-        final UserEntity messageAuthor = userUtils.getUserByUsername(messageDTO.getMessageAuthorUsername())
-                .orElseThrow(() -> new UserEntityNotFoundException(messageDTO.getMessageAuthorUsername()));
-        final List<UserEntity> messageReceivers = messageDTO.getMessageReceiversUsernames()
-                .stream()
-                .map(x -> userUtils.getUserById(x).get())
-                .collect(Collectors.toList());
-
-
-        final ChatEntity chat = chatUtils.getChatByChatId(messageDTO.getChatId())
-                .orElseThrow(() -> new UserEntityNotFoundException(messageDTO.getMessageReceiversUsernames().toString())); // TODO: Create chat exception
-
-        final MessageEntity message = saveNewMessageInDatabase(content, messageAuthor, messageReceivers);
-        chatUtils.saveNewMessageToChatInDatabase(chat, message);
-    }
 
     public MessageEntity saveNewMessageInDatabase(String content, UserEntity author, List<UserEntity> receivers) {
         MessageEntity message = createNewMessage(content, author, receivers);
@@ -86,10 +73,13 @@ public class MessageUtils {
         );
     }
 
-    public String sendMessageSocket(@DestinationVariable String chatID, @RequestBody MessageDTO message){
-        System.out.println("Sending message \"" + message.getMessageContent() + "\" to \"" + chatID + "\"");
+    @Async("asyncTaskExecutor")
+    public CompletableFuture<String> sendMessageSocket(@DestinationVariable String chatID, @RequestBody MessageDTO message) throws InterruptedException {
+        log.info("Starting to send message via WebSocket using thread: {}", Thread.currentThread());
+        Thread.sleep(200);
         simpMessagingTemplate.convertAndSend("/topic/message/" + chatID, message);
         saveNewMessageInDatabase(message);
-        return "Message send";
+        log.info("Finished sending message via WebSocket using thread: {}", Thread.currentThread());
+        return CompletableFuture.completedFuture("Message send");
     }
 }

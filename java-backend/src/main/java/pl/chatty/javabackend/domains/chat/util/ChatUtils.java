@@ -1,7 +1,9 @@
 package pl.chatty.javabackend.domains.chat.util;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import pl.chatty.javabackend.domains.chat.model.dto.request.CreateChatRequestDTO;
 import pl.chatty.javabackend.domains.chat.model.dto.response.ChatDTO;
@@ -20,10 +22,13 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Component
+@Slf4j
 public class ChatUtils {
 
     private final ChatRepository chatRepository;
@@ -31,11 +36,17 @@ public class ChatUtils {
     private final ModelMapper modelMapper;
 
 
-    public List<MessageDTO> getAllChatMessages(String chatId, MessageUtils messageUtils) {
+    @Async("asyncTaskExecutor")
+    public CompletableFuture<List<MessageDTO>> getAllChatMessages(String chatId, MessageUtils messageUtils) {
+
+        log.info("Started all chat messages using thread: {}", Thread.currentThread());
+        long timeStart = System.currentTimeMillis();
+
         ChatEntity chat = chatRepository.findByChatId(chatId)
                 .orElseThrow(() -> new RuntimeException("Could not find chat."));
 
-        return chat.getMessageIds().stream()
+
+        List<MessageDTO> messages = chat.getMessageIds().stream()
                 .map(x -> messageUtils.getMessageByMessageId(x).get())
                 .map(x -> new MessageDTO(
                         chat.getChatId(),
@@ -44,14 +55,23 @@ public class ChatUtils {
                         x.getContent()
                 ))
                 .collect(Collectors.toList());
+
+        long timeEnd = System.currentTimeMillis();
+        log.info("Finished getting all chat messages using thread: {}, took {} ms",
+                Thread.currentThread(), timeEnd - timeStart);
+
+
+        return CompletableFuture.completedFuture(messages);
     }
 
-    public List<ChatDTO> getAllUserChats() {
+    @Async("asyncTaskExecutor")
+    public CompletableFuture<List<ChatDTO>> getAllUserChats() {
+        log.info("Getting all users chats using thread: {}", Thread.currentThread());
         UserEntity user = userUtils.getCurrentUser()
                 .orElseThrow(() -> new UserEntityNotFoundException("")); // TODO: Create chat exception
 
         List<ChatEntity> chats = getAllChatsByUserId(user.getUserId());
-        return chats.stream().map(x -> new ChatDTO(
+        return CompletableFuture.completedFuture(chats.stream().map(x -> new ChatDTO(
                         x.getChatId(),
                                 ("".equals(x.getName()) || x.getName() == null) ?
                                 x.getMembersIds().stream()
@@ -67,7 +87,7 @@ public class ChatUtils {
                                 .map(y -> modelMapper.map(y.get(), UserDTO.class))
                                 .collect(Collectors.toList())
                 )
-        ).collect(Collectors.toList());
+        ).collect(Collectors.toList()));
     }
 
     public ChatEntity createNewChat(CreateChatRequestDTO createChatRequestDTO) {

@@ -13,6 +13,7 @@ import pl.chatty.javabackend.domains.chat.service.ChatService;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 
 @RestController
@@ -25,9 +26,10 @@ public class ChatController {
 
 
     @GetMapping("/{chatId}/messages")
-    public ResponseEntity<List<MessageDTO>> getAllChatMessages(@PathVariable String chatId) {
+    public ResponseEntity<CompletableFuture<List<MessageDTO>>> getAllChatMessages(@PathVariable String chatId) {
         return chatService.getAllChatMessages(chatId);
     }
+
 
     @PostMapping("/new")
     public ResponseEntity<String> createChatAndGetChatId(@RequestBody  CreateChatRequestDTO createChatRequestDTO) {
@@ -40,8 +42,8 @@ public class ChatController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<ChatDTO>> getAllUserChats() {
-        return chatService.getAllUserChats();
+    public CompletableFuture<ResponseEntity<List<ChatDTO>>> getAllUserChats() {
+        return chatService.getAllUserChats().thenApply(ResponseEntity::ok);
     }
 
     @GetMapping("/send/{userId}")

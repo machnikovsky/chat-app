@@ -18,6 +18,7 @@ import pl.chatty.javabackend.domains.user.util.UserUtils;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
@@ -62,7 +63,7 @@ public class UserController {
     }
 
     @PostMapping("/query/{query}")
-    public ResponseEntity<List<UserDTO>> getUsersByQuery(@PathVariable("query") String query) {
+    public CompletableFuture<ResponseEntity<List<UserDTO>>> getUsersByQuery(@PathVariable("query") String query) {
         return userService.getUsersByQuery(query);
     }
 

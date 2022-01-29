@@ -12,8 +12,8 @@ const getUserChats = () => {
 };
 
 const getChatMessages = (chatId) => {
-  return axios.get(API_URL + `chat/${chatId}/messages`, {});
-};
+    return axios.get(API_URL + `chat/${chatId}/messages`, { headers: authHeader() });
+}
 
 const me = async () => {
   return await axios

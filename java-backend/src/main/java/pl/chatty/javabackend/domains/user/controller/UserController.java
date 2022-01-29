@@ -1,6 +1,6 @@
 package pl.chatty.javabackend.domains.user.controller;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.Binary;
 import org.springframework.data.domain.PageRequest;
@@ -15,19 +15,24 @@ import org.springframework.web.server.ResponseStatusException;
 import pl.chatty.javabackend.domains.user.model.dto.response.UserDTO;
 import pl.chatty.javabackend.domains.user.model.entity.UserEntity;
 import pl.chatty.javabackend.domains.user.model.dto.request.CreateUserRequest;
+import pl.chatty.javabackend.domains.user.model.dto.request.UpdatePasswordRequest;
+import pl.chatty.javabackend.domains.user.model.dto.response.UserDTO;
 import pl.chatty.javabackend.domains.user.model.dto.response.UsersListDto;
+import pl.chatty.javabackend.domains.user.model.entity.UserEntity;
 import pl.chatty.javabackend.domains.user.service.UserService;
 import pl.chatty.javabackend.domains.user.util.UserUtils;
+import pl.chatty.javabackend.exception.exceptions.UserEntityNotFoundException;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/user")
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class UserController {
 
     private final UserService userService;
@@ -41,67 +46,38 @@ public class UserController {
     //TODO: Move these to service/utils
     @DeleteMapping(path = "/{userId}")
     public ResponseEntity<String> removeUser(@PathVariable("userId") String userId) {
-        try {
-            ResponseEntity<String> responseEntity = userService.removeUser(userId);
-            log.info(responseEntity.getBody());
-            return responseEntity;
-        } catch (HttpClientErrorException exception) {
-            log.info(exception.toString());
-            throw new ResponseStatusException(exception.getStatusCode(), exception.getMessage());
-        }
+        return userService.removeUser(userId);
     }
 
-    //TODO: Move these to service/utils
-    @PutMapping(path =  "/{userId}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(path = "/{userId}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> updateUser(@PathVariable("userId") String userId,
                                              @RequestBody CreateUserRequest requestBody) {
-        try {
-            ResponseEntity<String> responseEntity = userService.updateUser(userId, requestBody);
-            log.info(responseEntity.getBody());
-            return responseEntity;
-        } catch (HttpClientErrorException exception) {
-            log.info(exception.toString());
-            throw new ResponseStatusException(exception.getStatusCode(), exception.getMessage());
-        }
+        return userService.updateUser(userId, requestBody);
     }
 
     //TODO: Move these to service/utils
     @GetMapping(path = "/{userId}")
     public ResponseEntity<UserEntity> getUser(@PathVariable("userId") String userId) {
-        try {
-            ResponseEntity<UserEntity> responseEntity = userService.getUser(userId);
-            log.info(String.valueOf(responseEntity.getBody()));
-            return responseEntity;
-        } catch (HttpClientErrorException exception) {
-            log.info(exception.toString());
-            throw new ResponseStatusException(exception.getStatusCode(), exception.getMessage());
-        }
+        return userService.getUser(userId);
     }
 
     //TODO: Move these to service/utils
     @GetMapping(path = "/all")
     public ResponseEntity<UsersListDto> getUsers(@RequestParam(name = "page", required = false, defaultValue = "0") int page,
                                                  @RequestParam(name = "size", required = false, defaultValue = "10") int size) {
-            try {
-                Pageable paging = PageRequest.of(page, size);
-                UsersListDto usersListDto = userUtils.getUsers(paging);
-                log.info(String.valueOf(usersListDto.getUsers()));
-                return new ResponseEntity<>(usersListDto, HttpStatus.OK);
-            } catch (HttpClientErrorException exception) {
-                log.info(exception.toString());
-                throw new ResponseStatusException(exception.getStatusCode(), exception.getMessage());
-            }
+        return userService.getUsers(page, size);
+    }
+
+    @PutMapping("/{userId}/password")
+    public ResponseEntity<String> updatePassword(@PathVariable String userId, @RequestBody UpdatePasswordRequest requestBody) {
+        return userService.updatePassword(userId, requestBody);
     }
 
     @PostMapping("/query/{query}")
-    public ResponseEntity<List<UserDTO>> getUsersByQuery(@PathVariable("query") String query) {
+    public CompletableFuture<ResponseEntity<List<UserDTO>>> getUsersByQuery(@PathVariable("query") String query) {
         return userService.getUsersByQuery(query);
     }
 
-    @PutMapping("/{userID}/password")
-    public ResponseEntity<String> updatePassword(@PathVariable int userID, @RequestBody Map<String, String> json) {
-        return new ResponseEntity<>("Password successful updated", HttpStatus.OK);
-    }
 
     @PostMapping("/{userID}/friend/{friendID}")
     public ResponseEntity<String> addUserToFriends(@PathVariable String userID,
@@ -109,9 +85,9 @@ public class UserController {
         return null;
     }
 
-    @DeleteMapping ("/{userID}/friend/{friendID}")
+    @DeleteMapping("/{userID}/friend/{friendID}")
     public ResponseEntity<String> removeUserFromFriends(@PathVariable int userID,
-                                                        @PathVariable int friendID, @RequestBody Map<String, String> json){
+                                                        @PathVariable int friendID, @RequestBody Map<String, String> json) {
         return new ResponseEntity<>("Successful removed friend", HttpStatus.OK);
     }
 

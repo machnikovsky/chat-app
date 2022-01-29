@@ -1,6 +1,7 @@
 package pl.chatty.javabackend.domains.chat.controller;
 
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,20 +13,23 @@ import pl.chatty.javabackend.domains.chat.service.ChatService;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
-@AllArgsConstructor
+
 @RestController
 @RequestMapping("/chat")
 @CrossOrigin(origins = "http://localhost:3000")
+@RequiredArgsConstructor
 public class ChatController {
 
     private final ChatService chatService;
 
 
     @GetMapping("/{chatId}/messages")
-    public ResponseEntity<List<MessageDTO>> getAllChatMessages(@PathVariable String chatId) {
+    public ResponseEntity<CompletableFuture<List<MessageDTO>>> getAllChatMessages(@PathVariable String chatId) {
         return chatService.getAllChatMessages(chatId);
     }
+
 
     @PostMapping("/new")
     public ResponseEntity<String> createChatAndGetChatId(@RequestBody  CreateChatRequestDTO createChatRequestDTO) {
@@ -38,8 +42,8 @@ public class ChatController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<ChatDTO>> getAllUserChats() {
-        return chatService.getAllUserChats();
+    public CompletableFuture<ResponseEntity<List<ChatDTO>>> getAllUserChats() {
+        return chatService.getAllUserChats().thenApply(ResponseEntity::ok);
     }
 
     @GetMapping("/send/{userId}")

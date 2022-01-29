@@ -2,15 +2,20 @@ package pl.chatty.javabackend.security.controller;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.server.ResponseStatusException;
 import pl.chatty.javabackend.domains.user.model.dto.request.CreateUserRequest;
+import pl.chatty.javabackend.domains.user.model.dto.response.UserDTO;
+import pl.chatty.javabackend.domains.user.model.entity.UserEntity;
+import pl.chatty.javabackend.exception.exceptions.UserEntityNotFoundException;
 import pl.chatty.javabackend.security.jwt.ChattyUserDetailsService;
 import pl.chatty.javabackend.security.jwt.JwtAuthRequest;
 import pl.chatty.javabackend.security.jwt.JwtAuthResponse;
@@ -51,7 +56,27 @@ public class AuthController {
         return ResponseEntity.ok(new JwtAuthResponse(jwtToken));
     }
 
-    @PostMapping(path = "/register")// , consumes = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path="/me", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<UserDTO> me() {
+        try {
+            UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            UserEntity userEntity = userService.getUserByUsername(userDetails.getUsername());
+
+            //TODO use modelmapper
+            return new ResponseEntity<>(UserDTO.builder()
+                    .firstName(userEntity.getFirstName())
+                    .lastName(userEntity.getLastName())
+                    .userId(userEntity.getUserId())
+                    .username(userEntity.getUsername())
+                    .profileImage(userEntity.getProfileImage())
+                    .build(), HttpStatus.OK);
+        } catch (UserEntityNotFoundException userEntityNotFoundException) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+
+    @PostMapping(path = "/register") // , consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> registerUser(@RequestBody CreateUserRequest requestBody){
         try {
             ResponseEntity<String> responseEntity = userService.addUser(requestBody);

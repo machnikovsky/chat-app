@@ -46,14 +46,14 @@ const logout = () => {
 };
 
 const getCurrentUser = () => {
-  return axios.get(API_URL + 'username', { headers: authHeader() })
-  .then(res => {
-    return res.data;
-  })
-  .catch(err => {
-    console.log("Error getting username: ", err.message)
-  })
-  ;
+  return axios
+    .get(API_URL + "username", { headers: authHeader() })
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      console.log("Error getting username: ", err.message);
+    });
 };
 
 const Auth = {

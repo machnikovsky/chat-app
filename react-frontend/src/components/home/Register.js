@@ -2,14 +2,13 @@ import { Link } from "react-router-dom"
 import logo from '../../assets/placeholder.png'
 import username from '../../assets/username_logo.png'
 import password from '../../assets/password_logo.png'
-import button from '../../assets/login_button.png'
 
 
 const Register = () => {
     return(
         <div className="register-container">
-            <div className="register-window">
-                <div className = "register-container">
+             <div className="register-window">
+                <div className = "logo-container">
                     <img src={logo} alt="x" />
                 </div>
                 <div className = "form-container">
@@ -18,7 +17,6 @@ const Register = () => {
                         <div className="username register_div">
                             <label for="username">Username</label>
                             <div className="input-div">
-                                <img src={username} alt="" />
                                 <input type="text" id="username" name="username"/>
                             </div>
                         </div>
@@ -43,14 +41,12 @@ const Register = () => {
                         <div className="password register_div">   
                             <label for="password">Password</label>
                             <div className="input-div">
-                                <img src={password} alt="" />
                                 <input type="password" id="password" name="password"/>
                             </div>
                         </div>
                         <div className="password register_div">   
                             <label for="password">Repeat password</label>
                             <div className="input-div">
-                                <img src={password} alt="" />
                                 <input type="password" id="repeated_password" name="repeated_password"/>
                             </div>
                         </div>
@@ -61,17 +57,16 @@ const Register = () => {
                             </div>
                         </div>
                         <div className="gender register_div">
-                            <label for="gender"> Male</label>
                             <input type="radio" id="gender" name="gender" value="Male"/>
-                            <label for="gender"> Famale</label>
+                            <label for="gender"> Male</label>
                             <input type="radio" id="gender" name="gender" value="Famale"/>
-                            <label for="gender"> Other</label>
+                            <label for="gender"> Famale</label>
                             <input type="radio" id="gender" name="gender" value="Other"/>
+                            <label for="gender"> Other</label>
                         </div>
-                        <Link to="/chats"><input type="image" src={button}></input></Link>
                     </form>
-                </div>
-            </div>
+                </div> 
+            </div> 
         </div>
     )
 }

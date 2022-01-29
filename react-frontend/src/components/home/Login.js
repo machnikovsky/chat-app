@@ -1,7 +1,8 @@
 import logo from '../../assets/placeholder.png'
 import username from '../../assets/username_logo.png'
 import password_logo from '../../assets/password_logo.png'
-import button from '../../assets/login_button.png'
+import login_button from '../../assets/login_button.png'
+import signup_button from '../../assets/signup_button.png'
 import {useContext, useEffect, useState} from "react"
 import UserContext from "../../auth/UserContext";
 import Auth from "../../auth/Auth";
@@ -38,6 +39,11 @@ const Login = () => {
                 setInvalidInput(false);
                 setBadCredentials(true);
             });
+    }
+
+    const handleRegister = (e) => {
+        e.preventDefault();
+        navigate('/register');
     }
 
     return(
@@ -77,7 +83,10 @@ const Login = () => {
                         </div>
 
                         <button className="login-button" onClick={handleLogin}>
-                            <img src={button}/>
+                            <img src={login_button}/>
+                        </button>
+                        <button className="register-button" onClick={handleRegister}>
+                            <img src={signup_button}/>
                         </button>
                         { invalidInput && <div className={"bad-credentials"}>Wprowadź wszystkie dane.</div>}
                         { badCredentials && <div className={"bad-credentials"}>Login lub hasło niepoprawne.</div>}

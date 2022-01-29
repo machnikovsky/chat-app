@@ -1,5 +1,7 @@
 package pl.chatty.javabackend.domains.user.service;
 
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import lombok.RequiredArgsConstructor;
 import org.bson.BsonBinarySubType;
@@ -8,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import pl.chatty.javabackend.domains.user.model.dto.request.CreateUserRequest;
@@ -21,9 +24,11 @@ import pl.chatty.javabackend.exception.exceptions.UserEntityNotFoundException;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class UserService {
 
@@ -92,14 +97,16 @@ public class UserService {
         return ResponseEntity.ok(userUtils.getUsersBesideSelf());
     }
 
-    public ResponseEntity<List<UserDTO>> getUsersByQuery(String query) {
+    @Async("asyncTaskExecutor")
+    public CompletableFuture<ResponseEntity<List<UserDTO>>> getUsersByQuery(String query) {
+        log.info("Getting users by query using thread: {}", Thread.currentThread());
         String loggedInUser = userUtils.getCurrentUserUsername()
                 .orElseThrow(() -> new UserEntityNotFoundException("currently logged in user"));
         List<UserEntity> users = userRepository.findAllByUsernameContainingIgnoreCaseOrFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCase(
                 query, query, query
         ).stream().filter(x -> !loggedInUser.equals(x.getUsername())).collect(Collectors.toList());
 
-        return ResponseEntity.ok(userUtils.mapUsersToUsersDTO(users));
+        return CompletableFuture.completedFuture(ResponseEntity.ok(userUtils.mapUsersToUsersDTO(users)));
     }
 
     public ResponseEntity<String> setUserProfileImage(MultipartFile file) throws IOException {

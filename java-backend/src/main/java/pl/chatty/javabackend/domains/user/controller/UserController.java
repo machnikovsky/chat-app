@@ -2,13 +2,11 @@ package pl.chatty.javabackend.domains.user.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.bson.types.Binary;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.server.ResponseStatusException;
-import pl.chatty.javabackend.domains.image.model.dto.request.ImageDTO;
 import pl.chatty.javabackend.domains.user.model.dto.request.CreateUserRequest;
 import pl.chatty.javabackend.domains.user.model.dto.request.UpdatePasswordRequest;
 import pl.chatty.javabackend.domains.user.model.dto.response.UserDTO;
@@ -19,7 +17,6 @@ import pl.chatty.javabackend.domains.user.util.UserUtils;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
@@ -88,15 +85,7 @@ public class UserController {
     }
 
     @PostMapping("/profilepicture")
-    public ResponseEntity<String> setUserProfileImage(@RequestBody ImageDTO imageDTO) {
-        try {
-            Optional<UserEntity> user = userUtils.getCurrentUser();
-            CreateUserRequest userRequest = new CreateUserRequest();
-            userService.updateUser(user.get().getUserId(), null);
-        } catch (HttpClientErrorException exception) {
-            log.info(exception.toString());
-            throw new ResponseStatusException(exception.getStatusCode(), exception.getMessage());
-        }
-        return new ResponseEntity<>("User's profile image successfully changed", HttpStatus.OK);
+    public ResponseEntity<String> setUserProfileImage(@RequestBody Binary image) {
+        return userService.setUserProfileImage(image);
     }
 }

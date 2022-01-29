@@ -18,14 +18,13 @@ const Register = () => {
     const [password,setPassword] = useState('');
     const [repeated_password,setRepeatedPassword] = useState('');
     const [phone_number,setPhoneNumber] = useState('');
-    const [gender,setGender] = useState('Other');
-    
+    const [gender,setGender] = useState('OTHER');
+    const userRole = 'USER';
     const [invalidInput, setInvalidInput] = useState(false);
     const [passwordsError, setPasswordError] = useState(false);
     
     let registerUser = () => {
-        console.log(`Sent register request for ${email}`)
-        Auth.register(username,firstname,lastname,email,password,phone_number,gender);
+        Auth.register(username,firstname,lastname,email,password,phone_number,gender,userRole,null);
         navigate('/');
     }
 
@@ -52,7 +51,7 @@ const Register = () => {
     return(
         <div className="register-container">
              <div className="register-window">
-                <div className = "logo-container">
+                <div className = "logo-container" onClick={(e) => navigate('/')}>
                     <img src={logo} alt="x" />
                 </div>
                 <div className = "form-container">
@@ -129,10 +128,11 @@ const Register = () => {
                             <div className="input-div">
                                 <input 
                                     type="tel"
-                                    pattern="[0-9]{9}"
                                     id="phone_number"
                                     name="phone_number"
-                                    value={(e) => setPhoneNumber(e.target.value)}/>
+                                    value={phone_number}
+                                    onChange = {(e) => setPhoneNumber(e.target.value)}
+                                    />
                             </div>
                         </div>
                         <div className="gender register_div">
@@ -140,24 +140,24 @@ const Register = () => {
                                 type="radio"
                                 id="gender"
                                 name="gender"
-                                value="Male"
-                                checked={gender === 'Male'} 
+                                value="MALE"
+                                checked={gender === 'MALE'} 
                                 onChange={(e) => setGender(e.target.value)} />
                             <label for="gender"> Male</label>
                             <input 
                                 type="radio"
                                 id="gender"
                                 name="gender"
-                                value="Famale"
-                                checked={gender === 'Famale'} 
+                                value="FAMALE"
+                                checked={gender === 'FAMALE'} 
                                 onChange={(e) => setGender(e.target.value)} />
                             <label for="gender"> Famale</label>
                             <input 
                                 type="radio"
                                 id="gender"
                                 name="gender"
-                                value="Other"
-                                checked={gender === 'Other'} 
+                                value="OTHER"
+                                checked={gender === 'OTHER'} 
                                 onChange={(e) => setGender(e.target.value)} />
                             <label for="gender"> Other</label>
                         </div>

@@ -3,23 +3,25 @@ import authHeader from "../auth/AuthHeader";
 
 const API_URL = "http://localhost:8080/auth/";
 
-
-
 const register = (username,
                   firstName,
                   lastName,
                   email,
                   password,
                   phoneNumber,
-                  gender) => {
-  return axios.post(API_URL + "register", {
+                  gender,
+                  userRole,
+                  profileImage) => {
+  return axios.post(API_URL + "register",{
     username,
     firstName,
     lastName,
     email,
     password,
     phoneNumber,
-    gender
+    profileImage,
+    gender,
+    userRole,
   });
 };
 

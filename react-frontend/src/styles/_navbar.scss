@@ -1,0 +1,27 @@
+.navbar-container {
+    width: 100%;
+    background-color: #abeeb49f;
+    height: 10vh;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    .navbar-element {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        .navbar-button {
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+            height: 70%;
+            width: 15vw;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            border-radius: 5px;
+            background-color: rgba(166, 211, 247, 0.301);
+            font-size: 1.3em;
+            font-family: Raleway;
+            color: #333;
+        }
+    }
+}

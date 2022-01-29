@@ -20,6 +20,7 @@ public class UserEntity {
     private String email;
     private String password;
     private String phoneNumber;
+    private String profileImage;
 
     private Gender gender;
     private UsersRole usersRole;
@@ -28,7 +29,7 @@ public class UserEntity {
     private ArrayList<UserEntity> blockedUsers;
 
     public UserEntity(String username, String firstName, String lastName, String email, String password,
-                      String phoneNumber, Gender gender, UsersRole usersRole, ArrayList<UserEntity> friends,
+                      String phoneNumber,String profileImage, Gender gender, UsersRole usersRole, ArrayList<UserEntity> friends,
                       ArrayList<UserEntity> blockedUsers) {
         this.username = username;
         this.firstName = firstName;
@@ -36,6 +37,7 @@ public class UserEntity {
         this.email = email;
         this.password = password;
         this.phoneNumber = phoneNumber;
+        this.profileImage = profileImage;
         this.gender = gender;
         this.usersRole = usersRole;
         this.friends = friends;

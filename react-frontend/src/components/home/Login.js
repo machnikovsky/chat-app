@@ -1,11 +1,10 @@
-import { Link } from "react-router-dom";
-import logo from "../assets/placeholder.png";
-import username from "../assets/username_logo.png";
-import password_logo from "../assets/password_logo.png";
-import button from "../assets/login_button.png";
+import logo from "../../assets/placeholder.png";
+import username from "../../assets/username_logo.png";
+import password_logo from "../../assets/password_logo.png";
+import button from "../../assets/login_button.png";
 import { useContext, useEffect, useState } from "react";
-import UserContext from "../auth/UserContext";
-import Auth from "../auth/Auth";
+import UserContext from "../../auth/UserContext";
+import Auth from "../../auth/Auth";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {

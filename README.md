@@ -3,11 +3,13 @@
 </p>
 
 # Description
+A simple chat application, where you can create an account, search for new people and chat with them!
+
 # Technologies
-:coffee: Java
+:coffee: Java 
 :leaves: Spring 
-:atom_symbol:	React
-:fire:	FireBase
+:atom_symbol:	React 
+:seedling: MongoDB
 
 ## Contributors
 

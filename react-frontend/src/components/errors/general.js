@@ -15,7 +15,7 @@ function General(){
                  <span className="general-error-site__text-block__title">Oh no!</span>
                  <span className="general-error-site__text-block__cause">SOMETHING WENT WRONG</span>
                  <span className="general-error-site__text-block__description">An unexpected error has occured</span>
-                 <span onClick={() => navigate("/")} className="general-error-site__text-block__recommendation">return to the home page</span>
+                 <span onClick={() => localStorage.getItem("user") ? navigate("/chats") : navigate("/")} className="general-error-site__text-block__recommendation">return to the home page</span>
              </div>
              <img className="general-error-site__image" src={Image}/>
          </div>

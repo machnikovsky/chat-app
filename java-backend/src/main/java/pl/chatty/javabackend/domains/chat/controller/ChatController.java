@@ -44,6 +44,11 @@ public class ChatController {
         return chatService.getAllUserChats();
     }
 
+    @GetMapping("/send/{userId}")
+    public ResponseEntity<ChatDTO> getExistingChatOrCreateNew(@PathVariable("userId") String userId) {
+        return chatService.getExistingChatOrCreateNew(userId);
+    }
+
 
 
 

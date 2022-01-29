@@ -25,10 +25,23 @@ const me = async () => {
       console.log("Authentication error", err.response.data);
     });
 };
+const getAndSetQueriedListWithNewQuery = (query, set) => {
+  return axios.post(
+    API_URL + `user/query/${query}`,
+    {},
+    { headers: authHeader() }
+  );
+};
+
+const getChatDtoOrCreateNewAndRetrieveIfNotPresent = (userId) => {
+  return axios.get(API_URL + `chat/send/${userId}`, { headers: authHeader() });
+};
 
 export const ApiCall = {
   getAllUsersBesideSelf,
   getUserChats,
   getChatMessages,
+  getAndSetQueriedListWithNewQuery,
+  getChatDtoOrCreateNewAndRetrieveIfNotPresent,
   me,
 };

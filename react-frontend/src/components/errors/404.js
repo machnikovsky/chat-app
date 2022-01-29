@@ -4,7 +4,7 @@ import "../../styles/errors/Error.scss"
 import {useNavigate} from "react-router-dom"
 import React from "react";
 
-function Error(props){
+function Error(){
 
     const navigate = useNavigate();
 
@@ -14,7 +14,7 @@ function Error(props){
              <div className="general-error-site__text-block">
                  <span className="general-error-site__text-block__title">404</span>
                  <span className="general-error-site__text-block__cause">Page not found</span>
-                 <span onClick={() => navigate("/")}className="general-error-site__text-block__recommendation">return to the home page</span>
+                 <span onClick={() => localStorage.getItem("user") ? navigate("/chats") : navigate("/")}className="general-error-site__text-block__recommendation">return to the home page</span>
              </div>
              <img className="general-error-site__image" src={Image}/>
          </div>

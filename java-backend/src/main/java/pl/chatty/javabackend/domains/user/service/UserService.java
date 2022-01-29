@@ -1,6 +1,5 @@
 package pl.chatty.javabackend.domains.user.service;
 
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -9,11 +8,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import pl.chatty.javabackend.domains.user.model.dto.request.CreateUserRequest;
 import pl.chatty.javabackend.domains.user.model.dto.request.UpdatePasswordRequest;
+import pl.chatty.javabackend.domains.user.model.dto.response.UserDTO;
 import pl.chatty.javabackend.domains.user.model.dto.response.UsersListDto;
 import pl.chatty.javabackend.domains.user.model.entity.UserEntity;
 import pl.chatty.javabackend.domains.user.repository.UserRepository;
 import pl.chatty.javabackend.domains.user.util.UserUtils;
 import pl.chatty.javabackend.exception.exceptions.UserEntityNotFoundException;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -40,7 +43,7 @@ public class UserService {
     }
 
     public ResponseEntity<String> updateUser(String userId, CreateUserRequest requestBody) {
-        if(userUtils.updateUser(userId, requestBody)) {
+        if (userUtils.updateUser(userId, requestBody)) {
             return new ResponseEntity<>("User successfully updated", HttpStatus.OK);
         } else {
             return new ResponseEntity<>("User not found", HttpStatus.BAD_REQUEST);
@@ -82,5 +85,15 @@ public class UserService {
 
     public ResponseEntity<UsersListDto> getUsersBesideSelf() {
         return ResponseEntity.ok(userUtils.getUsersBesideSelf());
+    }
+
+    public ResponseEntity<List<UserDTO>> getUsersByQuery(String query) {
+        String loggedInUser = userUtils.getCurrentUserUsername()
+                .orElseThrow(() -> new UserEntityNotFoundException("currently logged in user"));
+        List<UserEntity> users = userRepository.findAllByUsernameContainingIgnoreCaseOrFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCase(
+                query, query, query
+        ).stream().filter(x -> !loggedInUser.equals(x.getUsername())).collect(Collectors.toList());
+
+        return ResponseEntity.ok(userUtils.mapUsersToUsersDTO(users));
     }
 }

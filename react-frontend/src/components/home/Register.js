@@ -18,7 +18,6 @@ const Register = () => {
     const [repeated_password,setRepeatedPassword] = useState('');
     const [phone_number,setPhoneNumber] = useState('');
     const [gender,setGender] = useState('OTHER');
-    const userRole = 'USER';
     const [invalidInput, setInvalidInput] = useState(false);
     const [passwordsError, setPasswordError] = useState(false);
 

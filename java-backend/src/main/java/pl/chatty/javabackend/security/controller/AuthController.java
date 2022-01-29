@@ -56,7 +56,7 @@ public class AuthController {
         return ResponseEntity.ok(new JwtAuthResponse(jwtToken));
     }
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path="/me", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserDTO> me() {
         try {
             UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();

@@ -7,6 +7,7 @@ import org.bson.BsonBinarySubType;
 import org.bson.types.Binary;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.util.Optionals;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
@@ -85,11 +86,8 @@ public class UserService {
     }
 
     public UserEntity getUserByUsername(String username) {
-        if (userRepository.existsByUsername(username)) {
-            return userRepository.getUserEntityByUsername(username);
-        } else {
-            throw new UserEntityNotFoundException("User not found");
-        }
+        return userRepository.findByUsernameIgnoreCase(username).orElseThrow(() ->
+                new UserEntityNotFoundException("User not found"));
     }
 
     public ResponseEntity<UsersListDto> getUsersBesideSelf() {

@@ -12,12 +12,14 @@ const getUserChats = () => {
 };
 
 const getChatMessages = (chatId) => {
-    return axios.get(API_URL + `chat/${chatId}/messages`, { headers: authHeader() });
-}
+  return axios.get(API_URL + `chat/${chatId}/messages`, {
+    headers: authHeader(),
+  });
+};
 
 const me = async () => {
   return await axios
-    .get(API_URL + "auth", { headers: authHeader() })
+    .get(API_URL + "auth/me", { headers: authHeader() })
     .then((res) => {
       return res.data;
     })

@@ -8,6 +8,8 @@ import Auth from "../../auth/Auth";
 
 const Register = () => {
 
+    const navigate = useNavigate();
+    
     const [username,setUsername] = useState('');
     const [email,setEmail] = useState('');
     const [firstname,setFirstName] = useState('');

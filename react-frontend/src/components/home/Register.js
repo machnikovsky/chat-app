@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 import { Link } from "react-router-dom"
 import logo from '../../assets/placeholder.png'
 import signup_button from '../../assets/signup_button.png'
@@ -9,7 +10,7 @@ import Auth from "../../auth/Auth";
 const Register = () => {
 
     const navigate = useNavigate();
-    
+
     const [username,setUsername] = useState('');
     const [email,setEmail] = useState('');
     const [firstname,setFirstName] = useState('');

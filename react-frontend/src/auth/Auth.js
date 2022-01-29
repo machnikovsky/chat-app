@@ -6,16 +6,20 @@ const API_URL = "http://localhost:8080/auth/";
 
 
 const register = (username,
+                  firstName,
+                  lastName,
                   email,
                   password,
-                  firstName,
-                  lastName) => {
+                  phoneNumber,
+                  gender) => {
   return axios.post(API_URL + "register", {
     username,
-    email,
-    password,
     firstName,
     lastName,
+    email,
+    password,
+    phoneNumber,
+    gender
   });
 };
 

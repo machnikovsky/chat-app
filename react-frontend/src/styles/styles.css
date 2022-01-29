@@ -310,7 +310,7 @@ a {
 
 .form-container h1 {
   font-family: 'Saira Condensed', sans-serif;
-  margin: 20px 10px;
+  margin: 10px;
   font-size: 50px;
   text-align: center;
 }
@@ -623,7 +623,7 @@ a {
           box-shadow: 0px 0px 20px 0px #807b7b;
   border-radius: 30px;
   width: 50vw;
-  height: 60vh;
+  height: 80vh;
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: 3fr 4fr;
@@ -655,7 +655,7 @@ a {
 }
 
 .register-form .input-div{
-  margin: 0px 0px;
+  margin: 0px 0px 3px 0px;
   border: 0;
   border-bottom: 2px solid #00A3FF;
 }

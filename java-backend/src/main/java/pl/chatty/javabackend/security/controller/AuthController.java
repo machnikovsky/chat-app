@@ -51,7 +51,7 @@ public class AuthController {
         return ResponseEntity.ok(new JwtAuthResponse(jwtToken));
     }
 
-    @PostMapping(path = "/register", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/register") // , consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> registerUser(@RequestBody CreateUserRequest requestBody){
         try {
             ResponseEntity<String> responseEntity = userService.addUser(requestBody);

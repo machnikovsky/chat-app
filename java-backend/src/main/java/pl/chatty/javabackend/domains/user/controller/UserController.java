@@ -129,8 +129,4 @@ public class UserController {
         return userService.setUserProfileImage(image);
     }
 
-    @PostMapping("/register")
-    public ResponseEntity<String> addUserProfile(@RequestBody CreateUserRequest createUserRequest){
-        return userService.addUser(createUserRequest);
-    }
 }

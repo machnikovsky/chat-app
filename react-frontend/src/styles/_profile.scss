@@ -53,6 +53,7 @@
       background-color: white;
       border-radius: 20px;
       padding: 30px;
+      font-size: 3vh;
 
       &__profile-image {
         display: block;
@@ -64,33 +65,32 @@
         display: block;
         text-align: center;
         color: #4fb7ce;
-        font-size: 35px;
         font-weight: 700;
-        margin-top: 18px;
+        margin-top: 2vh;
       }
 
       &__my-profile-text {
         display: block;
         color: #636363;
-        font-size: 26px;
+        font-size: 0.7em;
         font-weight: 700;
-        margin-top: 50px;
+        margin-top: 5vh;
       }
 
       &__line {
         border-width: 1px;
         border-style: solid;
         border-color: #dddddd;
-        margin-top: 15px;
+        margin-top: 1vh;
       }
 
       &__last-login {
         display: block;
         color: #adadad;
-        font-size: 18px;
+        font-size: 0.45em;
         font-weight: 600;
-        margin-bottom: 50px;
-        margin-left: 300px;
+        margin-bottom: 4vh;
+        margin-left: 15vw;
       }
 
       &__inline-block {
@@ -98,7 +98,7 @@
         justify-content: space-between;
         &__fullname-block {
           &__full-name {
-            font-size: 20px;
+            font-size: 0.6em;
             font-weight: 600;
             color: #727272;
           }
@@ -106,7 +106,7 @@
 
         &__phone-block {
           &__phone {
-            font-size: 20px;
+            font-size: 0.6em;
             font-weight: 600;
             color: #727272;
           }
@@ -115,18 +115,18 @@
 
       &__email {
         display: block;
-        margin-top: 50px;
-        font-size: 20px;
+        margin-top: 1vh;
+        font-size: 0.6em;
         font-weight: 600;
         color: #727272;
       }
 
       &__friends-counter {
         display: block;
-        font-size: 20px;
+        font-size: 0.6em;
         font-weight: 600;
         color: #727272;
-        margin-top: 20px;
+        margin-top: 2vh;
       }
     }
   }

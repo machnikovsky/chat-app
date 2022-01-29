@@ -5,7 +5,6 @@ const Navbar = () => {
 
   const navigate = useNavigate();
 
-
   return (
         <div className='navbar-container'>
             <div className='navbar-element'>

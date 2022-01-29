@@ -11,6 +11,7 @@ import pl.chatty.javabackend.domains.user.model.dto.request.UpdatePasswordReques
 import pl.chatty.javabackend.domains.user.model.dto.response.UserDTO;
 import pl.chatty.javabackend.domains.user.model.dto.response.UsersListDto;
 import pl.chatty.javabackend.domains.user.model.entity.UserEntity;
+import pl.chatty.javabackend.domains.user.model.entity.UsersRole;
 import pl.chatty.javabackend.domains.user.repository.UserRepository;
 import pl.chatty.javabackend.exception.exceptions.UserEntityNotFoundException;
 
@@ -44,6 +45,7 @@ public class UserUtils {
         if (!(userRepository.existsByEmail(requestBody.getEmail())
                 || userRepository.existsByUsername(requestBody.getUsername()))) {
             UserEntity toSave = mapper.mapToUserEntity(requestBody, passwordEncoder);
+            toSave.setUsersRole(UsersRole.USER);
             userRepository.insert(toSave);
             return true;
         } else {

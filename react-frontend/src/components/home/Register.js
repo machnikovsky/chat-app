@@ -25,7 +25,7 @@ const Register = () => {
     
     let registerUser = () => {
         Auth.register(username,firstname,lastname,email,password,phone_number,gender,userRole,null);
-        navigate('/');
+        //navigate('/');
     }
 
     const handleRegister = (e) => {
@@ -138,7 +138,7 @@ const Register = () => {
                         <div className="gender register_div">
                             <input
                                 type="radio"
-                                id="gender"
+                                id="gender-male"
                                 name="gender"
                                 value="MALE"
                                 checked={gender === 'MALE'} 
@@ -146,7 +146,7 @@ const Register = () => {
                             <label for="gender"> Male</label>
                             <input 
                                 type="radio"
-                                id="gender"
+                                id="gender-famale"
                                 name="gender"
                                 value="FAMALE"
                                 checked={gender === 'FAMALE'} 
@@ -154,7 +154,7 @@ const Register = () => {
                             <label for="gender"> Famale</label>
                             <input 
                                 type="radio"
-                                id="gender"
+                                id="gender-other"
                                 name="gender"
                                 value="OTHER"
                                 checked={gender === 'OTHER'} 

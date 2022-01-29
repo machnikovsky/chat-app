@@ -1,6 +1,5 @@
 package pl.chatty.javabackend.domains.user.service;
 
-
 import lombok.RequiredArgsConstructor;
 import org.bson.BsonBinarySubType;
 import org.bson.types.Binary;
@@ -110,6 +109,7 @@ public class UserService {
 
         user.setProfileImage(image);
         userUtils.saveUserInDatabase(user);
+
         return ResponseEntity.ok("User's profile image is updated");
     }
 }

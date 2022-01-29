@@ -2,7 +2,6 @@ package pl.chatty.javabackend.domains.user.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.bson.types.Binary;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -87,7 +86,8 @@ public class UserController {
     }
 
     @PostMapping(value = "/profilepicture", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<String> setUserProfileImage(@RequestBody MultipartFile file) throws IOException {
-        return userService.setUserProfileImage(file);
+    public ResponseEntity<String> setUserProfileImage(@RequestBody MultipartFile image) throws IOException {
+        return userService.setUserProfileImage(image);
     }
+
 }

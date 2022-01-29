@@ -75,7 +75,8 @@ public class AuthController {
         }
     }
 
-    @PostMapping(path = "/registration", consumes = MediaType.APPLICATION_JSON_VALUE)
+
+    @PostMapping(path = "/register") // , consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> registerUser(@RequestBody CreateUserRequest requestBody){
         try {
             ResponseEntity<String> responseEntity = userService.addUser(requestBody);

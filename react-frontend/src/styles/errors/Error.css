@@ -1,0 +1,61 @@
+.general-error-site {
+  width: 100vw;
+  height: 100vh;
+  background-color: #B1E6D9;
+  padding: 5vh;
+}
+
+.general-error-site__logo {
+  height: 6vh;
+}
+
+.general-error-site__text-block {
+  position: absolute;
+  left: 20vw;
+  bottom: 40vh;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  text-align: center;
+  font-size: 10vh;
+}
+
+.general-error-site__text-block__title {
+  display: block;
+  color: #525252;
+  font-size: 1em;
+  font-weight: 700;
+}
+
+.general-error-site__text-block__cause {
+  display: block;
+  color: #5D5D5D;
+  font-size: 0.4em;
+  font-weight: 600;
+}
+
+.general-error-site__text-block__description {
+  display: block;
+  color: #7D7D7D;
+  font-size: 0.25em;
+  font-weight: 600;
+}
+
+.general-error-site__text-block__recommendation {
+  display: block;
+  color: #FF4F5A;
+  font-size: 0.2em;
+  font-weight: 700;
+}
+
+.general-error-site__text-block__recommendation:hover {
+  cursor: pointer;
+}
+
+.general-error-site__image {
+  position: absolute;
+  right: 12vw;
+  bottom: 10vh;
+  height: 65vh;
+}
+/*# sourceMappingURL=Error.css.map */

@@ -92,4 +92,8 @@ public class UserUtils {
     public List<UserDTO> mapUsersToUsersDTO(List<UserEntity> users) {
         return users.stream().map(x -> modelMapper.map(x, UserDTO.class)).collect(Collectors.toList());
     }
+
+    public UserEntity saveUserInDatabase(UserEntity user) {
+        return userRepository.save(user);
+    }
 }

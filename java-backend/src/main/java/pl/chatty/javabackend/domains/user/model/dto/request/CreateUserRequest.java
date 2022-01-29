@@ -1,6 +1,7 @@
 package pl.chatty.javabackend.domains.user.model.dto.request;
 
 import lombok.Getter;
+import org.bson.types.Binary;
 import pl.chatty.javabackend.domains.user.model.entity.Gender;
 import pl.chatty.javabackend.domains.user.model.entity.UsersRole;
 
@@ -13,7 +14,7 @@ public class CreateUserRequest {
     private String email;
     private String password;
     private String phoneNumber;
-    private String profileImage;
+    private Binary profileImage;
 
     private Gender gender;
     private UsersRole usersRole;

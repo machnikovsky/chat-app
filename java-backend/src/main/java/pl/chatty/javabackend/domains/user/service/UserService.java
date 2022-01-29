@@ -1,6 +1,7 @@
 package pl.chatty.javabackend.domains.user.service;
 
 import lombok.AllArgsConstructor;
+import org.bson.types.Binary;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -93,5 +94,14 @@ public class UserService {
         ).stream().filter(x -> !loggedInUser.equals(x.getUsername())).collect(Collectors.toList());
 
         return ResponseEntity.ok(userUtils.mapUsersToUsersDTO(users));
+    }
+
+    public ResponseEntity<String> setUserProfileImage(Binary image) {
+        UserEntity user = userUtils.getCurrentUser()
+                .orElseThrow(() -> new UserEntityNotFoundException("Current user"));
+
+        user.setProfileImage(image);
+        userUtils.saveUserInDatabase(user);
+        return ResponseEntity.ok("User's profile image is updated");
     }
 }

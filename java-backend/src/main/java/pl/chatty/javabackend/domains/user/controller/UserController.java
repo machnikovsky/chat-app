@@ -99,10 +99,6 @@ public class UserController {
         return userService.getUsersByQuery(query);
     }
 
-
-
-
-
     @PutMapping("/{userID}/password")
     public ResponseEntity<String> updatePassword(@PathVariable int userID, @RequestBody Map<String, String> json) {
         return new ResponseEntity<>("Password successful updated", HttpStatus.OK);
@@ -129,5 +125,10 @@ public class UserController {
     @PostMapping("/profilepicture")
     public ResponseEntity<String> setUserProfileImage(@RequestBody Binary image){
         return userService.setUserProfileImage(image);
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<String> addUserProfile(@RequestBody CreateUserRequest createUserRequest){
+        return userService.addUser(createUserRequest);
     }
 }

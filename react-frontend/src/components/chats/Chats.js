@@ -7,6 +7,7 @@ import UserContext from "../../auth/UserContext";
 import Auth from "../../auth/Auth";
 import { ApiCall } from "../../api/ApiCall";
 import Navbar from "../nav/Navbar";
+import spinner from "../../assets/circle-notch-solid.svg";
 
 const Chats = () => {
   const SOCKET_URL = "http://localhost:8080/chat/";
@@ -17,16 +18,25 @@ const Chats = () => {
   const [clientRef, setClientRef] = useState(null);
   const { user, setUser } = useContext(UserContext);
   // const {chatId, setChatId} = useParams();
-  const [receivers, setReceivers] = useState([]);
-  const [userData, setUserData] = useState([]);
+  const [receivers, setReceivers] = useState([
+    {
+      profileImage: [],
+    },
+  ]);
+  const [userData, setUserData] = useState({
+    profileImage: [],
+  });
 
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
       setUserData(await ApiCall.me());
+      console.log(userData);
     };
+
     fetchData();
+    console.log(userData);
   }, []);
 
   useEffect(() => {
@@ -51,6 +61,7 @@ const Chats = () => {
     console.log(`Selected chat: ${e}`);
     setChat(e.chatId);
     setReceivers(e.users.filter((x) => x.username !== user));
+    console.log("current chat: ", chat);
   };
 
   let onConnected = () => {
@@ -64,6 +75,7 @@ const Chats = () => {
   };
 
   let sendMessage = () => {
+    console.log(user);
     console.log(`Sent ${currentMess} to ${chat}`);
     console.log(`Current messages: ${messages}`);
     clientRef.sendMessage(
@@ -101,7 +113,14 @@ const Chats = () => {
         <div className="left-bar">
           <div className="profile">
             <div className="profile-picture">
-              <img src={profile_picture} alt="" />
+              {userData.profileImage ? (
+                <img
+                  src={`data:image/jpeg;base64,${userData.profileImage.data}`}
+                  alt=""
+                />
+              ) : (
+                <img src={profile_picture} alt="" />
+              )}
             </div>
             {userData.firstName} {userData.lastName}
           </div>
@@ -126,9 +145,29 @@ const Chats = () => {
         <div className="right-bar">
           <div className="chat-info">
             <div className="chat-picture">
-              <img src={profile_picture} alt="" />
+              {receivers[0].profileImage ? (
+                <img
+                  src={`data:image/jpeg;base64,${receivers[0].profileImage.data}`}
+                  alt=""
+                />
+              ) : (
+                <img src={profile_picture} alt="" />
+              )}
             </div>
-            <div className="chat-name">John Doe</div>
+            <div className="chat-name">
+              {receivers.map((i, index) => {
+                console.log(index);
+                return index > 0 ? (
+                  <>
+                    ,{i.firstName} {i.lastName}
+                  </>
+                ) : (
+                  <>
+                    {i.firstName} {i.lastName}
+                  </>
+                );
+              })}
+            </div>
           </div>
           <div className="chat-content">
             {messages &&

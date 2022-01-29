@@ -61,11 +61,14 @@ public class AuthController {
         try {
             UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             UserEntity userEntity = userService.getUserByUsername(userDetails.getUsername());
+
+            //TODO use modelmapper
             return new ResponseEntity<>(UserDTO.builder()
                     .firstName(userEntity.getFirstName())
                     .lastName(userEntity.getLastName())
                     .userId(userEntity.getUserId())
                     .username(userEntity.getUsername())
+                    .profileImage(userEntity.getProfileImage())
                     .build(), HttpStatus.OK);
         } catch (UserEntityNotFoundException userEntityNotFoundException) {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);

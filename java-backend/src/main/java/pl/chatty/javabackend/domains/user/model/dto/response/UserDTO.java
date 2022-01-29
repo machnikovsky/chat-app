@@ -1,6 +1,7 @@
 package pl.chatty.javabackend.domains.user.model.dto.response;
 
 import lombok.*;
+import org.bson.types.Binary;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -12,4 +13,5 @@ public class UserDTO {
     private String username;
     private String firstName;
     private String lastName;
+    private Binary profileImage;
 }

@@ -1,10 +1,12 @@
 package pl.chatty.javabackend.domains.user.service;
 
 import lombok.AllArgsConstructor;
+import org.bson.BsonBinarySubType;
 import org.bson.types.Binary;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import pl.chatty.javabackend.domains.user.model.dto.request.CreateUserRequest;
 import pl.chatty.javabackend.domains.user.model.dto.response.UserDTO;
 import pl.chatty.javabackend.domains.user.model.dto.response.UsersListDto;
@@ -13,6 +15,7 @@ import pl.chatty.javabackend.domains.user.repository.UserRepository;
 import pl.chatty.javabackend.domains.user.util.UserUtils;
 import pl.chatty.javabackend.exception.exceptions.UserEntityNotFoundException;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -96,12 +99,15 @@ public class UserService {
         return ResponseEntity.ok(userUtils.mapUsersToUsersDTO(users));
     }
 
-    public ResponseEntity<String> setUserProfileImage(Binary image) {
+    public ResponseEntity<String> setUserProfileImage(MultipartFile file) throws IOException {
+        Binary image = new Binary(BsonBinarySubType.BINARY, file.getBytes());
+
         UserEntity user = userUtils.getCurrentUser()
                 .orElseThrow(() -> new UserEntityNotFoundException("Current user"));
 
         user.setProfileImage(image);
         userUtils.saveUserInDatabase(user);
+
         return ResponseEntity.ok("User's profile image is updated");
     }
 }

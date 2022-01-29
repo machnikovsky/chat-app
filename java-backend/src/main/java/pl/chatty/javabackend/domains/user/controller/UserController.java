@@ -10,6 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 import pl.chatty.javabackend.domains.user.model.dto.response.UserDTO;
 import pl.chatty.javabackend.domains.image.model.dto.request.ImageDTO;
@@ -20,6 +21,7 @@ import pl.chatty.javabackend.domains.user.service.UserService;
 import pl.chatty.javabackend.domains.user.util.UserUtils;
 import pl.chatty.javabackend.exception.exceptions.UserEntityNotFoundException;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -122,8 +124,8 @@ public class UserController {
         return new ResponseEntity<>("User's nickname successfully changed", HttpStatus.OK);
     }
 
-    @PostMapping("/profilepicture")
-    public ResponseEntity<String> setUserProfileImage(@RequestBody Binary image){
+    @PostMapping(value = "/profilepicture", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<String> setUserProfileImage(@RequestBody MultipartFile image) throws IOException {
         return userService.setUserProfileImage(image);
     }
 

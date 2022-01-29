@@ -1,10 +1,14 @@
 import { Link } from "react-router-dom"
 import logo from '../../assets/placeholder.png'
-import username from '../../assets/username_logo.png'
-import password from '../../assets/password_logo.png'
+import signup_button from '../../assets/signup_button.png'
 
 
 const Register = () => {
+
+    const handleRegister = (e) => {
+        return;
+    }
+    
     return(
         <div className="register-container">
              <div className="register-window">
@@ -64,6 +68,10 @@ const Register = () => {
                             <input type="radio" id="gender" name="gender" value="Other"/>
                             <label for="gender"> Other</label>
                         </div>
+
+                        <button className="register-button" onClick={handleRegister}>
+                            <img src={signup_button}/>
+                        </button>
                     </form>
                 </div> 
             </div> 

@@ -31,8 +31,14 @@ const Register = () => {
             password,
             phone_number,
             gender
-        );
-        navigate("/");
+        ).then(() => {
+            console.log(`Successful register `);
+            navigate("/");
+        })
+        .catch((err) => {
+            console.log(`Error register user: `, err.message);
+        });
+        
     };
 
   const handleRegister = (e) => {

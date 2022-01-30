@@ -16,7 +16,6 @@ import pl.chatty.javabackend.domains.message.util.MessageUtils;
 import pl.chatty.javabackend.domains.user.model.dto.response.UserDTO;
 import pl.chatty.javabackend.domains.user.model.entity.UserEntity;
 import pl.chatty.javabackend.domains.user.util.UserUtils;
-import pl.chatty.javabackend.exception.exceptions.ChatNotFoundException;
 import pl.chatty.javabackend.exception.exceptions.UserEntityNotFoundException;
 
 import java.time.LocalDate;
@@ -70,12 +69,12 @@ public class ChatUtils {
     public CompletableFuture<List<ChatDTO>> getAllUserChats() {
         log.info("Getting all users chats using thread: {}", Thread.currentThread());
         UserEntity user = userUtils.getCurrentUser()
-                .orElseThrow(ChatNotFoundException::new);
+                .orElseThrow(UserEntityNotFoundException::new);
 
         List<ChatEntity> chats = getAllChatsByUserId(user.getUserId());
         return CompletableFuture.completedFuture(chats.stream().map(x -> new ChatDTO(
                         x.getChatId(),
-                                ("".equals(x.getName()) || x.getName() == null) ?
+                        ("".equals(x.getName()) || x.getName() == null) ?
                                 x.getMembersIds().stream()
                                         .filter(y -> !y.equals(user.getUserId()))
                                         .findFirst()
@@ -127,7 +126,6 @@ public class ChatUtils {
         return chatRepository
                 .findByChatParticipants(chatParticipantsDTO.getChatParticipantsIds());
     }
-
 
 
     public void saveNewMessageToChatInDatabase(ChatEntity chat, MessageEntity message) {

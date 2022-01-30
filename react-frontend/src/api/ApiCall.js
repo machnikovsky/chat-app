@@ -27,6 +27,7 @@ const me = async () => {
       console.log("Authentication error", err.response.data);
     });
 };
+
 const getAndSetQueriedListWithNewQuery = (query, set) => {
   return axios.post(
     API_URL + `user/query/${query}`,

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "../../styles/_profile.scss";
 import Navbar from "../nav/Navbar.js";
 import Rectangle1 from "../../assets/svg/rectangle1.svg";
@@ -6,8 +6,24 @@ import Rectangle2 from "../../assets/svg/rectangle2.svg";
 import Rectangle3 from "../../assets/svg/rectangle3.svg";
 import Rectangle4 from "../../assets/svg/rectangle4.svg";
 import ProfilePNG from "../../assets/not_found.jpeg";
+import { ApiCall } from "../../api/ApiCall.js";
 
 const Profile = () => {
+
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+      ApiCall.me()
+      .then(res => {
+      console.log("Received user info: ", res);
+      setUser(res);
+      })
+      .catch(err => {
+      console.log("Error getting user info: ", err.message);
+      setUser({})
+      })
+}, [])
+
   return (
     <>
       <Navbar />
@@ -23,35 +39,32 @@ const Profile = () => {
               className="profile-block__layer__profile-window__profile-image"
             />
             <span className="profile-block__layer__profile-window__username">
-              xmatixdestroyer
+              {user.username}
             </span>
             <span className="profile-block__layer__profile-window__my-profile-text">
               My profile
             </span>
             <hr className="profile-block__layer__profile-window__line"></hr>
-            <span className="profile-block__layer__profile-window__last-login">
-              Last login: 27 aug 2012
-            </span>
             <div className="profile-block__layer__profile-window__inline-block">
               <div className="profile-block__layer__profile-window__inline-block__fullname-block">
                 <span className="profile-block__layer__profile-window__inline-block__fullname-block__full-name">
-                  Jan Kowalski
+                  {user.firstName + " " + user.lastName}
                 </span>
                 <hr className="profile-block__layer__profile-window__line"></hr>
               </div>
               <div className="profile-block__layer__profile-window__inline-block__phone-block">
                 <span className="profile-block__layer__profile-window__inline-block__phone-block__phone">
-                  +49 395 318 932
+                +48 {user.phoneNumber}
                 </span>
                 <hr className="profile-block__layer__profile-window__line"></hr>
               </div>
             </div>
             <span className="profile-block__layer__profile-window__email">
-              jankowalski@gmail.com
+              {user.email}
             </span>
             <hr className="profile-block__layer__profile-window__line"></hr>
             <span className="profile-block__layer__profile-window__friends-counter">
-              firends: <span style={{ color: "#44DE82" }}>431 M</span>
+              firends: <span style={{ color: "#44DE82" }}> - </span>
             </span>
           </div>
         </div>

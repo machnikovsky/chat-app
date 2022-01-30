@@ -37,7 +37,7 @@
     top: 50%;
     transform: translateX(-50%) translateY(-50%);
     z-index: 2;
-    background-color: rgba($color: #242424, $alpha: 0.2);
+    background-color: rgba($color: #206ad8, $alpha: 0.2);
     height: 80vh;
     width: 30vw;
     border-radius: 20px;
@@ -75,7 +75,7 @@
       &__my-profile-text {
         display: block;
         color: #636363;
-        font-size: 0.7em;
+        font-size: 0.85em;
         font-weight: 700;
         margin-top: 5vh;
       }
@@ -83,22 +83,15 @@
       &__line {
         border-width: 1px;
         border-style: solid;
-        border-color: #dddddd;
+        border-color: #7ee687;
         margin-top: 1vh;
-      }
-
-      &__last-login {
-        display: block;
-        color: #adadad;
-        font-size: 0.45em;
-        font-weight: 600;
-        margin-bottom: 4vh;
-        margin-left: 15vw;
       }
 
       &__inline-block {
         display: flex;
         justify-content: space-between;
+        margin-top: 4vh;
+        
         &__fullname-block {
           &__full-name {
             font-size: 0.6em;
@@ -118,7 +111,7 @@
 
       &__email {
         display: block;
-        margin-top: 1vh;
+        margin-top: 4vh;
         font-size: 0.6em;
         font-weight: 600;
         color: #727272;

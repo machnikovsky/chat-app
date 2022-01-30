@@ -5,7 +5,7 @@ import Rectangle1 from "../../assets/svg/rectangle1.svg";
 import Rectangle2 from "../../assets/svg/rectangle2.svg";
 import Rectangle3 from "../../assets/svg/rectangle3.svg";
 import Rectangle4 from "../../assets/svg/rectangle4.svg";
-import ProfilePNG from "../../assets/profile.png";
+import ProfilePNG from "../../assets/not_found.jpeg";
 
 const Profile = () => {
   return (

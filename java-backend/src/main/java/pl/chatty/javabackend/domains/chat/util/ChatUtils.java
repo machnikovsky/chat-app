@@ -6,6 +6,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import pl.chatty.javabackend.domains.chat.model.dto.request.CreateChatRequestDTO;
+import pl.chatty.javabackend.domains.chat.model.dto.request.CreateGroupChatRequestDTO;
 import pl.chatty.javabackend.domains.chat.model.dto.response.ChatDTO;
 import pl.chatty.javabackend.domains.chat.model.dto.response.ChatParticipantsDTO;
 import pl.chatty.javabackend.domains.chat.model.entity.ChatEntity;
@@ -104,19 +105,41 @@ public class ChatUtils {
         );
     }
 
+    public ChatEntity createNewGroupChat(CreateGroupChatRequestDTO request) {
+        UserEntity loggedInUser = userUtils.getCurrentUser()
+                .orElseThrow(() -> new UserEntityNotFoundException("Current"));
+
+        List<UserEntity> users = request
+                .getGroupParticipantsIds()
+                .stream()
+                .map(username -> userUtils
+                        .getUserById(username)
+                        .orElseThrow(() -> new UserEntityNotFoundException(username)))
+                .collect(Collectors.toList());
+
+        users.add(loggedInUser);
+
+        return addNewChatToDatabaseFromMessage(users, request.getGroupName());
+    }
+
     public List<ChatEntity> getAllChatsByUserId(String userId) {
         return chatRepository.findAllByMembersIdsContaining(userId);
     }
 
 
-    public ChatEntity addNewChatToDatabaseFromMessage(List<UserEntity> users) {
+    public ChatEntity addNewChatToDatabaseFromMessage(List<UserEntity> users, String name) {
         ChatEntity chat = new ChatEntity();
         chat.setMembersIds(new ArrayList<>(users.stream().map(UserEntity::getUserId).collect(Collectors.toList())));
         chat.setCreatedTime(LocalDate.now());
         chat.setMessageIds(new ArrayList<>());
-        chat.setName("");
+        chat.setName(name);
         return chatRepository.save(chat);
     }
+
+    public ChatEntity addNewChatToDatabaseFromMessage(List<UserEntity> users) {
+        return addNewChatToDatabaseFromMessage(users, "");
+    }
+
 
     public Optional<String> getChatIdByChatParticipants(ChatParticipantsDTO chatParticipantsDTO) {
         return getChatByChatParticipants(chatParticipantsDTO)

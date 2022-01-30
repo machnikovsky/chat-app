@@ -16,8 +16,8 @@ const Chats = () => {
   const [chats, setChats] = useState([]);
   const [currentMess, setCurrentMess] = useState("");
   const [clientRef, setClientRef] = useState(null);
+  const [chatName, setChatName] = useState(null);
   const { user, setUser } = useContext(UserContext);
-  // const {chatId, setChatId} = useParams();
   const [receivers, setReceivers] = useState([
     {
       profileImage: [],
@@ -58,8 +58,9 @@ const Chats = () => {
   }, [chat]);
 
   const changeChat = (e) => {
-    console.log(`Selected chat: ${e}`);
+    console.log("Selected chat: ", e);
     setChat(e.chatId);
+    setChatName(e.name);
     setReceivers(e.users.filter((x) => x.username !== user));
     console.log("current chat: ", chat);
   };
@@ -155,18 +156,7 @@ const Chats = () => {
               )}
             </div>
             <div className="chat-name">
-              {receivers.map((i, index) => {
-                console.log(index);
-                return index > 0 ? (
-                  <>
-                    ,{i.firstName} {i.lastName}
-                  </>
-                ) : (
-                  <>
-                    {i.firstName} {i.lastName}
-                  </>
-                );
-              })}
+              { receivers.length > 1 ? chatName : receivers[0].firstName + " " + receivers[0].lastName }
             </div>
           </div>
           <div className="chat-content">

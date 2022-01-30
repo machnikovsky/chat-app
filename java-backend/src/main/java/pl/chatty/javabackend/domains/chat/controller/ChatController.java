@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pl.chatty.javabackend.domains.chat.model.dto.request.CreateGroupChatRequestDTO;
 import pl.chatty.javabackend.domains.chat.model.dto.response.ChatParticipantsDTO;
 import pl.chatty.javabackend.domains.chat.model.dto.request.CreateChatRequestDTO;
 import pl.chatty.javabackend.domains.message.model.dto.request.MessageDTO;
@@ -49,6 +50,11 @@ public class ChatController {
     @GetMapping("/send/{userId}")
     public ResponseEntity<ChatDTO> getExistingChatOrCreateNew(@PathVariable("userId") String userId) {
         return chatService.getExistingChatOrCreateNew(userId);
+    }
+
+    @PostMapping("/group/new")
+    public ResponseEntity<String> createNewGroupChat(@RequestBody CreateGroupChatRequestDTO request) {
+        return chatService.createNewGroupChat(request);
     }
 
 

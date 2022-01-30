@@ -14,8 +14,6 @@
             width: 100%;
             top: 5vh;
             margin-bottom: 8vh;
-            position: relative;
-            padding-top: 1vh;
             background: rgba(196, 196, 196, 0.4);
             color: rgba(255, 255, 255, 0.8);  
             text-align: left;
@@ -59,4 +57,29 @@
     
 h2 {
     text-align: center;
+}
+
+.user-list {
+    .present {
+        background-color: rgb(131, 211, 131);
+        .action {
+            background-color: rgb(119, 138, 111);
+        }
+    }
+    
+}
+
+.find-users-container {
+    .error {
+        margin-top: 5vh;
+        text-align: center;
+        font-weight: 600;
+        font-size: 1.5em;
+        color: rgb(143, 40, 40);
+        background-color: rgba(165, 105, 105, 0.4);
+        width: 30vw;
+        margin-inline: auto;
+        padding: 2vh 1vw;
+        border-radius: 5px;
+    }
 }

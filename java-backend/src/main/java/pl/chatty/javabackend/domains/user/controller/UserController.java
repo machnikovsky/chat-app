@@ -2,26 +2,18 @@ package pl.chatty.javabackend.domains.user.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.bson.types.Binary;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.server.ResponseStatusException;
 import pl.chatty.javabackend.domains.user.model.dto.response.UserDTO;
 import pl.chatty.javabackend.domains.user.model.entity.UserEntity;
 import pl.chatty.javabackend.domains.user.model.dto.request.CreateUserRequest;
 import pl.chatty.javabackend.domains.user.model.dto.request.UpdatePasswordRequest;
-import pl.chatty.javabackend.domains.user.model.dto.response.UserDTO;
 import pl.chatty.javabackend.domains.user.model.dto.response.UsersListDto;
-import pl.chatty.javabackend.domains.user.model.entity.UserEntity;
 import pl.chatty.javabackend.domains.user.service.UserService;
 import pl.chatty.javabackend.domains.user.util.UserUtils;
-import pl.chatty.javabackend.exception.exceptions.UserEntityNotFoundException;
 
 import java.io.IOException;
 import java.util.List;

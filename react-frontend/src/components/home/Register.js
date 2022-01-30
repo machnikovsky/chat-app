@@ -5,8 +5,6 @@ import logo from '../../assets/placeholder.png'
 import signup_button from '../../assets/signup_button.png'
 import Auth from "../../auth/Auth";
 
-
-
 const Register = () => {
 
     const navigate = useNavigate();
@@ -22,7 +20,7 @@ const Register = () => {
     const userRole = 'USER';
     const [invalidInput, setInvalidInput] = useState(false);
     const [passwordsError, setPasswordError] = useState(false);
-    
+
     let registerUser = () => {
         Auth.register(username,firstname,lastname,email,password,phone_number,gender,userRole,null);
         navigate('/');
@@ -30,7 +28,7 @@ const Register = () => {
 
     const handleRegister = (e) => {
         e.preventDefault();
-        
+
         if(password !== repeated_password) {
             setPasswordError(true);
             setInvalidInput(false);
@@ -38,7 +36,7 @@ const Register = () => {
         }
 
         if(username === '' || email === '' || firstname === '' || lastname === '' ||
-            password === '' || repeated_password === '' || phone_number === '' || 
+            password === '' || repeated_password === '' || phone_number === '' ||
             gender === '') {
                 setPasswordError(false);
                 setInvalidInput(true);
@@ -60,7 +58,7 @@ const Register = () => {
                         <div className="username register_div">
                             <label for="username">Username</label>
                             <div className="input-div">
-                                <input 
+                                <input
                                     type="text"
                                     id="username"
                                     name="username"
@@ -68,7 +66,7 @@ const Register = () => {
                                     onChange={(e) => setUsername(e.target.value)}/>
                             </div>
                         </div>
-                        <div className="email register_div">   
+                        <div className="email register_div">
                             <label for="email">email</label>
                             <div className="input-div">
                                 <input
@@ -79,10 +77,10 @@ const Register = () => {
                                     onChange={(e) => setEmail(e.target.value)}/>
                             </div>
                         </div>
-                        <div className="name register_div">   
+                        <div className="name register_div">
                             <label for="firstname">firstname</label>
                             <div className="input-div">
-                                <input 
+                                <input
                                     type="text"
                                     id="firstname"
                                     name="firstname"
@@ -90,10 +88,10 @@ const Register = () => {
                                     onChange={(e) => setFirstName(e.target.value)}/>
                             </div>
                         </div>
-                        <div className="name register_div">   
+                        <div className="name register_div">
                             <label for="lastname">lastname</label>
                             <div className="input-div">
-                                <input 
+                                <input
                                     type="text"
                                     id="lastname"
                                     name="lastname"
@@ -101,7 +99,7 @@ const Register = () => {
                                     onChange={(e) => setLastName(e.target.value)}/>
                             </div>
                         </div>
-                        <div className="password register_div">   
+                        <div className="password register_div">
                             <label for="password">Password</label>
                             <div className="input-div">
                                 <input
@@ -112,10 +110,10 @@ const Register = () => {
                                     onChange={(e) => setPassword(e.target.value)}/>
                             </div>
                         </div>
-                        <div className="password register_div">   
+                        <div className="password register_div">
                             <label for="password">Repeat password</label>
                             <div className="input-div">
-                                <input 
+                                <input
                                     type="password"
                                     id="repeated_password"
                                     name="repeated_password"
@@ -123,10 +121,10 @@ const Register = () => {
                                     onChange={(e) => setRepeatedPassword(e.target.value)}/>
                             </div>
                         </div>
-                        <div className="number register_div">   
+                        <div className="number register_div">
                             <label for="phone_number">phone number</label>
                             <div className="input-div">
-                                <input 
+                                <input
                                     type="tel"
                                     id="phone_number"
                                     name="phone_number"
@@ -141,23 +139,23 @@ const Register = () => {
                                 id="gender"
                                 name="gender"
                                 value="MALE"
-                                checked={gender === 'MALE'} 
+                                checked={gender === 'MALE'}
                                 onChange={(e) => setGender(e.target.value)} />
                             <label for="gender"> Male</label>
-                            <input 
+                            <input
                                 type="radio"
                                 id="gender"
                                 name="gender"
                                 value="FAMALE"
-                                checked={gender === 'FAMALE'} 
+                                checked={gender === 'FAMALE'}
                                 onChange={(e) => setGender(e.target.value)} />
                             <label for="gender"> Famale</label>
-                            <input 
+                            <input
                                 type="radio"
                                 id="gender"
                                 name="gender"
                                 value="OTHER"
-                                checked={gender === 'OTHER'} 
+                                checked={gender === 'OTHER'}
                                 onChange={(e) => setGender(e.target.value)} />
                             <label for="gender"> Other</label>
                         </div>
@@ -169,8 +167,8 @@ const Register = () => {
                         { invalidInput && <div className={"bad-credentials"}>Wprowadź wszystkie dane.</div>}
                         { passwordsError && <div className={"bad-credentials"}>Hasła się różnia.</div>}
                     </form>
-                </div> 
-            </div> 
+                </div>
+            </div>
         </div>
     )
 }

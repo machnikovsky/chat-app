@@ -24,7 +24,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
@@ -71,12 +70,12 @@ public class ChatUtils {
     public CompletableFuture<List<ChatDTO>> getAllUserChats() {
         log.info("Getting all users chats using thread: {}", Thread.currentThread());
         UserEntity user = userUtils.getCurrentUser()
-                .orElseThrow(() -> new UserEntityNotFoundException("")); // TODO: Create chat exception
+                .orElseThrow(UserEntityNotFoundException::new);
 
         List<ChatEntity> chats = getAllChatsByUserId(user.getUserId());
         return CompletableFuture.completedFuture(chats.stream().map(x -> new ChatDTO(
                         x.getChatId(),
-                                ("".equals(x.getName()) || x.getName() == null) ?
+                        ("".equals(x.getName()) || x.getName() == null) ?
                                 x.getMembersIds().stream()
                                         .filter(y -> !y.equals(user.getUserId()))
                                         .findFirst()
@@ -150,7 +149,6 @@ public class ChatUtils {
         return chatRepository
                 .findByChatParticipants(chatParticipantsDTO.getChatParticipantsIds());
     }
-
 
 
     public void saveNewMessageToChatInDatabase(ChatEntity chat, MessageEntity message) {

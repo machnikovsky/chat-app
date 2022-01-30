@@ -78,7 +78,7 @@ public class UserController {
 
     @PostMapping("/{userID}/friend/{friendID}")
     public ResponseEntity<String> addUserToFriends(@PathVariable String userID,
-                                                   @PathVariable String friendID){
+                                                   @PathVariable String friendID) {
         return null;
     }
 
@@ -90,7 +90,7 @@ public class UserController {
 
     @PostMapping("/{userID}/friend/{friendID}/nickname")
     public ResponseEntity<String> changeFriendsUsername(@PathVariable int userID,
-                                                        @PathVariable int friendID, @RequestBody Map<String, String> json){
+                                                        @PathVariable int friendID, @RequestBody Map<String, String> json) {
         return new ResponseEntity<>("User's nickname successfully changed", HttpStatus.OK);
     }
 

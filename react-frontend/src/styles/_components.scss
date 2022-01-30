@@ -1,0 +1,106 @@
+.form-wrapper {
+  margin: 5rem 1rem;
+}
+
+.input-field-wrapper {
+  border-bottom: solid 2px gray;
+  color: gray;
+  height: 3rem;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  padding-right: 1rem;
+}
+
+.radio-field-wrapper {
+  color: gray;
+  height: 3rem;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  padding-right: 1rem;
+  display: grid;
+  grid-template-columns: 1.5rem 5rem;
+  grid-template-rows: 1fr 1fr 1fr;
+}
+
+.radio-btn {
+  width: 90%;
+}
+
+.input-field-wrapper:focus-within {
+  border-bottom: solid 2px #00a1fc;
+  color: #00a1fc;
+}
+
+.input-field {
+  border: 0;
+  padding: 5px;
+  width: 90%;
+  background-color: transparent;
+  resize: none;
+  outline: none;
+}
+
+.center-wrapper {
+  display: flex;
+  margin: 1.5rem 0;
+
+  justify-content: center;
+}
+
+.form-button {
+  margin-top: 2rem;
+  width: 70%;
+  padding: 0.7rem 0;
+  background: rgb(0, 161, 252);
+  background: -moz-linear-gradient(
+    90deg,
+    rgba(0, 161, 252, 1) 0%,
+    rgba(5, 123, 190, 1) 100%
+  );
+  background: -webkit-linear-gradient(
+    90deg,
+    rgba(0, 161, 252, 1) 0%,
+    rgba(5, 123, 190, 1) 100%
+  );
+  background: linear-gradient(
+    90deg,
+    rgba(0, 161, 252, 1) 0%,
+    rgba(5, 123, 190, 1) 100%
+  );
+  border: none;
+  border-radius: 100vh;
+  font-weight: bold;
+  font-size: 1rem;
+  color: white;
+  font-family: "Raleway";
+  box-shadow: 0 0 15px #00a0fc88;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.form-button:hover {
+  transform: scale(1.05);
+}
+
+.register-text-wrapper {
+  padding-top: 3rem;
+  text-align: center;
+  font-size: 1rem;
+}
+
+.register-link {
+  font-weight: bold;
+  text-decoration: none;
+  color: rgba(0, 161, 252, 1);
+}
+
+.register-form-grid {
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: 1fr 1fr;
+  padding: 0 4rem;
+}
+
+.form-button-span-2 {
+  grid-column: 1 / span 2;
+}

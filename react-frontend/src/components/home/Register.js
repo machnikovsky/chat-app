@@ -1,79 +1,136 @@
-import { Link } from "react-router-dom"
-import logo from '../../assets/placeholder.png'
-import username from '../../assets/username_logo.png'
-import password from '../../assets/password_logo.png'
-import button from '../../assets/login_button.png'
-
+import { Link } from "react-router-dom";
+import logo from "../../assets/placeholder.png";
+import username from "../../assets/username_logo.png";
+import password from "../../assets/password_logo.png";
+import button from "../../assets/login_button.png";
 
 const Register = () => {
-    return(
-        <div className="register-container">
-            <div className="register-window">
-                <div className = "register-container">
-                    <img src={logo} alt="x" />
-                </div>
-                <div className = "form-container">
-                    <h1>Welcome</h1>
-                    <form className="register-form">
-                        <div className="username register_div">
-                            <label for="username">Username</label>
-                            <div className="input-div">
-                                <img src={username} alt="" />
-                                <input type="text" id="username" name="username"/>
-                            </div>
-                        </div>
-                        <div className="email register_div">   
-                            <label for="email">email</label>
-                            <div className="input-div">
-                                <input type="email" id="email" name="email"/>
-                            </div>
-                        </div>
-                        <div className="name register_div">   
-                            <label for="firstname">firstname</label>
-                            <div className="input-div">
-                                <input type="text" id="firstname" name="firstname"/>
-                            </div>
-                        </div>
-                        <div className="name register_div">   
-                            <label for="lastname">lastname</label>
-                            <div className="input-div">
-                                <input type="text" id="lastname" name="lastname"/>
-                            </div>
-                        </div>
-                        <div className="password register_div">   
-                            <label for="password">Password</label>
-                            <div className="input-div">
-                                <img src={password} alt="" />
-                                <input type="password" id="password" name="password"/>
-                            </div>
-                        </div>
-                        <div className="password register_div">   
-                            <label for="password">Repeat password</label>
-                            <div className="input-div">
-                                <img src={password} alt="" />
-                                <input type="password" id="repeated_password" name="repeated_password"/>
-                            </div>
-                        </div>
-                        <div className="number register_div">   
-                            <label for="phone_number">phone number</label>
-                            <div className="input-div">
-                                <input type="text" id="phone_number" name="phone_number"/>
-                            </div>
-                        </div>
-                        <div className="gender register_div">
-                            <label for="gender"> Male</label>
-                            <input type="radio" id="gender" name="gender" value="Male"/>
-                            <label for="gender"> Famale</label>
-                            <input type="radio" id="gender" name="gender" value="Famale"/>
-                            <label for="gender"> Other</label>
-                            <input type="radio" id="gender" name="gender" value="Other"/>
-                        </div>
-                        <Link to="/chats"><input type="image" src={button}></input></Link>
-                    </form>
-                </div>
-            </div>
+  return (
+    <div className="register-container">
+      <div className="register-window">
+        <div className="logo-container">
+          <img src={logo} alt="x" />
         </div>
-    )
-}
+        <div className="form-container">
+          <h1>Rejestracja</h1>
+          <form className="register-form-grid">
+            <div className="input-field-wrapper">
+              <label className="input-label" for="username">
+                Nazwa użytkownika
+              </label>
+              <div className="input-div">
+                <img src={username} alt="" />
+                <input
+                  className="input-field"
+                  type="text"
+                  id="username"
+                  name="username"
+                />
+              </div>
+            </div>
+            <div className="input-field-wrapper">
+              <label className="input-label" for="email">
+                Email
+              </label>
+              <div className="input-div">
+                <input
+                  className="input-field"
+                  type="email"
+                  id="email"
+                  name="email"
+                />
+              </div>
+            </div>
+            <div className="input-field-wrapper">
+              <label className="input-label" for="firstname">
+                Imię
+              </label>
+              <div className="input-div">
+                <input
+                  className="input-field"
+                  type="text"
+                  id="firstname"
+                  name="firstname"
+                />
+              </div>
+            </div>
+            <div className="input-field-wrapper">
+              <label className="input-label" for="lastname">
+                Nazwisko
+              </label>
+              <div className="input-div">
+                <input
+                  className="input-field"
+                  type="text"
+                  id="lastname"
+                  name="lastname"
+                />
+              </div>
+            </div>
+            <div className="input-field-wrapper">
+              <label className="input-label" for="password">
+                Hasło
+              </label>
+              <div className="input-div">
+                <img src={password} alt="" />
+                <input
+                  className="input-field"
+                  type="password"
+                  id="password"
+                  name="password"
+                />
+              </div>
+            </div>
+            <div className="input-field-wrapper">
+              <label className="input-label" for="password">
+                Powtórz hasło
+              </label>
+              <div className="input-div">
+                <img src={password} alt="" />
+                <input
+                  className="input-field"
+                  type="password"
+                  id="repeated_password"
+                  name="repeated_password"
+                />
+              </div>
+            </div>
+            <div className="input-field-wrapper">
+              <label className="input-label" for="phone_number">
+                Numer telefonu
+              </label>
+              <div className="input-div">
+                <input
+                  className="input-field"
+                  type="text"
+                  id="phone_number"
+                  name="phone_number"
+                />
+              </div>
+            </div>
+            <div className="radio-field-wrapper">
+              <input type="radio" id="male" name="gender" value="Male" />
+              <label className="radio-btn" for="male">
+                Mężczyzna
+              </label>
+              <input type="radio" id="female" name="gender" value="Famale" />
+              <label for="female">Kobieta </label>
+              <input type="radio" id="other" name="gender" value="Other" />
+              <label for="other">Inne</label>
+            </div>
+            <div className="center-wrapper form-button-span-2 ">
+              <button className="form-button">ZAREJESTRUJ SIĘ</button>
+            </div>
+          </form>
+          <div className="register-text-wrapper">
+            <Link to="/">
+              <div className="register-link">Wróć</div>
+            </Link>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
-export default Register
+export default Register;

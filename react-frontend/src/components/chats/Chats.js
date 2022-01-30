@@ -136,9 +136,9 @@ const Chats = () => {
                 </button>
               ))}
           </div>
-          <div className="logout-div">
-            <button className="logout-button" onClick={handleLogout}>
-              Logout
+          <div className="center-wrapper">
+            <button className="form-button" onClick={handleLogout}>
+              Wyloguj się
             </button>
           </div>
         </div>

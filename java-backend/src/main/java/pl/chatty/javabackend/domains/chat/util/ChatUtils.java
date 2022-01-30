@@ -16,6 +16,7 @@ import pl.chatty.javabackend.domains.message.util.MessageUtils;
 import pl.chatty.javabackend.domains.user.model.dto.response.UserDTO;
 import pl.chatty.javabackend.domains.user.model.entity.UserEntity;
 import pl.chatty.javabackend.domains.user.util.UserUtils;
+import pl.chatty.javabackend.exception.exceptions.ChatNotFoundException;
 import pl.chatty.javabackend.exception.exceptions.UserEntityNotFoundException;
 
 import java.time.LocalDate;
@@ -23,7 +24,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
@@ -70,7 +70,7 @@ public class ChatUtils {
     public CompletableFuture<List<ChatDTO>> getAllUserChats() {
         log.info("Getting all users chats using thread: {}", Thread.currentThread());
         UserEntity user = userUtils.getCurrentUser()
-                .orElseThrow(() -> new UserEntityNotFoundException("")); // TODO: Create chat exception
+                .orElseThrow(ChatNotFoundException::new);
 
         List<ChatEntity> chats = getAllChatsByUserId(user.getUserId());
         return CompletableFuture.completedFuture(chats.stream().map(x -> new ChatDTO(

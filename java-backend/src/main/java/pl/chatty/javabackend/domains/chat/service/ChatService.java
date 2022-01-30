@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import pl.chatty.javabackend.domains.chat.model.dto.request.CreateChatRequestDTO;
+import pl.chatty.javabackend.domains.chat.model.dto.request.CreateGroupChatRequestDTO;
 import pl.chatty.javabackend.domains.chat.model.dto.response.ChatDTO;
 import pl.chatty.javabackend.domains.chat.model.dto.response.ChatParticipantsDTO;
 import pl.chatty.javabackend.domains.chat.model.entity.ChatEntity;
@@ -58,5 +59,9 @@ public class ChatService {
 
         ChatDTO chatDTO = chatUtils.mapChatToDTO(chatUtils.saveChatInDatabase(chat));
         return ResponseEntity.ok(chatDTO);
+    }
+
+    public ResponseEntity<String> createNewGroupChat(CreateGroupChatRequestDTO request) {
+        return ResponseEntity.ok(chatUtils.createNewGroupChat(request).getChatId());
     }
 }

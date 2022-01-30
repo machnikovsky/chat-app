@@ -5,10 +5,9 @@ import logo from '../../assets/placeholder.png'
 import signup_button from '../../assets/signup_button.png'
 import Auth from "../../auth/Auth";
 
-
-
 const Register = () => {
-  const navigate = useNavigate();
+
+    const navigate = useNavigate();
 
     const [username,setUsername] = useState('');
     const [email,setEmail] = useState('');
@@ -18,55 +17,34 @@ const Register = () => {
     const [repeated_password,setRepeatedPassword] = useState('');
     const [phone_number,setPhoneNumber] = useState('');
     const [gender,setGender] = useState('OTHER');
+    const userRole = 'USER';
     const [invalidInput, setInvalidInput] = useState(false);
     const [passwordsError, setPasswordError] = useState(false);
 
     let registerUser = () => {
-        console.log(`Sent register request for ${email}`);
-        Auth.register(
-            username,
-            firstname,
-            lastname,
-            email,
-            password,
-            phone_number,
-            gender
-        ).then(() => {
-            console.log(`Successful register `);
-            navigate("/");
-        })
-        .catch((err) => {
-            console.log(`Error register user: `, err.message);
-        });
-        
-    };
-
-  const handleRegister = (e) => {
-    e.preventDefault();
-
-    if (password !== repeated_password) {
-      setPasswordError(true);
-      setInvalidInput(false);
-      return;
+        Auth.register(username,firstname,lastname,email,password,phone_number,gender,userRole,null);
+        navigate('/');
     }
 
-    if (
-      username === "" ||
-      email === "" ||
-      firstname === "" ||
-      lastname === "" ||
-      password === "" ||
-      repeated_password === "" ||
-      phone_number === "" ||
-      gender === ""
-    ) {
-      setPasswordError(false);
-      setInvalidInput(true);
-      return;
-    }
+    const handleRegister = (e) => {
+        e.preventDefault();
 
-    registerUser();
-  };
+        if(password !== repeated_password) {
+            setPasswordError(true);
+            setInvalidInput(false);
+            return;
+        }
+
+        if(username === '' || email === '' || firstname === '' || lastname === '' ||
+            password === '' || repeated_password === '' || phone_number === '' ||
+            gender === '') {
+                setPasswordError(false);
+                setInvalidInput(true);
+                return;
+        }
+
+        registerUser();
+    }
 
     return(
         <div className="register-container">
@@ -158,7 +136,7 @@ const Register = () => {
                         <div className="gender register_div">
                             <input
                                 type="radio"
-                                id="gender-male"
+                                id="gender"
                                 name="gender"
                                 value="MALE"
                                 checked={gender === 'MALE'}
@@ -166,7 +144,7 @@ const Register = () => {
                             <label for="gender"> Male</label>
                             <input
                                 type="radio"
-                                id="gender-famale"
+                                id="gender"
                                 name="gender"
                                 value="FAMALE"
                                 checked={gender === 'FAMALE'}
@@ -174,7 +152,7 @@ const Register = () => {
                             <label for="gender"> Famale</label>
                             <input
                                 type="radio"
-                                id="gender-other"
+                                id="gender"
                                 name="gender"
                                 value="OTHER"
                                 checked={gender === 'OTHER'}
@@ -189,10 +167,10 @@ const Register = () => {
                         { invalidInput && <div className={"bad-credentials"}>Wprowadź wszystkie dane.</div>}
                         { passwordsError && <div className={"bad-credentials"}>Hasła się różnia.</div>}
                     </form>
-                </div> 
-            </div> 
+                </div>
+            </div>
         </div>
     )
 }
 
-export default Register;
+export default Register

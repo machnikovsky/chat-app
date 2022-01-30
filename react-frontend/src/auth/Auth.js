@@ -9,7 +9,9 @@ const register = (username,
                   email,
                   password,
                   phoneNumber,
-                  gender) => {
+                  gender,
+                  userRole,
+                  profileImage) => {
   return axios.post(API_URL + "register",{
     username,
     firstName,
@@ -17,7 +19,9 @@ const register = (username,
     email,
     password,
     phoneNumber,
+    profileImage,
     gender,
+    userRole,
   });
 };
 
@@ -42,14 +46,14 @@ const logout = () => {
 };
 
 const getCurrentUser = () => {
-  return axios
-    .get(API_URL + "username", { headers: authHeader() })
-    .then((res) => {
-      return res.data;
-    })
-    .catch((err) => {
-      console.log("Error getting username: ", err.message);
-    });
+  return axios.get(API_URL + 'username', { headers: authHeader() })
+  .then(res => {
+    return res.data;
+  })
+  .catch(err => {
+    console.log("Error getting username: ", err.message)
+  })
+  ;
 };
 
 const Auth = {

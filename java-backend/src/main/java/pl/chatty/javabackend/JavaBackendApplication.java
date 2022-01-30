@@ -61,6 +61,7 @@ class ApplicationStartup {
                                 "john@doe.com",
                                 passwordEncoder.encode("password"),
                                 "123123123",
+                                null,
                                 Gender.MALE,
                                 UsersRole.USER,
                                 new ArrayList<>(),

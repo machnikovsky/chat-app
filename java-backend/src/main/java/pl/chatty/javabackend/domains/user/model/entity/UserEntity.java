@@ -1,7 +1,10 @@
 package pl.chatty.javabackend.domains.user.model.entity;
 
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.bson.types.Binary;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -9,6 +12,8 @@ import java.util.ArrayList;
 
 @Document("users")
 @Data
+@Getter
+@Setter
 @NoArgsConstructor
 public class UserEntity {
 
@@ -20,6 +25,7 @@ public class UserEntity {
     private String email;
     private String password;
     private String phoneNumber;
+    private Binary profileImage;
 
     private Gender gender;
     private UsersRole usersRole;
@@ -28,7 +34,7 @@ public class UserEntity {
     private ArrayList<UserEntity> blockedUsers;
 
     public UserEntity(String username, String firstName, String lastName, String email, String password,
-                      String phoneNumber, Gender gender, UsersRole usersRole, ArrayList<UserEntity> friends,
+                      String phoneNumber,Binary profileImage, Gender gender, UsersRole usersRole, ArrayList<UserEntity> friends,
                       ArrayList<UserEntity> blockedUsers) {
         this.username = username;
         this.firstName = firstName;
@@ -36,6 +42,7 @@ public class UserEntity {
         this.email = email;
         this.password = password;
         this.phoneNumber = phoneNumber;
+        this.profileImage = profileImage;
         this.gender = gender;
         this.usersRole = usersRole;
         this.friends = friends;

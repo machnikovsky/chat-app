@@ -12,6 +12,7 @@ import pl.chatty.javabackend.domains.message.model.dto.request.MessageDTO;
 import pl.chatty.javabackend.domains.message.util.MessageUtils;
 import pl.chatty.javabackend.domains.user.model.entity.UserEntity;
 import pl.chatty.javabackend.domains.user.util.UserUtils;
+import pl.chatty.javabackend.exception.exceptions.ChatNotFoundException;
 import pl.chatty.javabackend.exception.exceptions.UserEntityNotFoundException;
 
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ public class ChatService {
     public ResponseEntity<String> getChatByChatParticipants(ChatParticipantsDTO chatParticipantsDTO) {
         return chatUtils.getChatIdByChatParticipants(chatParticipantsDTO)
                 .map(ResponseEntity::ok)
-                .orElseThrow(() -> new UserEntityNotFoundException("")); // TODO: Create chat exception
+                .orElseThrow(() -> new ChatNotFoundException(chatParticipantsDTO));
     }
 
     public CompletableFuture<List<ChatDTO>> getAllUserChats() {

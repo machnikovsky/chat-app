@@ -43,7 +43,6 @@ public class UserController {
         return userService.getUsersBesideSelf();
     }
 
-    //TODO: Move these to service/utils
     @DeleteMapping(path = "/{userId}")
     public ResponseEntity<String> removeUser(@PathVariable("userId") String userId) {
         return userService.removeUser(userId);
@@ -55,13 +54,11 @@ public class UserController {
         return userService.updateUser(userId, requestBody);
     }
 
-    //TODO: Move these to service/utils
     @GetMapping(path = "/{userId}")
     public ResponseEntity<UserEntity> getUser(@PathVariable("userId") String userId) {
         return userService.getUser(userId);
     }
 
-    //TODO: Move these to service/utils
     @GetMapping(path = "/all")
     public ResponseEntity<UsersListDto> getUsers(@RequestParam(name = "page", required = false, defaultValue = "0") int page,
                                                  @RequestParam(name = "size", required = false, defaultValue = "10") int size) {

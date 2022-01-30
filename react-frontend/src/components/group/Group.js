@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { ApiCall } from '../../api/ApiCall';
 import SearchBar from '../find/SearchBar';
-import UserList from '../find/UserList';
 import Navbar from '../nav/Navbar';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import add from '../../assets/add.png';
 import remove from '../../assets/remove.png';
 import not_found from '../../assets/not_found.jpeg';

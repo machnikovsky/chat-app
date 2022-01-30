@@ -12,6 +12,7 @@ import spinner from "../../assets/circle-notch-solid.svg";
 const Chats = () => {
   const SOCKET_URL = "http://localhost:8080/chat/";
   const [messages, setMessages] = useState([]);
+  const [noChats, setNoChats] = useState(true);
   const [chat, setChat] = useState("default");
   const [chats, setChats] = useState([]);
   const [currentMess, setCurrentMess] = useState("");
@@ -40,12 +41,13 @@ const Chats = () => {
   }, []);
 
   useEffect(() => {
-    //Also there should be some logic to set default
-    //chat, like the most recent one, it should be
-    //a call to backend
+
     ApiCall.getUserChats().then((res) => {
-      console.log("Res: ", res);
       setChats(res.data);
+      if (res.data.length > 0) {
+        changeChat(res.data[0]);
+        setNoChats(false);
+      }
     });
   }, []);
 
@@ -144,45 +146,55 @@ const Chats = () => {
           </div>
         </div>
         <div className="right-bar">
-          <div className="chat-info">
-            <div className="chat-picture">
-              {receivers[0].profileImage ? (
-                <img
-                  src={`data:image/jpeg;base64,${receivers[0].profileImage.data}`}
-                  alt=""
-                />
-              ) : (
-                <img src={profile_picture} alt="" />
-              )}
+          {
+            noChats ?
+            <div className="no-chats"> 
+            <p>Nie uczestniczysz jeszcze w żadnej rozmowie.</p>
+            <p>Przejdź do zakładki 'Wyszukaj' lub 'Utwórz grupę' aby to zmienić!</p>
             </div>
-            <div className="chat-name">
-              { receivers.length > 1 ? chatName : receivers[0].firstName + " " + receivers[0].lastName }
-            </div>
-          </div>
-          <div className="chat-content">
-            {messages &&
-              messages.map((message) => {
-                return message.messageAuthorUsername === user ? (
-                  <div className="single-chat-message sent-message">
-                    {message.messageAuthorUsername}: {message.messageContent}
-                  </div>
+            :
+            <>
+            <div className="chat-info">
+              <div className="chat-picture">
+                {receivers[0].profileImage ? (
+                  <img
+                    src={`data:image/jpeg;base64,${receivers[0].profileImage.data}`}
+                    alt=""
+                  />
                 ) : (
-                  <div className="single-chat-message recieved-message">
-                    {message.messageAuthorUsername}: {message.messageContent}
-                  </div>
-                );
-              })}
-          </div>
-          <div className="chat-form">
-            <input
-              type="text"
-              value={currentMess}
-              onChange={(e) => setCurrentMess(e.target.value)}
-            />
-            <button type="button" onClick={sendMessage}>
-              <img src={sendButton} alt="send" />
-            </button>
-          </div>
+                  <img src={profile_picture} alt="" />
+                )}
+              </div>
+              <div className="chat-name">
+                { receivers.length > 1 ? chatName : receivers[0].firstName + " " + receivers[0].lastName }
+              </div>
+            </div>
+            <div className="chat-content">
+              {messages &&
+                messages.map((message) => {
+                  return message.messageAuthorUsername === user ? (
+                    <div className="single-chat-message sent-message">
+                      {message.messageAuthorUsername}: {message.messageContent}
+                    </div>
+                  ) : (
+                    <div className="single-chat-message recieved-message">
+                      {message.messageAuthorUsername}: {message.messageContent}
+                    </div>
+                  );
+                })}
+            </div>
+            <div className="chat-form">
+              <input
+                type="text"
+                value={currentMess}
+                onChange={(e) => setCurrentMess(e.target.value)}
+              />
+              <button type="button" onClick={sendMessage}>
+                <img src={sendButton} alt="send" />
+              </button>
+            </div>
+            </>
+          }
         </div>
       </div>
     </div>

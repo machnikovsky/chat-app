@@ -257,8 +257,6 @@
   width: 100%;
   top: 5vh;
   margin-bottom: 8vh;
-  position: relative;
-  padding-top: 1vh;
   background: rgba(196, 196, 196, 0.4);
   color: rgba(255, 255, 255, 0.8);
   text-align: left;
@@ -558,6 +556,7 @@ a {
   display: grid;
   -ms-grid-rows: 2fr 15fr 2fr;
       grid-template-rows: 2fr 15fr 2fr;
+  min-height: 90vh;
 }
 
 .chat-info {
@@ -711,5 +710,27 @@ a {
 .chat-form img {
   width: 30px;
   height: auto;
+}
+
+.no-chats {
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-grid-row: 2;
+  -ms-grid-row-span: 1;
+  grid-row: 2/3;
+  font-size: 1.7em;
+  font-weight: 200;
 }
 /*# sourceMappingURL=styles.css.map */

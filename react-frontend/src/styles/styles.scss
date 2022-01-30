@@ -191,6 +191,7 @@ a {
 .right-bar {
   display: grid;
   grid-template-rows: 2fr 15fr 2fr;
+  min-height: 90vh;
 }
 
 .chat-info {
@@ -325,4 +326,15 @@ a {
 .chat-form img {
   width: 30px;
   height: auto;
+}
+
+.no-chats {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  grid-row: 2/3;
+  font-size: 1.7em;
+  font-weight: 200;
 }

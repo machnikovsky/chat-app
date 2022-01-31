@@ -63,9 +63,6 @@ const Profile = () => {
               {user.email}
             </span>
             <hr className="profile-block__layer__profile-window__line"></hr>
-            <span className="profile-block__layer__profile-window__friends-counter">
-              firends: <span style={{ color: "#44DE82" }}> - </span>
-            </span>
           </div>
         </div>
       </div>

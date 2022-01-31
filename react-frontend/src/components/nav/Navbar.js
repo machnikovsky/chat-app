@@ -14,6 +14,9 @@ const Navbar = () => {
               <button className="navbar-button" onClick={() => {navigate('/find')}}>Wyszukaj</button>
             </div>
             <div className='navbar-element'>
+              <button className="navbar-button" onClick={() => {navigate('/group')}}>Utwórz grupę</button>
+            </div>
+            <div className='navbar-element'>
               <button className="navbar-button" onClick={() => {navigate('/profile')}}>Profil</button>
             </div>
          </div>

@@ -66,6 +66,8 @@ public class AuthController {
             return new ResponseEntity<>(UserDTO.builder()
                     .firstName(userEntity.getFirstName())
                     .lastName(userEntity.getLastName())
+                    .email(userEntity.getEmail())
+                    .phoneNumber(userEntity.getPhoneNumber())
                     .userId(userEntity.getUserId())
                     .username(userEntity.getUsername())
                     .profileImage(userEntity.getProfileImage())

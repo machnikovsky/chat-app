@@ -41,9 +41,9 @@ const Chats = () => {
   }, []);
 
   useEffect(() => {
-
     ApiCall.getUserChats().then((res) => {
       setChats(res.data);
+      console.log(res.data);
       if (res.data.length > 0) {
         changeChat(res.data[0]);
         setNoChats(false);
@@ -133,7 +133,15 @@ const Chats = () => {
                 <button onClick={() => changeChat(val)}>
                   <div className="single-chat-container">
                     <div className="single-chat">
-                      <p>{val.name}</p>
+                      {userData.username === val.users[0] ? (
+                        <p>
+                          {val.users[1].firstName} {val.users[1].lastName}
+                        </p>
+                      ) : (
+                        <p>
+                          {val.users[0].firstName} {val.users[0].lastName}
+                        </p>
+                      )}
                     </div>
                   </div>
                 </button>
@@ -146,55 +154,61 @@ const Chats = () => {
           </div>
         </div>
         <div className="right-bar">
-          {
-            noChats ?
-            <div className="no-chats"> 
-            <p>Nie uczestniczysz jeszcze w żadnej rozmowie.</p>
-            <p>Przejdź do zakładki 'Wyszukaj' lub 'Utwórz grupę' aby to zmienić!</p>
+          {noChats ? (
+            <div className="no-chats">
+              <p>Nie uczestniczysz jeszcze w żadnej rozmowie.</p>
+              <p>
+                Przejdź do zakładki 'Wyszukaj' lub 'Utwórz grupę' aby to
+                zmienić!
+              </p>
             </div>
-            :
+          ) : (
             <>
-            <div className="chat-info">
-              <div className="chat-picture">
-                {receivers[0].profileImage ? (
-                  <img
-                    src={`data:image/jpeg;base64,${receivers[0].profileImage.data}`}
-                    alt=""
-                  />
-                ) : (
-                  <img src={profile_picture} alt="" />
-                )}
-              </div>
-              <div className="chat-name">
-                { receivers.length > 1 ? chatName : receivers[0].firstName + " " + receivers[0].lastName }
-              </div>
-            </div>
-            <div className="chat-content">
-              {messages &&
-                messages.map((message) => {
-                  return message.messageAuthorUsername === user ? (
-                    <div className="single-chat-message sent-message">
-                      {message.messageAuthorUsername}: {message.messageContent}
-                    </div>
+              <div className="chat-info">
+                <div className="chat-picture">
+                  {receivers[0].profileImage ? (
+                    <img
+                      src={`data:image/jpeg;base64,${receivers[0].profileImage.data}`}
+                      alt=""
+                    />
                   ) : (
-                    <div className="single-chat-message recieved-message">
-                      {message.messageAuthorUsername}: {message.messageContent}
-                    </div>
-                  );
-                })}
-            </div>
-            <div className="chat-form">
-              <input
-                type="text"
-                value={currentMess}
-                onChange={(e) => setCurrentMess(e.target.value)}
-              />
-              <button type="button" onClick={sendMessage}>
-                <img src={sendButton} alt="send" />
-              </button>
-            </div>
+                    <img src={profile_picture} alt="" />
+                  )}
+                </div>
+                <div className="chat-name">
+                  {receivers.length > 1
+                    ? chatName
+                    : receivers[0].firstName + " " + receivers[0].lastName}
+                </div>
+              </div>
+              <div className="chat-content">
+                {messages &&
+                  messages.map((message) => {
+                    return message.messageAuthorUsername === user ? (
+                      <div className="single-chat-message sent-message">
+                        {message.messageAuthorUsername}:{" "}
+                        {message.messageContent}
+                      </div>
+                    ) : (
+                      <div className="single-chat-message recieved-message">
+                        {message.messageAuthorUsername}:{" "}
+                        {message.messageContent}
+                      </div>
+                    );
+                  })}
+              </div>
+              <div className="chat-form">
+                <input
+                  type="text"
+                  value={currentMess}
+                  onChange={(e) => setCurrentMess(e.target.value)}
+                />
+                <button type="button" onClick={sendMessage}>
+                  <img src={sendButton} alt="send" />
+                </button>
+              </div>
             </>
-          }
+          )}
         </div>
       </div>
     </div>

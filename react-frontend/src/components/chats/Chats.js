@@ -133,14 +133,18 @@ const Chats = () => {
                 <button onClick={() => changeChat(val)}>
                   <div className="single-chat-container">
                     <div className="single-chat">
-                      {userData.username === val.users[0] ? (
-                        <p>
-                          {val.users[1].firstName} {val.users[1].lastName}
-                        </p>
+                      {val.users.length < 3 ? (
+                        userData.username === val.users[0] ? (
+                          <p>
+                            {val.users[1].firstName} {val.users[1].lastName}
+                          </p>
+                        ) : (
+                          <p>
+                            {val.users[0].firstName} {val.users[0].lastName}
+                          </p>
+                        )
                       ) : (
-                        <p>
-                          {val.users[0].firstName} {val.users[0].lastName}
-                        </p>
+                        <p>{val.name}</p>
                       )}
                     </div>
                   </div>

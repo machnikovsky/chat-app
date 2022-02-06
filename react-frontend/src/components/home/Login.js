@@ -1,4 +1,4 @@
-import logo from "../../assets/placeholder.png";
+import logo from "../../assets/errors/logo-black.png";
 import username from "../../assets/username_logo.png";
 import password_logo from "../../assets/password_logo.png";
 import { useContext, useState } from "react";
@@ -41,7 +41,7 @@ const Login = () => {
     <div className="login-container">
       <div className="login-window">
         <div className="logo-container">
-          <img src={logo} alt="x" />
+          <img className="logo" src={logo} alt="x" />
         </div>
         <div className="form-container">
           <h1>Zaloguj się</h1>

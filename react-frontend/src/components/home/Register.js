@@ -1,6 +1,6 @@
-import logo from "../../assets/placeholder.png";
+import logo from "../../assets/errors/logo-black.png";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Auth from "../../auth/Auth";
 
 const Register = () => {
@@ -63,8 +63,13 @@ const Register = () => {
   return (
     <div className="register-container">
       <div className="register-window">
-        <div className="logo-container" onClick={(e) => navigate("/")}>
-          <img src={logo} alt="x" />
+        <div className="logo-container">
+          <img
+            className="logo pointer"
+            src={logo}
+            alt="x"
+            onClick={(e) => navigate("/")}
+          />
         </div>
         <div className="form-container">
           <h1>Rejestracja</h1>
@@ -216,6 +221,11 @@ const Register = () => {
               <div className={"bad-credentials"}>Hasła się różnia.</div>
             )}
           </form>
+          <div className="register-text-wrapper">
+            <Link to="/">
+              <div className="register-link">Wróć</div>
+            </Link>
+          </div>
         </div>
       </div>
     </div>

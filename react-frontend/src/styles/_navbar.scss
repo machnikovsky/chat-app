@@ -1,27 +1,67 @@
+.navbar-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr 10rem 10rem 10rem 10rem 1fr 1fr;
+  background-color: whitesmoke;
+  border-bottom: solid 1px rgb(67, 165, 255);
+}
+
+.navbar-grid-links {
+  grid-column: span 4;
+  grid-column-start: 3;
+}
+
 .navbar-container {
-    width: 100%;
-    background-color: #abeeb49f;
-    height: 10vh;
+  justify-self: center;
+  width: 100%;
+  height: 6vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+
+  .navbar-logo {
+    margin-left: 1rem;
+    width: 75px;
+    height: 100%;
+    cursor: pointer;
+  }
+
+  .navbar-logo-button {
+    background: none;
+    border: none;
+    margin: 0;
+    margin-top: 3px;
+    padding: 0;
+    height: 75%;
+  }
+
+  .navbar-element {
+    height: 100%;
     display: flex;
-    justify-content: space-around;
     align-items: center;
 
-    .navbar-element {
-        height: 100%;
-        display: flex;
-        align-items: center;
-        .navbar-button {
-            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-            height: 70%;
-            width: 15vw;
-            border: none;
-            outline: none;
-            cursor: pointer;
-            border-radius: 5px;
-            background-color: rgba(166, 211, 247, 0.301);
-            font-size: 1.3em;
-            font-family: Raleway;
-            color: #333;
-        }
+    .navbar-button {
+      background-color: whitesmoke;
+      height: 100%;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      font-size: 1.1em;
+      font-family: Raleway;
+      font-weight: bold;
+      color: black;
+      transition: 0.4s;
+      width: 10rem;
     }
+
+    .navbar-button:hover {
+      background: rgb(67, 165, 255);
+      color: white;
+    }
+
+    .navbar-button-page {
+      height: calc(100% + 2px);
+      border-bottom: solid 2px rgb(67, 165, 255);
+    }
+  }
 }

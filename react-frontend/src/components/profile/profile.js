@@ -9,20 +9,44 @@ import ProfilePNG from "../../assets/not_found.jpeg";
 import { ApiCall } from "../../api/ApiCall.js";
 
 const Profile = () => {
-
   const [user, setUser] = useState({});
+  const [profileImage, setProfileImage] = useState(null);
+
+  const handleProfileImage = (e) => {
+    setProfileImage(e.target.files[0]);
+
+    //sentProfileImage();
+  };
+
+  const sentProfileImage = () => {
+    console.log(profileImage);
+    const imageData = new FormData();
+    imageData.append("imageFile", profileImage);
+
+    for (var value of imageData.values()) {
+      console.log(value);
+    }
+
+    ApiCall.changeProfileImage(imageData)
+      .then((res) => {
+        console.log("Sent image ", res);
+      })
+      .catch((err) => {
+        console.log("Error: ", err.message);
+      });
+  };
 
   useEffect(() => {
-      ApiCall.me()
-      .then(res => {
-      console.log("Received user info: ", res);
-      setUser(res);
+    ApiCall.me()
+      .then((res) => {
+        console.log("Received user info: ", res);
+        setUser(res);
       })
-      .catch(err => {
-      console.log("Error getting user info: ", err.message);
-      setUser({})
-      })
-}, [])
+      .catch((err) => {
+        console.log("Error getting user info: ", err.message);
+        setUser({});
+      });
+  }, []);
 
   return (
     <>
@@ -34,6 +58,14 @@ const Profile = () => {
         <img src={Rectangle4} className="profile-block__rectangle4" />
         <div className="profile-block__layer">
           <div className="profile-block__layer__profile-window">
+            <form>
+              <input
+                accept="image/*"
+                type="file"
+                id="profile-image-input"
+                onChange={handleProfileImage}
+              />
+            </form>
             <img
               src={ProfilePNG}
               className="profile-block__layer__profile-window__profile-image"
@@ -54,7 +86,7 @@ const Profile = () => {
               </div>
               <div className="profile-block__layer__profile-window__inline-block__phone-block">
                 <span className="profile-block__layer__profile-window__inline-block__phone-block__phone">
-                +48 {user.phoneNumber}
+                  +48 {user.phoneNumber}
                 </span>
                 <hr className="profile-block__layer__profile-window__line"></hr>
               </div>
@@ -65,6 +97,7 @@ const Profile = () => {
             <hr className="profile-block__layer__profile-window__line"></hr>
           </div>
         </div>
+        <button onClick={sentProfileImage}> send </button>
       </div>
     </>
   );

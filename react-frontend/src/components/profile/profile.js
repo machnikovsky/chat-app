@@ -5,17 +5,17 @@ import Rectangle1 from "../../assets/svg/rectangle1.svg";
 import Rectangle2 from "../../assets/svg/rectangle2.svg";
 import Rectangle3 from "../../assets/svg/rectangle3.svg";
 import Rectangle4 from "../../assets/svg/rectangle4.svg";
-import ProfilePNG from "../../assets/not_found.jpeg";
+ import ProfilePNG from "../../assets/not_found.jpeg";
 import { ApiCall } from "../../api/ApiCall.js";
 
 const Profile = () => {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState({
+    profileImage: [],
+  });
   const [profileImage, setProfileImage] = useState(null);
 
   const handleProfileImage = (e) => {
     setProfileImage(e.target.files[0]);
-
-    //sentProfileImage();
   };
 
   const sentProfileImage = () => {
@@ -67,7 +67,7 @@ const Profile = () => {
               />
             </form>
             <img
-              src={ProfilePNG}
+              src={`data:image/jpeg;base64,${user.profileImage.data}`}
               className="profile-block__layer__profile-window__profile-image"
             />
             <span className="profile-block__layer__profile-window__username">

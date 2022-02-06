@@ -41,12 +41,19 @@ const getChatDtoOrCreateNewAndRetrieveIfNotPresent = (userId) => {
 };
 
 const createGroupChat = (createChatRequestDTO) => {
-  return axios.post(API_URL + `chat/group/new`, createChatRequestDTO, { headers: authHeader() });
-}
+  return axios.post(API_URL + `chat/group/new`, createChatRequestDTO, {
+    headers: authHeader(),
+  });
+};
 
-const changeProfileImage = async (image) =>  {
-    return await axios.post(API_URL + `user/profilepicture`, image);
-}
+const changeProfileImage = async (image) => {
+  for (var value of image.values()) {
+    console.log(value);
+  }
+  return await axios.post(API_URL + `user/profilepicture`, image, {
+    headers: authHeader(),
+  });
+};
 
 export const ApiCall = {
   getAllUsersBesideSelf,
@@ -56,5 +63,5 @@ export const ApiCall = {
   getChatDtoOrCreateNewAndRetrieveIfNotPresent,
   me,
   createGroupChat,
-  changeProfileImage
+  changeProfileImage,
 };

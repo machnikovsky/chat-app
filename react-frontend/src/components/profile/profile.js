@@ -9,39 +9,44 @@ import ProfilePNG from "../../assets/not_found.jpeg";
 import { ApiCall } from "../../api/ApiCall.js";
 
 const Profile = () => {
-
   const [user, setUser] = useState({});
   const [profileImage, setProfileImage] = useState(null);
-  
-  const handleProfileImage = (e) => {
-    const imageData = new FormData();
-    imageData.append('imageFile',e.target.files[0]);
-    setProfileImage(imageData);    
 
-    sentProfileImage();
-  }
+  const handleProfileImage = (e) => {
+    setProfileImage(e.target.files[0]);
+
+    //sentProfileImage();
+  };
 
   const sentProfileImage = () => {
-    ApiCall.changeProfileImage(profileImage)
-    .then(res => {
-      console.log("Sent image ", res);
-    })
-    .catch(err => {
-      console.log("Error: ", err.message);
-    })
-  }
+    console.log(profileImage);
+    const imageData = new FormData();
+    imageData.append("imageFile", profileImage);
+
+    for (var value of imageData.values()) {
+      console.log(value);
+    }
+
+    ApiCall.changeProfileImage(imageData)
+      .then((res) => {
+        console.log("Sent image ", res);
+      })
+      .catch((err) => {
+        console.log("Error: ", err.message);
+      });
+  };
 
   useEffect(() => {
-      ApiCall.me()
-      .then(res => {
-      console.log("Received user info: ", res);
-      setUser(res);
+    ApiCall.me()
+      .then((res) => {
+        console.log("Received user info: ", res);
+        setUser(res);
       })
-      .catch(err => {
-      console.log("Error getting user info: ", err.message);
-      setUser({})
-      })
-}, [])
+      .catch((err) => {
+        console.log("Error getting user info: ", err.message);
+        setUser({});
+      });
+  }, []);
 
   return (
     <>
@@ -54,7 +59,7 @@ const Profile = () => {
         <div className="profile-block__layer">
           <div className="profile-block__layer__profile-window">
             <form>
-              <input 
+              <input
                 accept="image/*"
                 type="file"
                 id="profile-image-input"
@@ -81,7 +86,7 @@ const Profile = () => {
               </div>
               <div className="profile-block__layer__profile-window__inline-block__phone-block">
                 <span className="profile-block__layer__profile-window__inline-block__phone-block__phone">
-                +48 {user.phoneNumber}
+                  +48 {user.phoneNumber}
                 </span>
                 <hr className="profile-block__layer__profile-window__line"></hr>
               </div>
@@ -92,6 +97,7 @@ const Profile = () => {
             <hr className="profile-block__layer__profile-window__line"></hr>
           </div>
         </div>
+        <button onClick={sentProfileImage}> send </button>
       </div>
     </>
   );

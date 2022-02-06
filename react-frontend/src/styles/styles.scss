@@ -88,38 +88,12 @@ a {
   display: grid;
   grid-template-rows: 1fr 1fr;
 }
-/*
-.login-form input,
-.register-form input {
-  border: 0;
-  padding: 5px;
-  width: 90%;
-  background-color: transparent;
-  resize: none;
-  outline: none;
-}
-*/
+
 .register-form input[type="radio"] {
   width: 80%;
   padding: 5px 0;
   text-align: left;
 }
-/*
-.login-form .input-div,
-.register-form .input-div {
-  margin: 5px 0px;
-  border: 0;
-  border-bottom: 2px solid #00a3ff;
-}
-*/
-/*
-.login-form label,
-.register-form label {
-  margin-top: 20px;
-  font-family: "Roboto", sans-serif;
-  color: #00a3ff;
-}
-*/
 
 .login-form .login_div,
 .register-form .register-div {

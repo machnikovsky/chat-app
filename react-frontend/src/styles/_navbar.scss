@@ -1,12 +1,12 @@
 .navbar-wrapper {
   display: grid;
-  grid-template-columns: 1fr 1fr 10rem 10rem 10rem 1fr 1fr;
+  grid-template-columns: 1fr 1fr 10rem 10rem 10rem 10rem 1fr 1fr;
   background-color: whitesmoke;
   border-bottom: solid 1px rgb(67, 165, 255);
 }
 
 .navbar-grid-links {
-  grid-column: span 3;
+  grid-column: span 4;
   grid-column-start: 3;
 }
 

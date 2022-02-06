@@ -374,8 +374,7 @@ a {
   /* text-align: center; */
 }
 
-.login-window,
-.register-window {
+.login-window {
   background-image: url("../assets/login_window.png");
   background-position: center;
   background-repeat: no-repeat;
@@ -419,8 +418,7 @@ a {
   text-align: center;
 }
 
-.login-form,
-.register-form {
+.login-form {
   padding: 2% 10%;
   display: -ms-grid;
   display: grid;
@@ -428,8 +426,7 @@ a {
       grid-template-rows: 1fr 1fr;
 }
 
-.login-form input,
-.register-form input {
+.login-form input {
   border: 0;
   padding: 5px;
   width: 90%;
@@ -438,28 +435,19 @@ a {
   outline: none;
 }
 
-.register-form input[type="radio"] {
-  width: 80%;
-  padding: 5px 0;
-  text-align: left;
-}
-
-.login-form .input-div,
-.register-form .input-div {
+.login-form .input-div{
   margin: 5px 0px;
   border: 0;
   border-bottom: 2px solid #00a3ff;
 }
 
-.login-form label,
-.register-form label {
+.login-form label {
   margin-top: 20px;
   font-family: "Roboto", sans-serif;
   color: #00a3ff;
 }
 
-.login-form .login_div,
-.register-form .register-div {
+.login-form .login_div{
   display: -ms-grid;
   display: grid;
   -ms-grid-rows: 1fr 1fr;
@@ -467,7 +455,7 @@ a {
 }
 
 .login-form .login-button,
-.register-form .register-button {
+.login-form .register-button {
   border: 0;
   padding: 5px;
   width: 50%;
@@ -732,5 +720,103 @@ a {
   grid-row: 2/3;
   font-size: 1.7em;
   font-weight: 200;
+}
+
+
+.register-container{
+  background-image: url("../assets/background.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  /* text-align: center; */
+}
+
+.register-window {
+  background-image: url("../assets/login_window.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  -webkit-box-shadow: 0px 0px 20px 0px #807b7b;
+          box-shadow: 0px 0px 20px 0px #807b7b;
+  border-radius: 30px;
+  width: 50vw;
+  height: 80vh;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 3fr 4fr;
+      grid-template-columns: 3fr 4fr;
+}
+
+.register-form{
+  padding: 2% 10%;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+}
+
+.register-form .register_div{
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+}
+
+.register-form input{
+  border: 0;
+  padding: 0px;
+  width: 100%;
+  background-color: transparent;
+  resize: none;
+  outline: none;
+}
+
+.register-form .input-div{
+  margin: 0px 0px 3px 0px;
+  border: 0;
+  border-bottom: 2px solid #00A3FF;
+}
+
+.register-form label{
+  margin-top: 0px;
+  font-family: 'Roboto', sans-serif;
+  color: #00A3FF;
+}
+
+.register-form .gender{
+  -ms-grid-columns: 2fr 8fr;
+    grid-template-columns: 2fr 8fr;
+}
+
+.register-form .gender label{
+  width: 50%;
+}
+
+.register-form .gender input{
+  border: 0;
+  padding: 0px;
+  width: 50%;
+  background-color: transparent;
+  resize: none;
+  outline: none;
+}
+
+.register-form .register-button {
+  border: 0;
+  padding: 5px;
+  background-color: transparent;
+  resize: none;
+  outline: none;
+  cursor: pointer;
 }
 /*# sourceMappingURL=styles.css.map */

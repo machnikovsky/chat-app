@@ -44,6 +44,10 @@ const createGroupChat = (createChatRequestDTO) => {
   return axios.post(API_URL + `chat/group/new`, createChatRequestDTO, { headers: authHeader() });
 }
 
+const changeProfileImage = async (image) =>  {
+    return await axios.post(API_URL + `user/profilepicture`, image);
+}
+
 export const ApiCall = {
   getAllUsersBesideSelf,
   getUserChats,
@@ -51,5 +55,6 @@ export const ApiCall = {
   getAndSetQueriedListWithNewQuery,
   getChatDtoOrCreateNewAndRetrieveIfNotPresent,
   me,
-  createGroupChat
+  createGroupChat,
+  changeProfileImage
 };

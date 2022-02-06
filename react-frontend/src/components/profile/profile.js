@@ -11,6 +11,25 @@ import { ApiCall } from "../../api/ApiCall.js";
 const Profile = () => {
 
   const [user, setUser] = useState({});
+  const [profileImage, setProfileImage] = useState(null);
+  
+  const handleProfileImage = (e) => {
+    const imageData = new FormData();
+    imageData.append('imageFile',e.target.files[0]);
+    setProfileImage(imageData);    
+
+    sentProfileImage();
+  }
+
+  const sentProfileImage = () => {
+    ApiCall.changeProfileImage(profileImage)
+    .then(res => {
+      console.log("Sent image ", res);
+    })
+    .catch(err => {
+      console.log("Error: ", err.message);
+    })
+  }
 
   useEffect(() => {
       ApiCall.me()
@@ -34,6 +53,14 @@ const Profile = () => {
         <img src={Rectangle4} className="profile-block__rectangle4" />
         <div className="profile-block__layer">
           <div className="profile-block__layer__profile-window">
+            <form>
+              <input 
+                accept="image/*"
+                type="file"
+                id="profile-image-input"
+                onChange={handleProfileImage}
+              />
+            </form>
             <img
               src={ProfilePNG}
               className="profile-block__layer__profile-window__profile-image"

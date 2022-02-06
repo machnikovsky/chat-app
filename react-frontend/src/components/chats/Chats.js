@@ -77,19 +77,23 @@ const Chats = () => {
     console.log("Mesages: ", messages);
   };
 
-  let sendMessage = () => {
+  let sendMessage = (e) => {
+    e.preventDefault();
     console.log(user);
     console.log(`Sent ${currentMess} to ${chat}`);
     console.log(`Current messages: ${messages}`);
-    clientRef.sendMessage(
-      `/app/chat/${chat}`,
-      JSON.stringify({
-        chatId: chat,
-        messageAuthorUsername: user,
-        messageReceiversUsernames: receivers.map((x) => x.username),
-        messageContent: currentMess,
-      })
-    );
+    if (currentMess !== "") {
+      clientRef.sendMessage(
+        `/app/chat/${chat}`,
+        JSON.stringify({
+          chatId: chat,
+          messageAuthorUsername: user,
+          messageReceiversUsernames: receivers.map((x) => x.username),
+          messageContent: currentMess,
+        })
+      );
+      setCurrentMess("");
+    }
   };
 
   const handleLogout = () => {
@@ -201,16 +205,16 @@ const Chats = () => {
                     );
                   })}
               </div>
-              <div className="chat-form">
+              <form className="chat-form" onSubmit={sendMessage}>
                 <input
                   type="text"
                   value={currentMess}
                   onChange={(e) => setCurrentMess(e.target.value)}
                 />
-                <button type="button" onClick={sendMessage}>
+                <button className="send-button" type="button" type="submit">
                   <img src={sendButton} alt="send" />
                 </button>
-              </div>
+              </form>
             </>
           )}
         </div>

@@ -107,7 +107,6 @@ public class UserService {
     }
 
     public ResponseEntity<String> setUserProfileImage(MultipartFile file) throws IOException {
-        System.out.println(file == null);
         Binary image = new Binary(BsonBinarySubType.BINARY, file.getBytes());
 
         UserEntity user = userUtils.getCurrentUser()

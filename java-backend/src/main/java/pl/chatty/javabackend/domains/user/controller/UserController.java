@@ -2,23 +2,25 @@ package pl.chatty.javabackend.domains.user.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.bson.BsonBinarySubType;
 import org.bson.types.Binary;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import pl.chatty.javabackend.domains.user.model.dto.response.UserDTO;
+import pl.chatty.javabackend.domains.user.model.entity.UserEntity;
 import pl.chatty.javabackend.domains.user.model.dto.request.CreateUserRequest;
 import pl.chatty.javabackend.domains.user.model.dto.request.UpdatePasswordRequest;
-import pl.chatty.javabackend.domains.user.model.dto.response.UserDTO;
 import pl.chatty.javabackend.domains.user.model.dto.response.UsersListDto;
-import pl.chatty.javabackend.domains.user.model.entity.UserEntity;
 import pl.chatty.javabackend.domains.user.service.UserService;
 import pl.chatty.javabackend.domains.user.util.UserUtils;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
@@ -63,7 +65,7 @@ public class UserController {
     }
 
     @PostMapping("/query/{query}")
-    public ResponseEntity<List<UserDTO>> getUsersByQuery(@PathVariable("query") String query) {
+    public CompletableFuture<ResponseEntity<List<UserDTO>>> getUsersByQuery(@PathVariable("query") String query) {
         return userService.getUsersByQuery(query);
     }
 
@@ -86,8 +88,10 @@ public class UserController {
         return new ResponseEntity<>("User's nickname successfully changed", HttpStatus.OK);
     }
 
+    //@RequestMapping(value = "/profilepicture",method = RequestMethod.POST, produces = { MediaType.IMAGE_PNG_VALUE, "application/json" })
     @PostMapping(value = "/profilepicture", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<String> setUserProfileImage(@RequestBody MultipartFile file) throws IOException {
-        return userService.setUserProfileImage(file);
+    public ResponseEntity<String> setUserProfileImage(@RequestParam("imageFile") MultipartFile image) throws IOException {
+        return userService.setUserProfileImage(image);
     }
+
 }

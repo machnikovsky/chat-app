@@ -60,6 +60,20 @@ const Navbar = () => {
             Mój profil
           </button>
         </div>
+        <div className="navbar-element">
+          <button
+            className={
+              window.location.pathname.includes("/group")
+                ? "navbar-button navbar-button-page"
+                : "navbar-button"
+            }
+            onClick={() => {
+              navigate("/group");
+            }}
+          >
+            Utwórz grupę
+          </button>
+        </div>
       </div>
     </div>
   );

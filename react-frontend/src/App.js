@@ -8,6 +8,8 @@ import UserContext from "./auth/UserContext";
 import FindUsers from "./components/find/FindUsers";
 import PageNotFound from "./components/errors/404.js";
 import GeneralError from "./components/errors/general.js";
+import Profile from "./components/profile/profile.js";
+import Group from "./components/group/Group";
 
 const App = () => {
   const [user, setUser] = useLocalStorage("user", null);
@@ -20,6 +22,8 @@ const App = () => {
           <Route exact path="/" element={<Login />} />
           <Route exact path="/register" element={<Register />} />
           <Route exact path="/find" element={<FindUsers />} />
+          <Route exact path="/profile" element={<Profile />} />
+          <Route exact path="/group" element={<Group />} />
           <Route path="/chats" element={<Chats />} />
           <Route path="/*" element={<PageNotFound />} />
         </Routes>

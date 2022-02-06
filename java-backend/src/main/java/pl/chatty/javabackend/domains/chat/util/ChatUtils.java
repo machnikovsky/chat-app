@@ -1,9 +1,12 @@
 package pl.chatty.javabackend.domains.chat.util;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import pl.chatty.javabackend.domains.chat.model.dto.request.CreateChatRequestDTO;
+import pl.chatty.javabackend.domains.chat.model.dto.request.CreateGroupChatRequestDTO;
 import pl.chatty.javabackend.domains.chat.model.dto.response.ChatDTO;
 import pl.chatty.javabackend.domains.chat.model.dto.response.ChatParticipantsDTO;
 import pl.chatty.javabackend.domains.chat.model.entity.ChatEntity;
@@ -20,10 +23,12 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Component
+@Slf4j
 public class ChatUtils {
 
     private final ChatRepository chatRepository;
@@ -31,11 +36,17 @@ public class ChatUtils {
     private final ModelMapper modelMapper;
 
 
-    public List<MessageDTO> getAllChatMessages(String chatId, MessageUtils messageUtils) {
+    @Async("asyncTaskExecutor")
+    public CompletableFuture<List<MessageDTO>> getAllChatMessages(String chatId, MessageUtils messageUtils) {
+
+        log.info("Started all chat messages using thread: {}", Thread.currentThread());
+        long timeStart = System.currentTimeMillis();
+
         ChatEntity chat = chatRepository.findByChatId(chatId)
                 .orElseThrow(() -> new RuntimeException("Could not find chat."));
 
-        return chat.getMessageIds().stream()
+
+        List<MessageDTO> messages = chat.getMessageIds().stream()
                 .map(x -> messageUtils.getMessageByMessageId(x).get())
                 .map(x -> new MessageDTO(
                         chat.getChatId(),
@@ -46,16 +57,25 @@ public class ChatUtils {
                         x.getImageContent()
                 ))
                 .collect(Collectors.toList());
+
+        long timeEnd = System.currentTimeMillis();
+        log.info("Finished getting all chat messages using thread: {}, took {} ms",
+                Thread.currentThread(), timeEnd - timeStart);
+
+
+        return CompletableFuture.completedFuture(messages);
     }
 
-    public List<ChatDTO> getAllUserChats() {
+    @Async("asyncTaskExecutor")
+    public CompletableFuture<List<ChatDTO>> getAllUserChats() {
+        log.info("Getting all users chats using thread: {}", Thread.currentThread());
         UserEntity user = userUtils.getCurrentUser()
-                .orElseThrow(() -> new UserEntityNotFoundException("")); // TODO: Create chat exception
+                .orElseThrow(UserEntityNotFoundException::new);
 
         List<ChatEntity> chats = getAllChatsByUserId(user.getUserId());
-        return chats.stream().map(x -> new ChatDTO(
+        return CompletableFuture.completedFuture(chats.stream().map(x -> new ChatDTO(
                         x.getChatId(),
-                                ("".equals(x.getName()) || x.getName() == null) ?
+                        ("".equals(x.getName()) || x.getName() == null) ?
                                 x.getMembersIds().stream()
                                         .filter(y -> !y.equals(user.getUserId()))
                                         .findFirst()
@@ -69,7 +89,7 @@ public class ChatUtils {
                                 .map(y -> modelMapper.map(y.get(), UserDTO.class))
                                 .collect(Collectors.toList())
                 )
-        ).collect(Collectors.toList());
+        ).collect(Collectors.toList()));
     }
 
     public ChatEntity createNewChat(CreateChatRequestDTO createChatRequestDTO) {
@@ -84,19 +104,41 @@ public class ChatUtils {
         );
     }
 
+    public ChatEntity createNewGroupChat(CreateGroupChatRequestDTO request) {
+        UserEntity loggedInUser = userUtils.getCurrentUser()
+                .orElseThrow(() -> new UserEntityNotFoundException("Current"));
+
+        List<UserEntity> users = request
+                .getGroupParticipantsIds()
+                .stream()
+                .map(username -> userUtils
+                        .getUserById(username)
+                        .orElseThrow(() -> new UserEntityNotFoundException(username)))
+                .collect(Collectors.toList());
+
+        users.add(loggedInUser);
+
+        return addNewChatToDatabaseFromMessage(users, request.getGroupName());
+    }
+
     public List<ChatEntity> getAllChatsByUserId(String userId) {
         return chatRepository.findAllByMembersIdsContaining(userId);
     }
 
 
-    public ChatEntity addNewChatToDatabaseFromMessage(List<UserEntity> users) {
+    public ChatEntity addNewChatToDatabaseFromMessage(List<UserEntity> users, String name) {
         ChatEntity chat = new ChatEntity();
         chat.setMembersIds(new ArrayList<>(users.stream().map(UserEntity::getUserId).collect(Collectors.toList())));
         chat.setCreatedTime(LocalDate.now());
         chat.setMessageIds(new ArrayList<>());
-        chat.setName("");
+        chat.setName(name);
         return chatRepository.save(chat);
     }
+
+    public ChatEntity addNewChatToDatabaseFromMessage(List<UserEntity> users) {
+        return addNewChatToDatabaseFromMessage(users, "");
+    }
+
 
     public Optional<String> getChatIdByChatParticipants(ChatParticipantsDTO chatParticipantsDTO) {
         return getChatByChatParticipants(chatParticipantsDTO)
@@ -107,7 +149,6 @@ public class ChatUtils {
         return chatRepository
                 .findByChatParticipants(chatParticipantsDTO.getChatParticipantsIds());
     }
-
 
 
     public void saveNewMessageToChatInDatabase(ChatEntity chat, MessageEntity message) {

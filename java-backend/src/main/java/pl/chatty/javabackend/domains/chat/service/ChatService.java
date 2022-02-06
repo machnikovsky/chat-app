@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import pl.chatty.javabackend.domains.chat.model.dto.request.CreateChatRequestDTO;
+import pl.chatty.javabackend.domains.chat.model.dto.request.CreateGroupChatRequestDTO;
 import pl.chatty.javabackend.domains.chat.model.dto.response.ChatDTO;
 import pl.chatty.javabackend.domains.chat.model.dto.response.ChatParticipantsDTO;
 import pl.chatty.javabackend.domains.chat.model.entity.ChatEntity;
@@ -12,10 +13,12 @@ import pl.chatty.javabackend.domains.message.model.dto.request.MessageDTO;
 import pl.chatty.javabackend.domains.message.util.MessageUtils;
 import pl.chatty.javabackend.domains.user.model.entity.UserEntity;
 import pl.chatty.javabackend.domains.user.util.UserUtils;
+import pl.chatty.javabackend.exception.exceptions.ChatNotFoundException;
 import pl.chatty.javabackend.exception.exceptions.UserEntityNotFoundException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 @Service
 @AllArgsConstructor
@@ -32,14 +35,14 @@ public class ChatService {
     public ResponseEntity<String> getChatByChatParticipants(ChatParticipantsDTO chatParticipantsDTO) {
         return chatUtils.getChatIdByChatParticipants(chatParticipantsDTO)
                 .map(ResponseEntity::ok)
-                .orElseThrow(() -> new UserEntityNotFoundException("")); // TODO: Create chat exception
+                .orElseThrow(() -> new ChatNotFoundException(chatParticipantsDTO));
     }
 
-    public ResponseEntity<List<ChatDTO>> getAllUserChats() {
-        return ResponseEntity.ok(chatUtils.getAllUserChats());
+    public CompletableFuture<List<ChatDTO>> getAllUserChats() {
+        return chatUtils.getAllUserChats();
     }
 
-    public ResponseEntity<List<MessageDTO>> getAllChatMessages(String chatId) {
+    public ResponseEntity<CompletableFuture<List<MessageDTO>>> getAllChatMessages(String chatId) {
         return ResponseEntity.ok(chatUtils.getAllChatMessages(chatId, messageUtils));
     }
 
@@ -56,5 +59,9 @@ public class ChatService {
 
         ChatDTO chatDTO = chatUtils.mapChatToDTO(chatUtils.saveChatInDatabase(chat));
         return ResponseEntity.ok(chatDTO);
+    }
+
+    public ResponseEntity<String> createNewGroupChat(CreateGroupChatRequestDTO request) {
+        return ResponseEntity.ok(chatUtils.createNewGroupChat(request).getChatId());
     }
 }

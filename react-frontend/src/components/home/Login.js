@@ -1,8 +1,7 @@
 import logo from "../../assets/placeholder.png";
 import username from "../../assets/username_logo.png";
 import password_logo from "../../assets/password_logo.png";
-import button from "../../assets/login_button.png";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import UserContext from "../../auth/UserContext";
 import Auth from "../../auth/Auth";
 import { Link, useNavigate } from "react-router-dom";
@@ -79,11 +78,13 @@ const Login = () => {
                 />
               </div>
             </div>
+
             <div className="center-wrapper">
               <button className="form-button" onClick={handleLogin}>
                 ZALOGUJ SIĘ
               </button>
             </div>
+
             {invalidInput && (
               <div className={"bad-credentials"}>Wprowadź wszystkie dane.</div>
             )}

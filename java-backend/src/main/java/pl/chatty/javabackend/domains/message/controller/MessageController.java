@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import pl.chatty.javabackend.domains.message.model.dto.request.MessageDTO;
 import pl.chatty.javabackend.domains.message.service.MessageService;
 
+import java.util.concurrent.CompletableFuture;
+
 
 @AllArgsConstructor
 @RestController
@@ -20,14 +22,8 @@ public class MessageController {
     private final MessageService messageService;
 
     @MessageMapping("/chat/{chatID}")
-    public ResponseEntity<String> sendMessageSocket(@DestinationVariable String chatID, @RequestBody MessageDTO message){
-        return messageService.sendMessageSocket(chatID, message);
+    public ResponseEntity<CompletableFuture<String>> sendMessageSocket(@DestinationVariable String chatID, @RequestBody MessageDTO message) throws InterruptedException {
+        return ResponseEntity.ok(messageService.sendMessageSocket(chatID, message));
     }
-
-    @PostMapping("/message")
-    public ResponseEntity<String> sendMessageHttp(@RequestBody MessageDTO message) {
-        return messageService.sendMessage(message);
-    }
-
 
 }

@@ -56,7 +56,7 @@ public class AuthController {
         return ResponseEntity.ok(new JwtAuthResponse(jwtToken));
     }
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path="/me", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserDTO> me() {
         try {
             UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -66,6 +66,8 @@ public class AuthController {
             return new ResponseEntity<>(UserDTO.builder()
                     .firstName(userEntity.getFirstName())
                     .lastName(userEntity.getLastName())
+                    .email(userEntity.getEmail())
+                    .phoneNumber(userEntity.getPhoneNumber())
                     .userId(userEntity.getUserId())
                     .username(userEntity.getUsername())
                     .profileImage(userEntity.getProfileImage())
@@ -75,7 +77,8 @@ public class AuthController {
         }
     }
 
-    @PostMapping(path = "/registration", consumes = MediaType.APPLICATION_JSON_VALUE)
+
+    @PostMapping(path = "/register")
     public ResponseEntity<String> registerUser(@RequestBody CreateUserRequest requestBody){
         try {
             ResponseEntity<String> responseEntity = userService.addUser(requestBody);

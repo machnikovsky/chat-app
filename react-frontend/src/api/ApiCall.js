@@ -12,12 +12,14 @@ const getUserChats = () => {
 };
 
 const getChatMessages = (chatId) => {
-  return axios.get(API_URL + `chat/${chatId}/messages`, {});
+  return axios.get(API_URL + `chat/${chatId}/messages`, {
+    headers: authHeader(),
+  });
 };
 
 const me = async () => {
   return await axios
-    .get(API_URL + "auth", { headers: authHeader() })
+    .get(API_URL + "auth/me", { headers: authHeader() })
     .then((res) => {
       return res.data;
     })
@@ -25,6 +27,7 @@ const me = async () => {
       console.log("Authentication error", err.response.data);
     });
 };
+
 const getAndSetQueriedListWithNewQuery = (query, set) => {
   return axios.post(
     API_URL + `user/query/${query}`,
@@ -37,6 +40,21 @@ const getChatDtoOrCreateNewAndRetrieveIfNotPresent = (userId) => {
   return axios.get(API_URL + `chat/send/${userId}`, { headers: authHeader() });
 };
 
+const createGroupChat = (createChatRequestDTO) => {
+  return axios.post(API_URL + `chat/group/new`, createChatRequestDTO, {
+    headers: authHeader(),
+  });
+};
+
+const changeProfileImage = async (image) => {
+  for (var value of image.values()) {
+    console.log(value);
+  }
+  return await axios.post(API_URL + `user/profilepicture`, image, {
+    headers: authHeader(),
+  });
+};
+
 export const ApiCall = {
   getAllUsersBesideSelf,
   getUserChats,
@@ -44,4 +62,6 @@ export const ApiCall = {
   getAndSetQueriedListWithNewQuery,
   getChatDtoOrCreateNewAndRetrieveIfNotPresent,
   me,
+  createGroupChat,
+  changeProfileImage,
 };

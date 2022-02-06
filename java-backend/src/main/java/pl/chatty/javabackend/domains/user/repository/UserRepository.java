@@ -12,8 +12,6 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends MongoRepository<UserEntity, String> {
 
-    UserEntity getUserEntityByUsername(String username);
-
     boolean existsByEmail(String email);
 
     boolean existsByUsername(String username);

@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&family=Saira+Condensed:wght@500&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@200;300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@200;300;700&display=swap");
 
 $dark-purple-background: #2c0e37;
 $light-purple-background: #c4c4c4;
@@ -11,6 +11,7 @@ $yellow: rgb(252, 241, 207);
 @import "search";
 @import "navbar";
 @import "user_list";
+@import "components";
 @import "group";
 
 * {
@@ -39,7 +40,7 @@ a {
   background-repeat: no-repeat;
   background-size: cover;
 
-  height: 90vh;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -48,7 +49,8 @@ a {
 
 .login-window,
 .register-window {
-  background-image: url("../assets/login_window.png");
+  //background-image: url("../assets/login_window.png");
+  background-color: lightblue;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -56,8 +58,8 @@ a {
   box-shadow: 0px 0px 20px 0px rgb(128, 123, 123);
   border-radius: 30px;
 
-  width: 50vw;
-  height: 60vh;
+  width: 60rem;
+  height: 40rem;
 
   display: grid;
   grid-template-columns: 3fr 4fr;
@@ -69,7 +71,19 @@ a {
   align-items: center;
 }
 
+.logo {
+  width: 20rem;
+  height: 10rem;
+}
+
+.logo.pointer {
+  cursor: pointer;
+}
+
 .form-container {
+  border-radius: 0 18px 18px 0;
+  border-left: solid 1px white;
+  background-color: whitesmoke;
   justify-content: center;
   align-items: center;
 }
@@ -88,34 +102,10 @@ a {
   grid-template-rows: 1fr 1fr;
 }
 
-.login-form input,
-.register-form input {
-  border: 0;
-  padding: 5px;
-  width: 90%;
-  background-color: transparent;
-  resize: none;
-  outline: none;
-}
-
 .register-form input[type="radio"] {
   width: 80%;
   padding: 5px 0;
   text-align: left;
-}
-
-.login-form .input-div,
-.register-form .input-div {
-  margin: 5px 0px;
-  border: 0;
-  border-bottom: 2px solid #00a3ff;
-}
-
-.login-form label,
-.register-form label {
-  margin-top: 20px;
-  font-family: "Roboto", sans-serif;
-  color: #00a3ff;
 }
 
 .login-form .login_div,
@@ -191,7 +181,7 @@ a {
 .right-bar {
   display: grid;
   grid-template-rows: 2fr 15fr 2fr;
-  min-height: 90vh;
+  height: 93.9vh;
 }
 
 .chat-info {
@@ -226,17 +216,29 @@ a {
 
 .single-chat-container {
   width: 90%;
-  height: 81px;
+  height: 4rem;
   margin: 10px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   background: linear-gradient(268.55deg, #012b52 -18.2%, #43a5ff 99.51%);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
   border-radius: 30px;
+  color: white;
+  font-family: Raleway;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: 0.4s;
+}
+
+.single-chat-container:hover {
+  transform: scale(1.05);
 }
 
 .single-chat {
   border-radius: 10px;
-  padding: 10px 20%;
+  align-items: center;
 }
 
 .logout-div {
@@ -287,7 +289,6 @@ a {
 }
 
 .chat-form button {
-  display: block;
   width: 80%;
   height: 50%;
   border: 0;

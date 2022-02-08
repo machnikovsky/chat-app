@@ -88,6 +88,7 @@ public class UserController {
         return new ResponseEntity<>("User's nickname successfully changed", HttpStatus.OK);
     }
 
+    //@RequestMapping(value = "/profilepicture",method = RequestMethod.POST, produces = { MediaType.IMAGE_PNG_VALUE, "application/json" })
     @PostMapping(value = "/profilepicture", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> setUserProfileImage(@RequestParam("imageFile") MultipartFile image) throws IOException {
         return userService.setUserProfileImage(image);

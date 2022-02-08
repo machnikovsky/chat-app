@@ -57,19 +57,24 @@ const Profile = () => {
         <img src={Rectangle3} className="profile-block__rectangle3" />
         <img src={Rectangle4} className="profile-block__rectangle4" />
         <div className="profile-block__layer">
-          <div className="profile-block__layer__profile-window">
+          <div className="profile-image">
             <form>
               <input
                 accept="image/*"
                 type="file"
                 id="profile-image-input"
-                onChange={handleProfileImage}
+                onChange={(e) => {setProfileImage(e.target.files[0])}}
               />
+              <button onClick={sentProfileImage}> send </button>
             </form>
-            <img
-              src={`data:image/jpeg;base64,${user.profileImage.data}`}
-              className="profile-block__layer__profile-window__profile-image"
-            />
+            {user.profileImage ? (
+                <img
+                  src={`data:image/jpeg;base64,${user.profileImage.data}`}
+                  alt=""
+                />
+              ) : (
+                <img src={ProfilePNG} alt="" />
+              )}
             <span className="profile-block__layer__profile-window__username">
               {user.username}
             </span>
@@ -97,7 +102,6 @@ const Profile = () => {
             <hr className="profile-block__layer__profile-window__line"></hr>
           </div>
         </div>
-        <button onClick={sentProfileImage}> send </button>
       </div>
     </>
   );

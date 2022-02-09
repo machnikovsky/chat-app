@@ -8,7 +8,7 @@ import org.springframework.web.socket.config.annotation.*;
 @Configuration
 @EnableWebSocketMessageBroker
 @CrossOrigin(origins = "http://localhost:3000")
-public class WebSocketConfiguration extends AbstractWebSocketMessageBrokerConfigurer implements WebSocketMessageBrokerConfigurer {
+public class WebSocketConfiguration implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {

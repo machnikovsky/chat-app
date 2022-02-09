@@ -285,7 +285,8 @@ a {
 .chat-form {
   width: 90%;
   display: grid;
-  grid-template-columns: 9fr 1fr;
+  grid-template-columns: 1fr 80% 1fr;
+  align-items: center;
 }
 
 .chat-form button {
@@ -293,7 +294,7 @@ a {
   height: 50%;
   border: 0;
   outline: 0;
-  display: block;
+  display: grid;
   margin: 0 auto;
   background: none;
 }
@@ -324,9 +325,20 @@ a {
   border-bottom: 1px solid #57c1ff;
 }
 
-.chat-form img {
-  width: 30px;
-  height: auto;
+#image-input {
+  display: none;
+}
+
+.chat-form > .image-form {
+  font-weight: bold;
+  background-color: lightblue;
+  text-align: center;
+  line-height: 3rem;
+  display: inline-block;
+  border-radius: 30px;
+  width: 8rem;
+  height: 3rem;
+  cursor: pointer;
 }
 
 .no-chats {
@@ -338,4 +350,10 @@ a {
   grid-row: 2/3;
   font-size: 1.7em;
   font-weight: 200;
+}
+
+.message-image {
+  width: 100%;
+  border: none;
+  outline: none;
 }

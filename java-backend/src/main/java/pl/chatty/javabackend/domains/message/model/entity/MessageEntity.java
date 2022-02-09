@@ -17,13 +17,13 @@ public class MessageEntity {
     @Id
     private String messageId;
     private String content;
-    private Binary imageContent;
+    private String imageContent;
     private LocalDate date;
     private MessageType messageType;
     private String senderUsername;
     private ArrayList<String> receiversUsernames;
 
-    public MessageEntity(String content,Binary imageContent, LocalDate date, MessageType messageType,
+    public MessageEntity(String content,String imageContent, LocalDate date, MessageType messageType,
                          String senderUsername, ArrayList<String> receiversUsernames) {
         this.content = content;
         this.imageContent = imageContent;

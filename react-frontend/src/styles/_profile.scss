@@ -91,7 +91,7 @@
         display: flex;
         justify-content: space-between;
         margin-top: 4vh;
-        
+
         &__fullname-block {
           &__full-name {
             font-size: 0.6em;
@@ -118,4 +118,18 @@
       }
     }
   }
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.profile-image-input {
+  display: none;
+}
+
+.profile-image-form {
+  display: grid;
+  justify-content: center;
+  align-items: center;
 }

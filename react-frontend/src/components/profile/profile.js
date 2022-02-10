@@ -10,12 +10,10 @@ import { ApiCall } from "../../api/ApiCall.js";
 
 const Profile = () => {
   const [user, setUser] = useState({});
-  const [profileImage, setProfileImage] = useState(null);
+  const [profileImage, setProfileImage] = useState({});
 
   const handleProfileImage = (e) => {
     setProfileImage(e.target.files[0]);
-
-    //sentProfileImage();
   };
 
   const sentProfileImage = () => {
@@ -58,18 +56,33 @@ const Profile = () => {
         <img src={Rectangle4} className="profile-block__rectangle4" />
         <div className="profile-block__layer">
           <div className="profile-block__layer__profile-window">
-            <form>
-              <input
-                accept="image/*"
-                type="file"
-                id="profile-image-input"
-                onChange={handleProfileImage}
-              />
+            <form className="profile-image-form">
+              <label className="image-form">
+                {user.profileImage ? (
+                  <img
+                    src={`data:image/jpeg;base64,${user.profileImage.data}`}
+                    className="profile-block__layer__profile-window__profile-image cursor-pointer"
+                  />
+                ) : (
+                  <img
+                    src={ProfilePNG}
+                    className="profile-block__layer__profile-window__profile-image cursor-pointer"
+                  />
+                )}
+                <input
+                  className="profile-image-input"
+                  accept="image/*"
+                  type="file"
+                  id="profile-image-input"
+                  onChange={handleProfileImage}
+                />
+              </label>
+              {profileImage ? (
+                <button onClick={sentProfileImage}>Zmień zdjęcie</button>
+              ) : (
+                ""
+              )}
             </form>
-            <img
-              src={ProfilePNG}
-              className="profile-block__layer__profile-window__profile-image"
-            />
             <span className="profile-block__layer__profile-window__username">
               {user.username}
             </span>
@@ -97,7 +110,6 @@ const Profile = () => {
             <hr className="profile-block__layer__profile-window__line"></hr>
           </div>
         </div>
-        <button onClick={sentProfileImage}> send </button>
       </div>
     </>
   );

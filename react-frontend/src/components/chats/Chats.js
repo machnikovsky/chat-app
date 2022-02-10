@@ -27,6 +27,7 @@ const Chats = () => {
   const [userData, setUserData] = useState({
     profileImage: [],
   });
+  const [image, setImage] = useState(null);
 
   const navigate = useNavigate();
 
@@ -59,6 +60,21 @@ const Chats = () => {
     }
   }, [chat]);
 
+  const getBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+    });
+  };
+
+  const handleImage = async (e) => {
+    let encoded = await getBase64(e.target.files[0]);
+    console.log(encoded);
+    setImage(encoded);
+  };
+
   const changeChat = (e) => {
     console.log("Selected chat: ", e);
     setChat(e.chatId);
@@ -79,10 +95,10 @@ const Chats = () => {
 
   let sendMessage = (e) => {
     e.preventDefault();
-    console.log(user);
-    console.log(`Sent ${currentMess} to ${chat}`);
-    console.log(`Current messages: ${messages}`);
-    if (currentMess !== "") {
+    if (currentMess !== "" || image != null) {
+      console.log(user);
+      console.log(`Sent ${currentMess} to ${chat}`);
+      console.log(`Current messages: ${messages}`);
       clientRef.sendMessage(
         `/app/chat/${chat}`,
         JSON.stringify({
@@ -90,9 +106,11 @@ const Chats = () => {
           messageAuthorUsername: user,
           messageReceiversUsernames: receivers.map((x) => x.username),
           messageContent: currentMess,
+          imageContent: image,
         })
       );
       setCurrentMess("");
+      setImage(null);
     }
   };
 
@@ -196,16 +214,41 @@ const Chats = () => {
                       <div className="single-chat-message sent-message">
                         {message.messageAuthorUsername}:{" "}
                         {message.messageContent}
+                        {message.imageContent ? (
+                          <img
+                            className="message-image"
+                            src={message.imageContent}
+                          ></img>
+                        ) : (
+                          ""
+                        )}
                       </div>
                     ) : (
                       <div className="single-chat-message recieved-message">
                         {message.messageAuthorUsername}:{" "}
                         {message.messageContent}
+                        {message.imageContent ? (
+                          <img
+                            className="message-image"
+                            src={message.imageContent}
+                          ></img>
+                        ) : (
+                          ""
+                        )}
                       </div>
                     );
                   })}
               </div>
               <form className="chat-form" onSubmit={sendMessage}>
+                <label className="image-form">
+                  {image ? "OK" : "Dodaj zdjęcie"}
+                  <input
+                    accept="image/*"
+                    type="file"
+                    id="image-input"
+                    onChange={handleImage}
+                  />
+                </label>
                 <input
                   type="text"
                   value={currentMess}

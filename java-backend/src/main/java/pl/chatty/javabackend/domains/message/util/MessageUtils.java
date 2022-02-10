@@ -36,7 +36,7 @@ public class MessageUtils {
     private final UserUtils userUtils;
 
 
-    public MessageEntity createNewMessage(String content,Binary imageContent, UserEntity author, List<UserEntity> receivers) {
+    public MessageEntity createNewMessage(String content,String imageContent, UserEntity author, List<UserEntity> receivers) {
         return new MessageEntity(
                 content,
                 imageContent,
@@ -56,7 +56,7 @@ public class MessageUtils {
     }
 
 
-    public MessageEntity saveNewMessageInDatabase(String content,Binary imageContent, UserEntity author, List<UserEntity> receivers) {
+    public MessageEntity saveNewMessageInDatabase(String content,String imageContent, UserEntity author, List<UserEntity> receivers) {
         MessageEntity message = createNewMessage(content,imageContent, author, receivers);
         return saveMessageInDatabase(message);
     }

@@ -23,6 +23,7 @@ public class MessageController {
 
     @MessageMapping("/chat/{chatID}")
     public ResponseEntity<CompletableFuture<String>> sendMessageSocket(@DestinationVariable String chatID, @RequestBody MessageDTO message) throws InterruptedException {
+        System.out.println(message.toString());
         return ResponseEntity.ok(messageService.sendMessageSocket(chatID, message));
     }
 

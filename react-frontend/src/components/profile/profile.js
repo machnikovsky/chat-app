@@ -10,7 +10,7 @@ import { ApiCall } from "../../api/ApiCall.js";
 
 const Profile = () => {
   const [user, setUser] = useState({});
-  const [profileImage, setProfileImage] = useState({});
+  const [profileImage, setProfileImage] = useState(null);
 
   const handleProfileImage = (e) => {
     setProfileImage(e.target.files[0]);
